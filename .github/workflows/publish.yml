@@ -1,0 +1,57 @@
+name: Prepare and publish to pub.dev
+
+on:
+  push:
+    tags:
+      - 'v[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pub-dev-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Validate release candidate
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sdk: ['3.3.0', stable]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+      - name: Match tag to package version
+        if: github.event_name == 'push'
+        env:
+          RELEASE_TAG: ${{ github.ref_name }}
+        run: |
+          python3 - <<'PY'
+          import os, re
+          from pathlib import Path
+          versions = re.findall(r'^version:\s*(\S+)\s*$', Path('pubspec.yaml').read_text(), re.M)
+          if len(versions) != 1 or os.environ['RELEASE_TAG'] != 'v' + versions[0]:
+              raise SystemExit('Tag and pubspec version must match exactly')
+          PY
+      - run: dart pub get
+      - run: dart analyze --fatal-infos
+      - run: dart test
+      - run: dart run example/polyline_following.dart
+      - run: dart pub publish --dry-run
+        if: matrix.sdk == 'stable'
+
+  publish:
+    name: Publish approved tag
+    needs: validate
+    if: github.event_name == 'push' && vars.PUB_DEV_PUBLISH_ENABLED == 'true'
+    permissions:
+      contents: read
+      id-token: write
+    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
+    with:
+      environment: pub.dev
+      use-flutter: false

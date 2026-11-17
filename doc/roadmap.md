@@ -1,5 +1,9 @@
 # Roadmap / Próximos passos
 
+Next planned scope / Próximo escopo planejado:
+[0.3.0 — route tracking quality / qualidade do seguimento](roadmap_0.3.0.md).
+Only a plan; no 0.3.0 implementation or version bump is implied.
+
 Implemented source evolution / Evolução implementada na fonte:
 [0.2.0 — continuous paths / trajetórias contínuas](roadmap_0.2.0.md).
 Source implementation; hosted publication is separate. / Implementado na fonte; publicação hospedada à parte.
@@ -44,6 +48,9 @@ Source implementation; hosted publication is separate. / Implementado na fonte; 
 - Grade opcional, medições reproduzíveis, laboratório ampliado e integração Flame.
 
 ## Release / Publicação
+
+[Automated publishing / Publicação automatizada](automated_publishing.md)
+describes the prepared, disabled-by-default tag/OIDC workflow and activation gate.
 
 Interactive demos / Demonstrações interativas:
 [Flutter lab](https://kleberandrade.github.io/steering-engine/) ·

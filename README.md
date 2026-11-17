@@ -41,35 +41,22 @@ Dart snippets, experiments and limits.
 For practical combinations and common problems, see
 [recipes and troubleshooting](doc/wiki/Recipes.md).
 
-## Status and installation
-
-Source version **0.2.0**, prepared for the first hosted release. Publication is
-verified separately from source versioning; see [release validation](doc/release_0.2.0.md).
-The core requires Dart **>=3.3.0 <4.0.0**, with no Flutter or Flame dependency.
-Before hosted availability is confirmed, use a local path or a reviewed Git ref.
-
-```yaml
-dependencies:
-  steering_engine:
-    path: ../steering-engine
-```
-
-The [Flutter lab](example/flutter_lab/README.md) and [Flame example](doc/flame.md)
-have their own SDK constraints and are validated independently.
-
-### Hosted installation after publication is confirmed
-
-Once version 0.2.0 is confirmed on [pub.dev](https://pub.dev/packages/steering_engine),
-the hosted dependency is:
+## Installation
 
 ```yaml
 dependencies:
   steering_engine: ^0.2.0
 ```
 
-Until then, use the local-path setup above. Publisher ownership and hosted
-availability are tracked independently in the release audit; this example does
-not confirm an upload. See the [0.2.0 implementation record](doc/roadmap_0.2.0.md) for design decisions and measured limits.
+Run `dart pub get`, then import `package:steering_engine/steering_engine.dart`.
+Version 0.2.0 was reported published by the maintainer; independent hosted metadata
+and publisher verification are recorded in the [release audit](doc/release_0.2.0.md).
+The core requires Dart **>=3.3.0 <4.0.0**, with no Flutter or Flame dependency.
+
+For local package development, replace the hosted entry with `path: ../steering-engine`.
+The [Flutter lab](example/flutter_lab/README.md) and [Flame example](doc/flame.md)
+have their own SDK constraints. See the [prepared release flow](doc/automated_publishing.md)
+and [0.3.0 plan](doc/roadmap_0.3.0.md) for the next steps.
 
 ## Make a character arrive
 

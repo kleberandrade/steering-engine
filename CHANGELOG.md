@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Prepare a disabled-by-default stable-tag/OIDC publishing workflow with version
+  matching and minimum/stable Dart gates; manual runs are validation only.
+- Add compact/portrait/landscape lab interaction checks and the proposed 0.3.0
+  tracking-quality plan. / Publicação preparada, testes mobile e plano da 0.3.0.
+
 ## 0.2.0 — 2026-11-17
 
 Source release; pub.dev availability is verified separately.

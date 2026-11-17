@@ -30,14 +30,16 @@ Resultados locais não substituem evidência do CI; a publicação é conferida 
 
 ## Hosted status / Estado hospedado
 
-This source version does not establish that pub.dev hosts 0.1.0 or 0.2.0. Access
-to pub.dev was denied by the browser approval gate during the previous follow-up.
-No package upload, publisher transfer or hosted score is claimed. The intended
-publisher remains kleberandrade.dev, subject to verification of actual ownership.
+The maintainer reports publishing 0.2.0. On follow-up, a saved browser permission
+still denied access to pub.dev; independent version/publisher metadata verification
+was not completed and no alternate access route was used. The README now presents
+the hosted dependency based on that maintainer report. No hosted score or publisher
+transfer is asserted. Intended publisher: kleberandrade.dev, subject to verification.
 
-A versão hospedada e o publisher continuam sem confirmação. A primeira publicação
-precisa do fluxo Dart CLI com autenticação do usuário. A publicação GitHub/Pages
-não executa esse upload. Consulte o [histórico da 0.1.0](release_0.1.0.md).
+O mantenedor informou a publicação da 0.2.0. A confirmação independente da versão
+e do publisher continua pendente por bloqueio salvo do domínio. Consulte o
+[fluxo automatizado preparado](automated_publishing.md) e o
+[histórico da 0.1.0](release_0.1.0.md).
 
 ## Verified remote evidence / Evidência remota verificada
 

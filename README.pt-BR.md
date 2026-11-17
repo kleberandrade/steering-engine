@@ -37,35 +37,22 @@ parâmetros, trechos em Dart, experiências e limites. Cada capítulo é bilíng
 Para combinações práticas e problemas comuns, consulte
 [receitas e diagnóstico](doc/wiki/Recipes.md).
 
-## Estado e instalação
-
-Versão de código **0.2.0**, preparada para a primeira publicação. A disponibilidade
-no pub.dev é verificada separadamente; veja a [validação da versão](doc/release_0.2.0.md).
-O núcleo exige Dart **>=3.3.0 <4.0.0**, sem dependências de Flutter ou Flame.
-Enquanto a disponibilidade hospedada não estiver confirmada, use caminho local
-ou um commit revisado do GitHub.
-
-```yaml
-dependencies:
-  steering_engine:
-    path: ../steering-engine
-```
-
-O laboratório Flutter e o exemplo Flame possuem requisitos próprios de SDK.
-
-### Instalação hospedada após confirmar a publicação
-
-Quando a versão 0.2.0 estiver confirmada no
-[pub.dev](https://pub.dev/packages/steering_engine), a dependência será:
+## Instalação
 
 ```yaml
 dependencies:
   steering_engine: ^0.2.0
 ```
 
-Até essa confirmação, use o caminho local acima. A disponibilidade e o publisher
-são conferidos separadamente no registro da release; esse exemplo não confirma
-um upload. Veja o [registro de implementação da 0.2.0](doc/roadmap_0.2.0.md) para decisões e limites medidos.
+Execute `dart pub get` e importe `package:steering_engine/steering_engine.dart`.
+A publicação da 0.2.0 foi informada pelo mantenedor; a confirmação independente
+da versão hospedada e do publisher está no [registro da release](doc/release_0.2.0.md).
+O núcleo exige Dart **>=3.3.0 <4.0.0**, sem depender de Flutter ou Flame.
+
+Para desenvolver o package localmente, substitua a entrada por `path: ../steering-engine`.
+Os exemplos [Flutter](example/flutter_lab/README.md) e [Flame](doc/flame.md) possuem
+requisitos próprios. Veja o [fluxo de publicação preparado](doc/automated_publishing.md)
+e o [plano da 0.3.0](doc/roadmap_0.3.0.md) para a próxima etapa.
 
 ## Faça um personagem chegar ao destino
 

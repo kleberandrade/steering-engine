@@ -65,3 +65,8 @@ Deployment uses the existing CI artifacts after all checks pass on main; see
 [web deployment](doc/web_deployment.md). Wiki chapter links initialize supported
 lab modes using `?mode=...`; test both recognized labels and safe fallbacks.
 O deploy web não publica o package; mantenha esses estados independentes.
+
+Future hosted releases use the prepared [tag/OIDC publishing flow](doc/automated_publishing.md).
+Manual workflow runs are preflight only. Activation requires explicit pub.dev
+repository authorization and the repository flag; do not store personal tokens
+or reuse an already published version/tag.

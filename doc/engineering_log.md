@@ -285,3 +285,26 @@
   commit 6bbd346. Wiki mirror 02b9f34 is pushed and equivalent to reviewed sources.
   Ten discovery topics are present. No hosted pub.dev upload or publisher transfer
   is claimed; browser-domain access remains unverified after the prior denial.
+
+## 2026-11-17 — maintainer upload report and next release preparation
+
+- Recorded the maintainer's report of a 0.2.0 pub.dev upload. A fresh direct browser
+  attempt was denied by a saved origin permission, so no independent hosted
+  metadata, score or publisher ownership was asserted and no alternate access
+  route was used. Updated both README installation examples to the hosted 0.2.0
+  dependency, with the evidence source stated in the release audit.
+- Prepared a disabled-by-default stable-tag/OIDC workflow using Dart's official
+  reusable publisher. Tag/pubspec equality, Dart 3.3/stable analysis/tests and a
+  package dry run precede publishing. Manual runs validate only. Actual upload
+  requires both pub.dev repository/environment authorization and an explicit
+  repository flag; neither is claimed enabled and no personal token is stored.
+- Added mobile interaction fixtures at 320x740, 390x844 and 740x360 for target taps,
+  dropdown selection, continuous projection, pause/step and reset. Local Flutter
+  test startup was blocked by the sandbox's loopback socket restriction; the
+  regression suite is executed in remote CI. This is not a browser/device test.
+- Authored the 0.3.0 plan around measured route-distance errors, controller
+  comparisons and optional explicit reacquisition, preserving current defaults.
+  Kept the source version at 0.2.0 and created no new release tag.
+- Local documentation/link/coverage checks pass for 32 documents and 22 diagrams;
+  workflow YAML syntax checks pass. crapper/dryer/mutator still report no supported
+  Dart sources; no scores are claimed. Remote test/preflight evidence follows.

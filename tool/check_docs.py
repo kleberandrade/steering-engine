@@ -31,7 +31,8 @@ def main():
     errors = []
     files = sorted(HANDBOOK.glob('*.md')) + [ROOT / 'README.md',
              ROOT / 'README.pt-BR.md', ROOT / 'doc/wiki-maintenance.md',
-             ROOT / 'doc/roadmap_0.2.0.md', ROOT / 'doc/web_deployment.md']
+             ROOT / 'doc/roadmap_0.2.0.md', ROOT / 'doc/web_deployment.md',
+             ROOT / 'doc/roadmap_0.3.0.md', ROOT / 'doc/automated_publishing.md']
     for path in files:
         text = re.sub(r'```.*?```', '', path.read_text(), flags=re.S)
         for target in re.findall(r'\]\(([^)]+)\)', text):
