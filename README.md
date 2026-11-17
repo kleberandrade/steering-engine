@@ -10,7 +10,7 @@ access in the core.
 [Português](README.pt-BR.md) · [Getting started](doc/getting_started.md) ·
 [Equations](doc/behaviors.md) · [Architecture](doc/architecture.md) ·
 [Flutter lab](example/flutter_lab/README.md) · [Roadmap](doc/roadmap.md) ·
-[Contributing](CONTRIBUTING.md)
+[Path following](doc/path_following.md) · [Contributing](CONTRIBUTING.md)
 
 ![Steering behavior concepts](doc/images/steering.svg)
 
@@ -68,6 +68,21 @@ units/second², and `dt` is seconds. Render `agent.position` with Flutter
 `Pursuit` and `Evade` capture immutable target snapshots: rebuild them when the
 target updates. All built-in behaviors return bounded **acceleration**, not force.
 
+## Follow a route
+
+```dart
+final route = SteeringPath([
+  Vec2(80, 0), Vec2(80, 80), Vec2(160, 80),
+]);
+final follower = FollowPath(route, waypointRadius: 5, slowingRadius: 35);
+// Keep the follower instance across frames: it owns the current waypoint.
+agent = engine.step(agent, follower, 1 / 60);
+```
+
+Use `loop: true` on SteeringPath for a repeating route. Inspect
+`follower.waypointIndex` and `currentTarget`, or call `reset()` to rewind.
+Run `dart run example/path_following.dart`. See the [route guide](doc/path_following.md).
+
 ## Combine behaviors
 
 ```dart
@@ -94,7 +109,7 @@ flutter pub get
 flutter run -d chrome
 ```
 
-The lab offers all seven behaviors plus weighted and priority compositions,
+The lab offers all seven local behaviors, path following, weighted and priority compositions,
 click/drag targets, a moving target, a seeded wander stream, velocity and
 acceleration arrows, trails, adjustable limits, pause, reset and fixed-step
 advancement. World edges wrap in the demo; the core leaves boundaries to callers.
@@ -109,7 +124,7 @@ advancement. World edges wrap in the demo; the core leaves boundaries to callers
   conflicting goals may cancel motion or prevent arrival.
 - Wander seeds reproduce matching call sequences on the same runtime; trajectories
   are not promised identical across different time steps or runtimes.
-- Navigation, flocking, collision resolution and vehicle dynamics are future work.
+- Obstacle avoidance, flocking, collision resolution and vehicle dynamics are future work.
   Steering can consume a planned route; it does not replace pathfinding.
 
 See [equations and conventions](doc/behaviors.md) for exact formulas.

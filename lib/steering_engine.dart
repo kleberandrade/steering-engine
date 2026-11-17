@@ -7,3 +7,4 @@ export 'src/behaviors.dart';
 export 'src/composition.dart';
 export 'src/engine.dart';
 export 'src/vec2.dart';
+export 'src/path.dart';

@@ -23,6 +23,9 @@ jobs:
       - run: dart test
       - run: dart run example/steering_engine_example.dart
       - run: dart run example/composition.dart
+      - run: dart run example/path_following.dart
+      - run: dart compile js example/path_following.dart -o /tmp/steering-path.js
+      - run: node /tmp/steering-path.js
       - run: dart compile js example/steering_engine_example.dart -o /tmp/steering-example.js
       - run: node /tmp/steering-example.js
       - run: dart pub publish --dry-run

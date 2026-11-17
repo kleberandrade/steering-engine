@@ -11,7 +11,7 @@ flutter test
 flutter build web --no-web-resources-cdn
 ```
 
-Choose seven behaviors or either composition, move the target with a click or
+Choose seven local behaviors, path following or either composition, move the target with a click or
 drag, adjust speed/acceleration/slowing radius and toggle the vectors or trail.
 Pause and Step advance exactly one 1/60-second simulation tick. Reset rewinds the
 agent and seed while preserving the selected behavior and target. Pursuit and
@@ -26,3 +26,10 @@ Escolha o comportamento, clique ou arraste o alvo, ajuste os limites e observe
 os vetores. Pause permite avançar um passo por vez; Reset reinicia o agente e a
 seed. Pursuit e Evade seguem um alvo em órbita. O relógio usa passos fixos e as
 bordas reposicionam o agente no lado oposto apenas neste exemplo.
+
+Path following displays a looping, numbered route and highlights the current
+waypoint. It owns a separate follower, reset along with the agent. Dragging the
+free target does not edit this route. Each corner uses a 100-unit slowing radius
+and a 24-unit capture radius. / O modo de trajetória exibe uma rota numerada,
+destaca o waypoint atual e reinicia o percurso com Reset. Arrastar o alvo livre
+não edita os waypoints desta demonstração.

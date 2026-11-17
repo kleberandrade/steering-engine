@@ -15,8 +15,11 @@ dart analyze --fatal-infos
 dart test
 dart run example/steering_engine_example.dart
 dart run example/composition.dart
+dart run example/path_following.dart
 dart compile js example/steering_engine_example.dart -o /tmp/steering-example.js
 node /tmp/steering-example.js
+dart compile js example/path_following.dart -o /tmp/steering-path.js
+node /tmp/steering-path.js
 dart pub publish --dry-run
 cd example/flutter_lab
 flutter pub get

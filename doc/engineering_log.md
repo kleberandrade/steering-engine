@@ -19,3 +19,18 @@
   the connected GitHub contents API was denied with HTTP 403 (Resource not
   accessible by integration). The remote remains unchanged; work is retained
   in the local repository with origin configured for a later push.
+
+## 2026-11-17 — waypoint path following
+
+- Retried synchronization after user authorization: connected GitHub write still
+  returns HTTP 403, and normal git push cannot resolve github.com. No remote
+  changes or remote CI execution are claimed.
+- Added immutable SteeringPath and stateful FollowPath, per-agent traversal,
+  bounded waypoint skipping, loops, final arrival and explicit reset.
+- Added nine public-API tests: independent arrival math, copied configuration,
+  route traversal, zero dt, overlapping waypoints and validation. All 37 core
+  tests pass. The route example reaches its final region on Dart VM and JS.
+- Added the numbered-route playground mode, English/Portuguese guide, updated
+  roadmap and CI example execution. Dart and Flutter analysis pass.
+- Existing local widget-test socket and publication-resolution restrictions
+  remain. No package publication or release tag has been created.

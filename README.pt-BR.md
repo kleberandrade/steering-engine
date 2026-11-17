@@ -78,6 +78,22 @@ Os pesos multiplicam as acelerações sem normalização automática; a soma é 
 saída acima do limiar e não avalia as demais. É seleção por prioridade.
 Implemente `SteeringBehavior.calculate(agent, dt)` para criar seus algoritmos.
 
+## Siga uma trajetória
+
+```dart
+final rota = SteeringPath([
+  Vec2(80, 0), Vec2(80, 80), Vec2(160, 80),
+]);
+final seguidor = FollowPath(rota, waypointRadius: 5, slowingRadius: 35);
+// Preserve o seguidor entre os frames: ele mantém o waypoint atual.
+agente = engine.step(agente, seguidor, 1 / 60);
+```
+
+Use `loop: true` na rota para repetir o percurso. Consulte `waypointIndex` e
+`currentTarget` ou chame `reset()` para recomeçar. O último waypoint de uma rota
+aberta usa aproximação com frenagem. Execute `dart run example/path_following.dart`.
+Veja o [guia de trajetórias](doc/path_following.md), também em português.
+
 ## Laboratório visual
 
 ```sh
@@ -86,7 +102,7 @@ flutter pub get
 flutter run -d chrome
 ```
 
-Troque os sete comportamentos e as duas composições, mova o alvo com o mouse,
+Troque os sete comportamentos locais, o seguidor de trajetória e as duas composições, mova o alvo com o mouse,
 observe os vetores de velocidade e aceleração, ajuste os limites e avance quadro
 a quadro. Pursuit e Evade usam um alvo em órbita. As bordas do laboratório
 reposicionam o agente no lado oposto; esse recurso pertence apenas ao exemplo.
@@ -100,7 +116,7 @@ são imutáveis. Parâmetros inválidos geram `ArgumentError` em runtime.
 
 Wander repete sequências de chamadas com a mesma seed no mesmo runtime; passos de
 tempo diferentes podem gerar trajetórias diferentes. A combinação de objetivos
-opostos pode cancelar o movimento. Navegação, flocking, colisões e dinâmica de
+opostos pode cancelar o movimento. Desvio de obstáculos, flocking, colisões e dinâmica de
 veículos estão no roadmap. Planejamento global de rotas continua separado.
 
 Consulte [equações](doc/behaviors.pt-BR.md) e [contribuição](CONTRIBUTING.md).

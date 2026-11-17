@@ -45,6 +45,7 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     'Evade',
     'Wander',
     'Brake',
+    'Path following',
     'Weighted blend',
     'Priority'
   ];
@@ -65,6 +66,14 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   Vec2 _target = Vec2(730, 280);
   Vec2 _force = Vec2.zero;
   final List<Vec2> _trail = [];
+  final SteeringPath _route = SteeringPath([
+    Vec2(260, 340),
+    Vec2(350, 150),
+    Vec2(750, 150),
+    Vec2(820, 440),
+    Vec2(350, 470),
+  ], loop: true);
+  late FollowPath _follower;
 
   @override
   void initState() {
@@ -80,6 +89,7 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
         maxSpeed: _speed,
         maxAcceleration: _acceleration);
     _wander = Wander(seed: 42);
+    _follower = FollowPath(_route, waypointRadius: 24, slowingRadius: 100);
     _time = 0;
     _accumulator = 0;
     _last = null;
@@ -118,6 +128,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
         return Evade(moving);
       case 'Wander':
         return _wander;
+      case 'Path following':
+        return _follower;
       case 'Brake':
         return Brake();
       case 'Weighted blend':
@@ -156,7 +168,9 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   Vec2 get _visibleTarget => (_mode == 'Pursuit' || _mode == 'Evade')
       ? Vec2(
           650 + 170 * math.cos(_time * 0.5), 310 + 150 * math.sin(_time * 0.5))
-      : _target;
+      : _mode == 'Path following'
+          ? _follower.currentTarget
+          : _target;
 
   void _setTarget(Offset local, Size size) => setState(() {
         _target = Vec2(
@@ -261,6 +275,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                         child: CustomPaint(
                             key: const Key('simulation'),
                             painter: SteeringPainter(
+                                route:
+                                    _mode == 'Path following' ? _route : null,
                                 agent: _agent,
                                 target: _visibleTarget,
                                 force: _force,
@@ -282,7 +298,7 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
         ]),
         const SizedBox(height: 14),
         const Text(
-            'Tap or drag to move the gold target. Pursuit / Evade use an orbiting target.\nEdges wrap for this demo; the core has no world boundaries.',
+            'Tap or drag to move the gold target. Pursuit / Evade use an orbiting target. Path following uses the numbered route.\nEdges wrap for this demo; the core has no world boundaries.',
             style: TextStyle(color: _muted, height: 1.6, fontSize: 12)),
       ]);
 
@@ -385,6 +401,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
       ]);
 
   String get _description => switch (_mode) {
+        'Path following' =>
+          'Follow a looping route. The gold ring marks the active waypoint; slow down near each corner.',
         'Seek' =>
           'Accelerate toward the target. Momentum carries the agent past it.',
         'Flee' =>
@@ -420,7 +438,9 @@ class SteeringPainter extends CustomPainter {
       required this.trail,
       required this.showVectors,
       required this.showTrail,
+      this.route,
       this.slowingRadius});
+  final SteeringPath? route;
   final SteeringAgent agent;
   final Vec2 target;
   final Vec2 force;
@@ -443,6 +463,31 @@ class SteeringPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y), Offset(_world.width, y), grid);
     }
     Offset offset(Vec2 v) => Offset(v.x, v.y);
+    if (route != null) {
+      final points = route!.waypoints;
+      final path = Path()..moveTo(points.first.x, points.first.y);
+      for (final point in points.skip(1)) {
+        path.lineTo(point.x, point.y);
+      }
+      if (route!.loop) path.close();
+      canvas.drawPath(
+          path,
+          Paint()
+            ..color = const Color(0xffa497ff).withValues(alpha: 0.45)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2);
+      for (var i = 0; i < points.length; i++) {
+        canvas.drawCircle(
+            offset(points[i]), 5, Paint()..color = const Color(0xffa497ff));
+        final label = TextPainter(
+            text: TextSpan(
+                text: '${i + 1}',
+                style: const TextStyle(color: Color(0xffa497ff), fontSize: 14)),
+            textDirection: TextDirection.ltr)
+          ..layout();
+        label.paint(canvas, offset(points[i]) + const Offset(9, -18));
+      }
+    }
     if (showTrail && trail.length > 1) {
       final path = Path()..moveTo(trail.first.x, trail.first.y);
       for (final point in trail.skip(1)) {
