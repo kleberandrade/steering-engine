@@ -167,3 +167,18 @@
   architecture checks and release source validation remain independent of Flutter.
 - Actual publication and hosted metadata are verified after the release-source
   CI; a source version and successful dry run are not an upload confirmation.
+
+## 2026-11-17 — release verification and remaining upload
+
+- Release-source CI 44020825763 completed successfully at d07f32d: Dart 3.3/stable,
+  81 core tests, five Flutter lab tests, two Flame tests, JS examples, both web
+  builds and pub dry run. GitHub source release/tag v0.1.0 was created and visibly
+  verified at that commit, with hosted-upload status explicitly marked pending.
+- The authorized Terminal UI action was automatically denied by Computer Use.
+  The normal command executor's publication preflight also failed because its
+  restricted dependency cache could not be updated. No package upload occurred.
+- Verified the official publication flow: a first package version requires the
+  Dart CLI before pub.dev automation can be configured. Recorded a concrete
+  `dart pub publish` handoff and hosted-version verification URL in the release
+  audit. All implementation and source-release work is complete; actual pub.dev
+  upload is the remaining action.

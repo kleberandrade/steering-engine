@@ -19,13 +19,30 @@
 - The local suite has 81 core tests. CI additionally runs Flutter and Flame tests,
   CLI/JavaScript examples and the publication dry run.
 - Native benchmark methodology and raw reports are under `doc/benchmarks/`.
-- Publication is pending the final validated source synchronization. A successful
-  dry run is not an upload; hosted version and package metadata are verified after
-  the actual publish command. No pub score is claimed in advance.
+- Release-source CI [44020825763](https://github.com/kleberandrade/steering-engine/actions/runs/44020825763)
+  completed successfully: Dart 3.3/stable, 81 core tests, five Flutter lab tests,
+  two Flame tests, JavaScript examples, both web builds and publication dry run.
+- GitHub source release [v0.1.0](https://github.com/kleberandrade/steering-engine/releases/tag/v0.1.0)
+  was created at validated commit d07f32d.
+- **The first pub.dev upload remains pending.** Computer Use denied access to
+  Terminal, and the command executor cannot resolve publication dependencies in
+  its restricted cache environment. No hosted publication or pub score is claimed.
+- Complete the first upload from a normal developer terminal:
+
+```sh
+cd /Users/kleber/Projects/steering-engine
+dart pub publish
+```
+
+Verify https://pub.dev/packages/steering_engine/versions/0.1.0 after the upload.
+The first version must use the Dart CLI; automated publishing can be configured
+only after the package exists, per the official
+[automated publishing documentation](https://dart.dev/tools/pub/automated-publishing).
 
 ## Português
 
 O inventário acima confere path following, leader following, queue e wall
-following. O código está preparado como 0.1.0; a publicação real é um passo
-separado e sua confirmação será registrada após verificar a versão hospedada.
+following. A release de código v0.1.0 está no GitHub, com CI verde. O upload inicial no
+pub.dev continua pendente: execute o comando acima em um terminal normal e
+confirme a página da versão hospedada.
 A metodologia dos benchmarks evita promessas gerais de FPS ou memória por índice.
