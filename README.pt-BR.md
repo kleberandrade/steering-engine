@@ -94,6 +94,25 @@ Use `loop: true` na rota para repetir o percurso. Consulte `waypointIndex` e
 aberta usa aproximação com frenagem. Execute `dart run example/path_following.dart`.
 Veja o [guia de trajetórias](doc/path_following.md), também em português.
 
+## Desvie de obstáculos estáticos
+
+```dart
+final avoidance = ObstacleAvoidance([
+  CircleObstacle(Vec2(80, 0), radius: 15),
+], agentRadius: 5, safetyMargin: 4, lookAheadTime: 1.5);
+final steering = PrioritySteering([
+  avoidance,
+  Arrive(Vec2(180, 0), slowingRadius: 40),
+]);
+```
+
+A detecção considera o tamanho do agente e escolhe a primeira superfície circular
+prevista à frente. O comportamento combina aceleração lateral e frenagem e libera
+a próxima prioridade quando não detecta ameaça. `findThreat` permite desenhar a
+geometria sem alterar estado. É uma heurística local, sem garantia de impedir
+colisões. Veja o [guia visual](doc/obstacle_avoidance.md) e execute
+`dart run example/obstacle_avoidance.dart` para testar a cena completa.
+
 ## Laboratório visual
 
 ```sh
@@ -102,7 +121,7 @@ flutter pub get
 flutter run -d chrome
 ```
 
-Troque os sete comportamentos locais, o seguidor de trajetória e as duas composições, mova o alvo com o mouse,
+Troque os sete comportamentos locais, o seguidor de trajetória, o desvio de obstáculos e as duas composições, mova o alvo com o mouse,
 observe os vetores de velocidade e aceleração, ajuste os limites e avance quadro
 a quadro. Pursuit e Evade usam um alvo em órbita. As bordas do laboratório
 reposicionam o agente no lado oposto; esse recurso pertence apenas ao exemplo.
@@ -116,7 +135,7 @@ são imutáveis. Parâmetros inválidos geram `ArgumentError` em runtime.
 
 Wander repete sequências de chamadas com a mesma seed no mesmo runtime; passos de
 tempo diferentes podem gerar trajetórias diferentes. A combinação de objetivos
-opostos pode cancelar o movimento. Desvio de obstáculos, flocking, colisões e dinâmica de
+opostos pode cancelar o movimento. Flocking, resolução de colisões e dinâmica de
 veículos estão no roadmap. Planejamento global de rotas continua separado.
 
 Consulte [equações](doc/behaviors.pt-BR.md) e [contribuição](CONTRIBUTING.md).

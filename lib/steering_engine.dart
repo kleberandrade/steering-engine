@@ -8,3 +8,4 @@ export 'src/composition.dart';
 export 'src/engine.dart';
 export 'src/vec2.dart';
 export 'src/path.dart';
+export 'src/obstacle.dart';

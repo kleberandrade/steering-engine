@@ -13,6 +13,11 @@
 
 ### Added
 
+- Static CircleObstacle geometry and ObstacleAvoidance with agent radius, detection
+  margin, earliest ray entry selection, overlap response and bounded braking.
+- Read-only ObstacleThreat inspection, priority example, visual lab controls,
+  bilingual geometry guide and swept-clearance simulation tests.
+
 - Immutable SteeringPath and per-agent FollowPath with looping routes, capture
   radii, bounded arrival, reset and traversal inspection.
 - Numbered route visualization in the Flutter lab and a runnable route example.

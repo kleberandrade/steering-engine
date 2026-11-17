@@ -23,3 +23,9 @@ and passes the sampled acceleration through a tiny behavior adapter.
 
 A maioria dos comportamentos é imutável. Wander possui estado privado: use uma
 instância por agente. Para desenhar vetores, reutilize a aceleração já calculada.
+
+CircleObstacle and ObstacleThreat are immutable geometry values. ObstacleAvoidance
+copies the configuration and exposes a pure threat query; PrioritySteering owns
+selection among avoidance and goal following. SteeringEngine remains unchanged.
+O desvio calcula aceleração; o integrador não faz correção de colisões ou posições.
+See [geometry and limits](obstacle_avoidance.md).

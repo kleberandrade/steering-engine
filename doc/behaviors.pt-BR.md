@@ -44,3 +44,9 @@ O engine não cria subpassos, colisões, atrito ou massa. `dt == 0` devolve o me
 snapshot sem avaliar comportamentos. As validações funcionam sem asserts.
 Vetores precisam ter componentes e módulo finitos; overflow gera erro em vez de
 propagar estado inválido. Use unidades consistentes e passos pequenos e fixos.
+
+## Static obstacle avoidance / Desvio de obstáculos estáticos
+
+See [the bilingual geometry guide](obstacle_avoidance.md) for expanded circle
+radii, ray entry selection, overlap response, braking and numerical limits.
+Consulte o guia bilíngue para as equações e limitações do desvio circular.

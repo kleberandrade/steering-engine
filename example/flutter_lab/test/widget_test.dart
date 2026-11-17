@@ -51,4 +51,30 @@ void main() {
         findsOneWidget);
     expect(tester.takeException(), isNull);
   });
+  testWidgets(
+      'obstacle mode exposes geometry and responds to target interaction',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const SteeringLab());
+    await tester.tap(find.text('Pause'));
+    await tester.pump();
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.ensureVisible(find.text('Obstacle avoidance').last);
+    await tester.tap(find.text('Obstacle avoidance').last);
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(scene(tester).avoidance!.obstacles.length, 3);
+    expect(scene(tester).avoidance!.agentRadius, 18);
+    expect(scene(tester).avoidance!.safetyMargin, 10);
+    final before = scene(tester).agent.position;
+    await tester.tap(find.text('Step'));
+    await tester.pump();
+    expect(scene(tester).agent.position.x, greaterThan(before.x));
+    await tester.tapAt(tester.getCenter(find.byKey(const Key('simulation'))));
+    await tester.pump();
+    expect(scene(tester).target.x, closeTo(500, 0.01));
+    expect(scene(tester).target.y, closeTo(310, 0.01));
+    expect(tester.takeException(), isNull);
+  });
 }

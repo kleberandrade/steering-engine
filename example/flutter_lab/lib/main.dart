@@ -48,6 +48,7 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     'Wander',
     'Brake',
     'Path following',
+    'Obstacle avoidance',
     'Weighted blend',
     'Priority'
   ];
@@ -63,6 +64,19 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   double _speed = 140;
   double _acceleration = 220;
   double _slowing = 150;
+  double _lookAhead = 1.2;
+  double _clearance = 10;
+  final List<CircleObstacle> _obstacles = [
+    CircleObstacle(Vec2(480, 300), radius: 60),
+    CircleObstacle(Vec2(700, 450), radius: 45),
+    CircleObstacle(Vec2(720, 100), radius: 40),
+  ];
+
+  ObstacleAvoidance get _avoidance => ObstacleAvoidance(_obstacles,
+      agentRadius: 18,
+      safetyMargin: _clearance,
+      minLookAhead: 90,
+      lookAheadTime: _lookAhead);
   late SteeringAgent _agent;
   Wander _wander = Wander(seed: 42);
   Vec2 _target = Vec2(730, 280);
@@ -130,6 +144,9 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
         return Evade(moving);
       case 'Wander':
         return _wander;
+      case 'Obstacle avoidance':
+        return PrioritySteering(
+            [_avoidance, Arrive(_target, slowingRadius: _slowing)]);
       case 'Path following':
         return _follower;
       case 'Brake':
@@ -277,6 +294,9 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                         child: CustomPaint(
                             key: const Key('simulation'),
                             painter: SteeringPainter(
+                                avoidance: _mode == 'Obstacle avoidance'
+                                    ? _avoidance
+                                    : null,
                                 route:
                                     _mode == 'Path following' ? _route : null,
                                 agent: _agent,
@@ -370,7 +390,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                     })),
             if (_mode == 'Arrive' ||
                 _mode == 'Weighted blend' ||
-                _mode == 'Priority')
+                _mode == 'Priority' ||
+                _mode == 'Obstacle avoidance')
               _slider(
                   'Slowing radius',
                   _slowing,
@@ -379,6 +400,28 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                   (value) => setState(() {
                         _slowing = value;
                       })),
+            if (_mode == 'Obstacle avoidance') ...[
+              Text('Look-ahead ${_lookAhead.toStringAsFixed(2)} s',
+                  style: const TextStyle(fontSize: 12)),
+              Slider(
+                  value: _lookAhead,
+                  min: 0,
+                  max: 3,
+                  onChanged: (value) => setState(() {
+                        _lookAhead = value;
+                      })),
+              _slider(
+                  'Safety margin',
+                  _clearance,
+                  0,
+                  40,
+                  (value) => setState(() {
+                        _clearance = value;
+                      })),
+              const Text(
+                  'Agent radius: 18 u. Orange rings include size + margin.\nLocal steering, not collision resolution.',
+                  style: TextStyle(color: _muted, fontSize: 11, height: 1.6)),
+            ],
             SwitchListTile(
                 contentPadding: EdgeInsets.zero,
                 title: const Text('Velocity / force vectors',
@@ -409,6 +452,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
       ]);
 
   String get _description => switch (_mode) {
+        'Obstacle avoidance' =>
+          'Avoid the first predicted circle, then resume arrival. Move the target to explore; points inside obstacles may be unreachable.',
         'Path following' =>
           'Follow a looping route. The gold ring marks the active waypoint; slow down near each corner.',
         'Seek' =>
@@ -447,8 +492,10 @@ class SteeringPainter extends CustomPainter {
       required this.showVectors,
       required this.showTrail,
       this.route,
+      this.avoidance,
       this.slowingRadius});
   final SteeringPath? route;
+  final ObstacleAvoidance? avoidance;
   final SteeringAgent agent;
   final Vec2 target;
   final Vec2 force;
@@ -471,6 +518,45 @@ class SteeringPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y), Offset(_world.width, y), grid);
     }
     Offset offset(Vec2 v) => Offset(v.x, v.y);
+    if (avoidance != null) {
+      final behavior = avoidance!;
+      final threat = behavior.findThreat(agent);
+      for (final obstacle in behavior.obstacles) {
+        final selected = identical(obstacle, threat?.obstacle);
+        canvas.drawCircle(offset(obstacle.center), obstacle.radius,
+            Paint()..color = Color(selected ? 0xffc66855 : 0xff66494c));
+        canvas.drawCircle(
+            offset(obstacle.center),
+            obstacle.radius + behavior.agentRadius + behavior.safetyMargin,
+            Paint()
+              ..color = const Color(0xffe7a36a)
+                  .withValues(alpha: selected ? 0.9 : 0.35)
+              ..style = PaintingStyle.stroke
+              ..strokeWidth = 2);
+      }
+      canvas.drawCircle(
+          offset(agent.position),
+          behavior.agentRadius,
+          Paint()
+            ..color = _cyan.withValues(alpha: 0.5)
+            ..style = PaintingStyle.stroke);
+      if (agent.velocity.length > 0) {
+        final end = agent.position +
+            agent.velocity.normalized * behavior.scanDistance(agent);
+        canvas.drawLine(
+            offset(agent.position),
+            offset(end),
+            Paint()
+              ..color = const Color(0xffe7a36a)
+              ..strokeWidth = 1.5);
+        if (threat != null && !threat.isOverlapping) {
+          final entry =
+              agent.position + agent.velocity.normalized * threat.entryDistance;
+          canvas.drawCircle(
+              offset(entry), 5, Paint()..color = const Color(0xffffd298));
+        }
+      }
+    }
     if (route != null) {
       final points = route!.waypoints;
       final path = Path()..moveTo(points.first.x, points.first.y);

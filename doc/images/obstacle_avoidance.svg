@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="340" viewBox="0 0 900 340" role="img" aria-label="Forward ray entering a circle expanded by agent size and clearance">
+ <rect width="900" height="340" rx="18" fill="#111b2a"/>
+ <g font-family="Arial,sans-serif" fill="#d9e4f3">
+  <text x="28" y="36" font-size="14" letter-spacing="2">OBSTACLE AVOIDANCE / DETECTION GEOMETRY</text>
+  <circle cx="420" cy="155" r="80" fill="#f3c577" fill-opacity="0.05" stroke="#f3c577" stroke-dasharray="5 5"/>
+  <circle cx="420" cy="155" r="50" fill="#dc746c" fill-opacity="0.3" stroke="#dc746c" stroke-width="2"/>
+  <path d="M145 155H715" stroke="#8b9bb4" stroke-width="2"/>
+  <path d="M715 155 704 149 M715 155 704 161" stroke="#8b9bb4" stroke-width="2"/>
+  <circle cx="145" cy="155" r="18" fill="#6ae4d4" fill-opacity="0.2" stroke="#6ae4d4"/>
+  <path d="M160 155 135 145 140 155 135 165Z" fill="#6ae4d4"/>
+  <circle cx="340" cy="155" r="6" fill="#f3c577"/>
+  <path d="M340 148V103" stroke="#f3c577"/>
+  <text x="285" y="93" font-size="13" fill="#f3c577">First surface entry</text>
+  <path d="M145 155 115 215 M115 215 115 202 M115 215 127 209" stroke="#a497ff" stroke-width="3"/>
+  <text x="62" y="246" font-size="13" fill="#a497ff">Lateral + braking</text>
+  <text x="109" y="119" font-size="13" fill="#6ae4d4">Agent</text>
+  <text x="373" y="161" font-size="12">Physical circle</text>
+  <text x="531" y="112" font-size="13" fill="#f3c577">Expanded radius</text>
+  <path d="M527 117 477 98" stroke="#f3c577"/>
+  <text x="545" y="178" font-size="12" fill="#8b9bb4">Forward scan</text>
+  <text x="28" y="291" font-size="13" fill="#8b9bb4">Expanded radius = obstacle radius + agent radius + safety margin</text>
+  <text x="28" y="317" font-size="12" fill="#8b9bb4">Instantaneous geometry; local steering does not guarantee collision-free trajectories.</text>
+ </g>
+</svg>

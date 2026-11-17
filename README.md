@@ -10,7 +10,7 @@ access in the core.
 [Português](README.pt-BR.md) · [Getting started](doc/getting_started.md) ·
 [Equations](doc/behaviors.md) · [Architecture](doc/architecture.md) ·
 [Flutter lab](example/flutter_lab/README.md) · [Roadmap](doc/roadmap.md) ·
-[Path following](doc/path_following.md) · [Contributing](CONTRIBUTING.md)
+[Obstacle avoidance](doc/obstacle_avoidance.md) · [Path following](doc/path_following.md) · [Contributing](CONTRIBUTING.md)
 
 ![Steering behavior concepts](doc/images/steering.svg)
 
@@ -83,6 +83,25 @@ Use `loop: true` on SteeringPath for a repeating route. Inspect
 `follower.waypointIndex` and `currentTarget`, or call `reset()` to rewind.
 Run `dart run example/path_following.dart`. See the [route guide](doc/path_following.md).
 
+## Steer around static obstacles
+
+```dart
+final avoidance = ObstacleAvoidance([
+  CircleObstacle(Vec2(80, 0), radius: 15),
+], agentRadius: 5, safetyMargin: 4, lookAheadTime: 1.5);
+final steering = PrioritySteering([
+  avoidance,
+  Arrive(Vec2(180, 0), slowingRadius: 40),
+]);
+```
+
+The scan accounts for agent size and selects the first predicted circle surface.
+It requests lateral acceleration and braking, or zero when the local path is clear.
+Compose it before a destination or route follower. `findThreat` exposes read-only
+debug geometry. This reactive method does not resolve or guarantee prevention of
+collisions. See the [visual guide and limits](doc/obstacle_avoidance.md).
+Run `dart run example/obstacle_avoidance.dart` for a complete checked simulation.
+
 ## Combine behaviors
 
 ```dart
@@ -109,7 +128,7 @@ flutter pub get
 flutter run -d chrome
 ```
 
-The lab offers all seven local behaviors, path following, weighted and priority compositions,
+The lab offers all seven local behaviors, path following, obstacle avoidance, weighted and priority compositions,
 click/drag targets, a moving target, a seeded wander stream, velocity and
 acceleration arrows, trails, adjustable limits, pause, reset and fixed-step
 advancement. World edges wrap in the demo; the core leaves boundaries to callers.
@@ -124,7 +143,8 @@ advancement. World edges wrap in the demo; the core leaves boundaries to callers
   conflicting goals may cancel motion or prevent arrival.
 - Wander seeds reproduce matching call sequences on the same runtime; trajectories
   are not promised identical across different time steps or runtimes.
-- Obstacle avoidance, flocking, collision resolution and vehicle dynamics are future work.
+- Flocking, collision resolution and vehicle dynamics are future work.
+  Avoidance currently supports static circles; walls and moving obstacles are not modeled.
   Steering can consume a planned route; it does not replace pathfinding.
 
 See [equations and conventions](doc/behaviors.md) for exact formulas.

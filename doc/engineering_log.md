@@ -52,3 +52,22 @@
 - The existing narrow-layout test now passes. The desktop-size test exposed a
   42-pixel dropdown overflow with the wider waypoint/composition labels under
   test fonts; enabled isExpanded so the selected label uses its finite width.
+
+## 2026-11-17 — static circle avoidance
+
+- Added immutable CircleObstacle and ObstacleThreat values plus stateless
+  ObstacleAvoidance. Detection inflates circles for agent size and margin, selects
+  the earliest ray surface, and returns lateral/braking or radial overlap escape.
+- Preserved the integrator and composition contracts. This is reactive steering,
+  not collision resolution; bounded acceleration and local visibility impose
+  documented limits. Moving circles, walls and polygons remain future work.
+- Added 15 public-API tests with independent off-axis entry/braking math, horizon
+  and tangent boundaries, stable ties, copied configuration, rotated scenes,
+  overflow rejection and a swept-clearance arrival scenario. Observed a failing
+  derived-entry overflow assertion before fixing the numeric boundary.
+- The three-circle CLI scene reaches its target on Dart and JavaScript with 9.96
+  units of minimum swept physical clearance after accounting for agent radius.
+- Added a Flutter obstacle mode with threat/expanded-circle/scan rendering and
+  look-ahead/margin controls, plus an interaction test and bilingual visual guide.
+- Local Dart and Flutter analysis and web compilation pass. Full remote CI,
+  including widget tests and publication dry run, is checked after synchronization.

@@ -57,3 +57,9 @@ All numeric configuration is checked outside asserts. Finite vectors must also
 have representable magnitude. Arithmetic overflow throws rather than creating
 nonfinite state. Extremely large or tiny scales are not a promise of physical
 accuracy; use a sensible, consistent coordinate scale and fixed steps.
+
+## Static obstacle avoidance / Desvio de obstáculos estáticos
+
+See [the bilingual geometry guide](obstacle_avoidance.md) for expanded circle
+radii, ray entry selection, overlap response, braking and numerical limits.
+Consulte o guia bilíngue para as equações e limitações do desvio circular.

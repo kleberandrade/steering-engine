@@ -33,3 +33,19 @@ free target does not edit this route. Each corner uses a 100-unit slowing radius
 and a 24-unit capture radius. / O modo de trajetória exibe uma rota numerada,
 destaca o waypoint atual e reinicia o percurso com Reset. Arrastar o alvo livre
 não edita os waypoints desta demonstração.
+
+## Obstacle mode / Modo de obstáculos
+
+Select Obstacle avoidance for a three-circle scene. The violet/cyan vectors retain
+their meaning. Physical circles are orange-red, expanded detection boundaries
+include the 18-unit agent radius and adjustable margin, and the selected threat
+is highlighted. A forward line shows max(90, speed × lookAheadTime). Priority
+selects avoidance before Arrive; the target remains draggable. Destinations inside
+obstacles may remain unreachable. Changing limits can create collisions: this
+example has no collision solver or position corrections.
+
+Selecione Obstacle avoidance. Ajuste a antecipação, a margem e os limites de
+movimento; observe o alcance e o obstáculo destacado. A prioridade dá preferência
+ao desvio e depois retoma Arrive. Não há correção física de colisões; alvos dentro
+de obstáculos podem ser inalcançáveis. As mesmas regras de pausa, passo e Reset
+continuam disponíveis.
