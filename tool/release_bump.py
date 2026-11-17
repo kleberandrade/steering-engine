@@ -25,8 +25,7 @@ def classify(messages):
         breaking = header[2] or re.search(r'^BREAKING(?: CHANGE|-CHANGE):', message, re.M)
         candidate = ('major' if breaking else 'minor' if header[1] == 'feat'
                      else 'patch' if header[1] in ('fix', 'perf') else None)
-        if rank[candidate] > rank[level]:
-            level = candidate
+        level = max(level, candidate, key=rank.__getitem__)
     return level
 
 
@@ -94,7 +93,7 @@ def build_plan(repo, bump='auto', release_date=None):
     if base not in tags:
         raise ValueError(f'Missing existing base tag {base}; do not guess released history')
     subprocess.run(['git', '-C', str(repo), 'merge-base', '--is-ancestor', base, 'HEAD'],
-                   check=True, capture_output=True)
+                   check=True)
     head = git(repo, 'rev-parse', 'HEAD')
     commits = commits_since(repo, base)
     level = classify([c['message'] for c in commits]) if bump == 'auto' else bump
@@ -124,7 +123,7 @@ def apply_plan(repo, plan):
     spec = repo / 'pubspec.yaml'
     text = spec.read_text(encoding='utf-8')
     spec.write_text(re.sub(r'^version:\s*\S+[ \t]*$', 'version: ' + plan['version'], text,
-                           count=1, flags=re.M), encoding='utf-8')
+                           flags=re.M), encoding='utf-8')
     (repo / 'CHANGELOG.md').write_text(plan['changelog'], encoding='utf-8')
 
 
@@ -140,7 +139,7 @@ def main():
     if args.apply:
         apply_plan(args.repo, plan)
     if args.output:
-        args.output.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + '\n', encoding='utf-8')
+        args.output.write_text(json.dumps(plan, indent=2) + '\n', encoding='utf-8')
     if args.notes and plan['changed']:
         args.notes.write_text(plan['notes'] + '\n', encoding='utf-8')
     print(json.dumps({k: v for k, v in plan.items() if k not in ('notes', 'changelog')}, indent=2))

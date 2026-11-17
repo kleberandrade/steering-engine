@@ -121,6 +121,18 @@ class GitReleaseTest(unittest.TestCase):
             apply_plan(self.repo, plan)
         self.assertIn('version: 0.2.0', (self.repo / 'pubspec.yaml').read_text())
 
+    def test_base_tag_from_unrelated_history_is_rejected(self):
+        self.git('checkout', '--orphan', 'unrelated')
+        self.commit('fix: unrelated root with the same version text')
+        with self.assertRaises((ValueError, subprocess.CalledProcessError)):
+            build_plan(self.repo, 'auto', '2026-11-17')
+        self.assertEqual(self.git('status', '--porcelain'), '')
+
+    def test_breaking_policy_is_applied_through_the_release_plan(self):
+        self.commit('feat!: replace the API')
+        self.assertEqual(build_plan(self.repo, 'auto', '2026-11-17')['version'], '0.3.0')
+        self.assertEqual(build_plan(self.repo, 'major', '2026-11-17')['version'], '1.0.0')
+
     def test_missing_notes_use_ordered_commit_summaries(self):
         (self.repo / 'CHANGELOG.md').write_text('# Changelog\n\n## Unreleased\n\n## 0.2.0\n\nOld notes.\n')
         self.commit('fix: first correction')
@@ -156,6 +168,18 @@ class GitReleaseTest(unittest.TestCase):
             with patch('sys.argv', argv + ['--apply']), redirect_stdout(io.StringIO()):
                 main()
             self.assertEqual(package_version(self.repo), '0.2.1')
+
+    def test_cli_no_release_does_not_write_notes(self):
+        self.commit('docs: guide only')
+        with tempfile.TemporaryDirectory() as folder:
+            notes = Path(folder) / 'notes.md'
+            argv = ['release_bump.py', '--repo', str(self.repo), '--notes', str(notes)]
+            output = io.StringIO()
+            with patch('sys.argv', argv), redirect_stdout(output):
+                main()
+            self.assertFalse(json.loads(output.getvalue())['changed'])
+            self.assertFalse(notes.exists())
+            self.assertEqual(self.git('status', '--porcelain'), '')
 
 
 if __name__ == '__main__':

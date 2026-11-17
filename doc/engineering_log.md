@@ -345,3 +345,18 @@
   coverage.py is unavailable, so no CRAP/coverage score is asserted. Dryer reports
   no >=0.8 duplicate candidates. Mutation analysis was started in isolated overlays;
   final results and remote preview/CI evidence are recorded separately.
+- First remote source CI 44083644090 passed at a5bde5b. The automatic workflow_run
+  44083945404 succeeded and correctly planned no release for CI/docs-only history.
+  Manual dry-run 44083964088 succeeded and calculated v0.2.1 while skipping all
+  metadata writes, tag/release creation and publisher dispatch.
+- Read-only GitHub variable settings visibly showed no repository variables,
+  confirming no PUB_DEV_PUBLISH_ENABLED activation was present. No variable was set.
+- Strengthened policy tests after mutation analysis exposed missing integration
+  cases for unrelated tag ancestry, pre-1.0 breaking changes through the full plan,
+  and CLI no-release notes. Removed redundant equivalent branches/options rather
+  than adding tests for incidental formatting. Fourteen Python/Git tests pass.
+- Final mutation snapshot reports 69 killed, zero survived (69 sites). Stdlib
+  tracing produced LCOV for 124/125 executable lines; after using the coverage
+  report location expected by crapper, every release helper's CRAP is below 10
+  (maximum 8). These metrics apply only to tool/release_bump.py, not Dart runtime.
+  Dryer reported no >=0.8 duplicate candidates.
