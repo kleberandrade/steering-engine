@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:steering_engine_lab/lab/lab_modes.dart';
 
 void main() {
-  test('chapter links select all supported modes and unknown modes fall back', () {
+  test('scene links select modes and use safe fallbacks', () {
     for (final mode in labModes) {
       final uri =
           Uri.https('example.test', '/steering-engine/', {'mode': mode});
