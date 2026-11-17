@@ -45,3 +45,7 @@
 - Retained the legacy Material import to support the documented Flutter 3.35
   minimum. Suppressed only that import's deprecation, with an inline reason, in
   the application and widget tests. Other fatal analyzer checks remain enabled.
+- The next CI run passed analysis and exposed Flutter 3.50's ListTile ink-surface
+  assertion in both existing widget tests. Replaced the controls' opaque
+  DecoratedBox with a shaped Material and inner Padding, so switches paint
+  feedback on the visible surface. The existing tests supply the regression.

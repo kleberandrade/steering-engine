@@ -317,83 +317,88 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                 fontFeatures: const [FontFeature.tabularFigures()])),
       ]);
 
-  Widget _controls() => Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-          color: const Color(0xff111b2a),
+  Widget _controls() => Material(
+      color: const Color(0xff111b2a),
+      shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(18),
-          border: Border.all(color: const Color(0xff263249))),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Text('BEHAVIOR',
-            style: TextStyle(color: _muted, letterSpacing: 1.5, fontSize: 11)),
-        const SizedBox(height: 12),
-        DropdownButtonFormField<String>(
-            initialValue: _mode,
-            decoration: const InputDecoration(
-                border: OutlineInputBorder(), isDense: true),
-            items: [
-              for (final mode in modes)
-                DropdownMenuItem(value: mode, child: Text(mode))
-            ],
-            onChanged: (mode) => setState(() {
-                  _mode = mode!;
-                  _reset();
-                })),
-        const SizedBox(height: 16),
-        Text(_description,
-            style: const TextStyle(color: _muted, height: 1.6, fontSize: 13)),
-        const Divider(height: 32),
-        _slider(
-            'Maximum speed',
-            _speed,
-            40,
-            300,
-            (value) => setState(() {
-                  _speed = value;
-                  _agent = _agent.copyWith(
-                      maxSpeed: value,
-                      velocity: _agent.velocity.limited(value));
-                })),
-        _slider(
-            'Maximum acceleration',
-            _acceleration,
-            30,
-            500,
-            (value) => setState(() {
-                  _acceleration = value;
-                  _agent = _agent.copyWith(maxAcceleration: value);
-                })),
-        if (_mode == 'Arrive' ||
-            _mode == 'Weighted blend' ||
-            _mode == 'Priority')
-          _slider(
-              'Slowing radius',
-              _slowing,
-              40,
-              250,
-              (value) => setState(() {
-                    _slowing = value;
-                  })),
-        SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Velocity / force vectors',
-                style: TextStyle(fontSize: 13)),
-            value: _vectors,
-            onChanged: (value) => setState(() {
-                  _vectors = value;
-                })),
-        SwitchListTile(
-            contentPadding: EdgeInsets.zero,
-            title: const Text('Motion trail', style: TextStyle(fontSize: 13)),
-            value: _trails,
-            onChanged: (value) => setState(() {
-                  _trails = value;
-                })),
-        const SizedBox(height: 8),
-        const Text(
-            'Cyan: velocity · Violet: acceleration\nGold: target · Wander seed: 42',
-            style: TextStyle(color: _muted, fontSize: 11, height: 1.6)),
-      ]));
+          side: const BorderSide(color: Color(0xff263249))),
+      child: Padding(
+          padding: const EdgeInsets.all(20),
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            const Text('BEHAVIOR',
+                style:
+                    TextStyle(color: _muted, letterSpacing: 1.5, fontSize: 11)),
+            const SizedBox(height: 12),
+            DropdownButtonFormField<String>(
+                initialValue: _mode,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(), isDense: true),
+                items: [
+                  for (final mode in modes)
+                    DropdownMenuItem(value: mode, child: Text(mode))
+                ],
+                onChanged: (mode) => setState(() {
+                      _mode = mode!;
+                      _reset();
+                    })),
+            const SizedBox(height: 16),
+            Text(_description,
+                style:
+                    const TextStyle(color: _muted, height: 1.6, fontSize: 13)),
+            const Divider(height: 32),
+            _slider(
+                'Maximum speed',
+                _speed,
+                40,
+                300,
+                (value) => setState(() {
+                      _speed = value;
+                      _agent = _agent.copyWith(
+                          maxSpeed: value,
+                          velocity: _agent.velocity.limited(value));
+                    })),
+            _slider(
+                'Maximum acceleration',
+                _acceleration,
+                30,
+                500,
+                (value) => setState(() {
+                      _acceleration = value;
+                      _agent = _agent.copyWith(maxAcceleration: value);
+                    })),
+            if (_mode == 'Arrive' ||
+                _mode == 'Weighted blend' ||
+                _mode == 'Priority')
+              _slider(
+                  'Slowing radius',
+                  _slowing,
+                  40,
+                  250,
+                  (value) => setState(() {
+                        _slowing = value;
+                      })),
+            SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title: const Text('Velocity / force vectors',
+                    style: TextStyle(fontSize: 13)),
+                value: _vectors,
+                onChanged: (value) => setState(() {
+                      _vectors = value;
+                    })),
+            SwitchListTile(
+                contentPadding: EdgeInsets.zero,
+                title:
+                    const Text('Motion trail', style: TextStyle(fontSize: 13)),
+                value: _trails,
+                onChanged: (value) => setState(() {
+                      _trails = value;
+                    })),
+            const SizedBox(height: 8),
+            const Text(
+                'Cyan: velocity · Violet: acceleration\nGold: target · Wander seed: 42',
+                style: TextStyle(color: _muted, fontSize: 11, height: 1.6)),
+          ])));
 
   Widget _slider(String label, double value, double min, double max,
           ValueChanged<double> onChanged) =>

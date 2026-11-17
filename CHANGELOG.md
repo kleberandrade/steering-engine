@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Paint playground control feedback on its own Material surface.
+
 ### Compatibility
 
 - Keep Flutter Material imports compatible across the documented minimum and newer stable SDKs.
