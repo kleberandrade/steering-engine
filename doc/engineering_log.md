@@ -308,3 +308,14 @@
 - Local documentation/link/coverage checks pass for 32 documents and 22 diagrams;
   workflow YAML syntax checks pass. crapper/dryer/mutator still report no supported
   Dart sources; no scores are claimed. Remote test/preflight evidence follows.
+- Publishing preflight run 44078811339 succeeded on Dart 3.3/stable at 3fb7671;
+  Publish approved tag was skipped as designed for workflow_dispatch. Extracted
+  the actual tag-match step and checked that v0.2.0 succeeds and v9.9.9 fails.
+  No token, pub.dev trust grant or enabling repository variable was added.
+- Mobile fixtures initially exposed a harness assumption: the landscape dropdown
+  lazily builds offscreen items, while a .last finder requires an existing item.
+  Replaced immediate visibility/.last lookup with scrollUntilVisible using the
+  ordinary finder, then selected the visible item. No production UI change was
+  needed. CI 44079491580 at dec0e87 passed all 11 lab tests, including all three
+  mobile sizes; Dart 3.3/stable and Flame jobs also passed. This remains widget
+  coverage, not a claim of real-device or live-browser visual inspection.

@@ -61,3 +61,15 @@ Official references / Referências oficiais:
 - [GitHub Pages custom workflows](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
 - [Flutter web deployment](https://docs.flutter.dev/deployment/web)
 - [Flutter URL/base-path configuration](https://docs.flutter.dev/ui/navigation/url-strategies)
+
+## Compact interaction checks / Verificação de interação compacta
+
+CI run [44079491580](https://github.com/kleberandrade/steering-engine/actions/runs/44079491580)
+passed widget interactions at 320x740, 390x844 and 740x360: target touch mapping,
+scrolling to/selecting the continuous scene, pause/step and reset. All 11 lab
+widget/unit tests passed. These are constrained Flutter test surfaces, not a
+physical device/browser compatibility certification or a FPS benchmark.
+
+Os três tamanhos passaram nos testes de interação do CI. A seleção em paisagem
+rola a lista antes de escolher um item ainda fora da área visível; nenhuma
+alteração na interface de produção foi necessária.

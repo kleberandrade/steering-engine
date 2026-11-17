@@ -68,3 +68,11 @@ Both actions are separate from deleting or unpublishing a package version.
 
 This repository follows the documented stable-tag/OIDC flow. Activation and an
 actual future upload must be recorded separately after verification.
+
+## Preflight evidence / Evidência da pré-validação
+
+[Run 44078811339](https://github.com/kleberandrade/steering-engine/actions/runs/44078811339)
+passed manual validation on Dart 3.3 and stable at 3fb7671. The upload job was
+skipped, as designed. The actual version-check script also accepted v0.2.0 and
+rejected v9.9.9 against the current pubspec. This validates preparation, not an
+active publishing authorization or a hosted upload.
