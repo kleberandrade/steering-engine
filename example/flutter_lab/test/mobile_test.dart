@@ -30,7 +30,8 @@ void main() {
       await tester.ensureVisible(find.byType(DropdownButtonFormField<String>));
       await tester.tap(find.byType(DropdownButtonFormField<String>));
       await tester.pump(const Duration(milliseconds: 300));
-      await tester.ensureVisible(find.text('Continuous path').last);
+      await tester.scrollUntilVisible(find.text('Continuous path').last, 120,
+          scrollable: find.byType(Scrollable).last);
       await tester.tap(find.text('Continuous path').last);
       await tester.pump(const Duration(milliseconds: 300));
       await tester.ensureVisible(find.text('Step'));
