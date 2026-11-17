@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 0.2.1 — 2026-11-17
+
 - Add automatic conventional-commit versioning after successful main CI, with
   atomic metadata/tag pushes and explicit tag-scoped publisher dispatch.
   / Bump semântico automático, tag atômica e publicador executado na tag.

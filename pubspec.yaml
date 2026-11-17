@@ -1,6 +1,6 @@
 name: steering_engine
 description: Composable 2D steering behaviors in pure Dart, with local and flocking behaviors, waypoint paths, static circle avoidance and bounded motion integration.
-version: 0.2.0
+version: 0.2.1
 repository: https://github.com/kleberandrade/steering-engine
 homepage: https://github.com/kleberandrade/steering-engine
 issue_tracker: https://github.com/kleberandrade/steering-engine/issues
