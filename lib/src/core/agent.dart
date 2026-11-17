@@ -1,5 +1,5 @@
 import 'validation.dart';
-import 'vec2.dart';
+import '../math/vec2.dart';
 
 /// Immutable kinematic state with velocity and acceleration limits.
 final class SteeringAgent {

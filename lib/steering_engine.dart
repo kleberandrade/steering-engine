@@ -1,11 +1,21 @@
 /// Composable, acceleration-based 2D steering with no runtime dependencies.
 library;
 
-export 'src/agent.dart';
-export 'src/behavior.dart';
-export 'src/behaviors.dart';
-export 'src/composition.dart';
-export 'src/engine.dart';
-export 'src/vec2.dart';
-export 'src/path.dart';
-export 'src/obstacle.dart';
+export 'src/core/agent.dart';
+export 'src/core/steering_behavior.dart';
+export 'src/core/steering_engine.dart';
+export 'src/math/vec2.dart';
+export 'src/composition/weighted_behavior.dart';
+export 'src/composition/weighted_blend.dart';
+export 'src/composition/priority_steering.dart';
+export 'src/navigation/steering_path.dart';
+export 'src/navigation/follow_path.dart';
+export 'src/geometry/circle_obstacle.dart';
+export 'src/navigation/obstacle_avoidance.dart';
+export 'src/behaviors/individual/seek.dart';
+export 'src/behaviors/individual/flee.dart';
+export 'src/behaviors/individual/arrive.dart';
+export 'src/behaviors/individual/pursuit.dart';
+export 'src/behaviors/individual/evade.dart';
+export 'src/behaviors/individual/wander.dart';
+export 'src/behaviors/individual/brake.dart';

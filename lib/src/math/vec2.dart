@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 
-import 'validation.dart';
+import '../core/validation.dart';
 
 /// An immutable vector with finite components and representable magnitude.
 final class Vec2 {

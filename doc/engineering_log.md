@@ -71,3 +71,18 @@
   look-ahead/margin controls, plus an interaction test and bilingual visual guide.
 - Local Dart and Flutter analysis and web compilation pass. Full remote CI,
   including widget tests and publication dry run, is checked after synchronization.
+
+## 2026-11-17 — ub-mode and source organization
+
+- Applied the explicitly requested local ub-mode instructions: baseline first,
+  small ordered commits, tests before new group behavior, and factual validation.
+- All 52 baseline tests passed before moving code. Separated immutable core/math,
+  individual behaviors, composition, geometry and navigation into focused files.
+  Split the Flutter page, painter and theme while preserving its existing tests.
+- The public package entry point and existing class/constructor contracts remain
+  unchanged; all 52 tests and Dart analysis pass after reorganization.
+- Invoked installed crapper, dryer and mutator against lib in an isolated metrics
+  directory. They reported no supported sources: their language lists omit Dart.
+  These results are unsupported-language outcomes, not passing quality scores.
+  Dart tests, analysis and explicit mathematical checks supply the validation;
+  no CRAP, duplication or mutation score is claimed.

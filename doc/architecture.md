@@ -29,3 +29,22 @@ copies the configuration and exposes a pure threat query; PrioritySteering owns
 selection among avoidance and goal following. SteeringEngine remains unchanged.
 O desvio calcula aceleração; o integrador não faz correção de colisões ou posições.
 See [geometry and limits](obstacle_avoidance.md).
+
+## Source layout / Organização do código
+
+| Directory | Responsibility / Responsabilidade |
+| --- | --- |
+| `lib/src/core/` | Agent, behavior contract, integration, validation and shared steering math |
+| `lib/src/math/` | Immutable vector mathematics |
+| `lib/src/behaviors/individual/` | One local movement behavior per file |
+| `lib/src/behaviors/group/` | Collective movement and flocking composition |
+| `lib/src/composition/` | Weighted and priority orchestration |
+| `lib/src/geometry/` | Physical geometry values |
+| `lib/src/navigation/` | Waypoint routes, following and obstacle avoidance |
+| `lib/src/perception/` | Immutable neighborhood snapshots |
+| `example/flutter_lab/lib/lab/` | Lab page, renderer, theme and demo simulation |
+
+Import only `package:steering_engine/steering_engine.dart`; implementation paths
+under `src/` are internal and may change. The reorganized source preserves every
+existing public class and constructor. / O import público continua igual; os
+caminhos internos em `src/` não fazem parte da API de consumo.

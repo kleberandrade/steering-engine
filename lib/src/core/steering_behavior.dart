@@ -1,5 +1,5 @@
 import 'agent.dart';
-import 'vec2.dart';
+import '../math/vec2.dart';
 
 /// Produces acceleration in distance units per second squared.
 ///

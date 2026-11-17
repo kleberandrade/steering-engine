@@ -1,23 +1,9 @@
 import 'dart:math' as math;
-
-import 'agent.dart';
-import 'behavior.dart';
-import 'validation.dart';
-import 'vec2.dart';
-
-/// A static circular obstacle in the caller's distance units.
-final class CircleObstacle {
-  /// Creates a circle with a finite positive [radius].
-  CircleObstacle(this.center, {required this.radius}) {
-    positive(radius, 'radius');
-  }
-
-  /// World-space center.
-  final Vec2 center;
-
-  /// Physical obstacle radius, excluding agent size and clearance.
-  final double radius;
-}
+import '../core/agent.dart';
+import '../core/steering_behavior.dart';
+import '../core/validation.dart';
+import '../math/vec2.dart';
+import '../geometry/circle_obstacle.dart';
 
 /// An immutable result of looking for the first predicted circle intersection.
 final class ObstacleThreat {

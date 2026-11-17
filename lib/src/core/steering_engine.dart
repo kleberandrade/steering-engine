@@ -1,5 +1,5 @@
 import 'agent.dart';
-import 'behavior.dart';
+import 'steering_behavior.dart';
 import 'validation.dart';
 
 /// Integrates bounded acceleration and velocity using semi-implicit Euler.
