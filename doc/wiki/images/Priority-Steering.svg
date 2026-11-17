@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title description">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<title id="title">Priority-Steering</title>
+<desc id="description">An ordered decision list selects the first output above epsilon and skips remaining behaviors.</desc>
+<rect width="800" height="360" rx="16" fill="#f6f8fc"/>
+<text x="30" y="36" fill="#172a42" font-family="Arial, sans-serif" font-size="21">Priority-Steering</text>
+<circle cx="90" cy="105" r="12" fill="#536579" stroke="#536579" stroke-width="2"/>
+<text x="125" y="111" fill="#536579" font-family="Arial, sans-serif" font-size="20">1. avoidance: zero → continue</text>
+<circle cx="90" cy="180" r="12" fill="#087454" stroke="#087454" stroke-width="2"/>
+<text x="125" y="186" fill="#087454" font-family="Arial, sans-serif" font-size="20">2. arrival: |a| &gt; epsilon → SELECT</text>
+<circle cx="90" cy="255" r="12" fill="#536579" stroke="#536579" stroke-width="2"/>
+<text x="125" y="261" fill="#536579" font-family="Arial, sans-serif" font-size="20">3. wander: skipped</text>
+<text x="45" y="330" fill="#536579" font-family="Arial, sans-serif" font-size="16">No weighted sum. Stateful rules advance only when actually evaluated.</text>
+</svg>

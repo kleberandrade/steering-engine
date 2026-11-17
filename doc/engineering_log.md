@@ -182,3 +182,31 @@
   `dart pub publish` handoff and hosted-version verification URL in the release
   audit. All implementation and source-release work is complete; actual pub.dev
   upload is the remaining action.
+
+## 2026-11-17 — illustrated learning handbook and Wiki
+
+- Replaced the missing learning sequence with a bilingual handbook: foundations,
+  18 behavior/composition chapters, spatial lookup, recipes and troubleshooting.
+  Each algorithm has implementation-matched pseudocode, tuning, an experiment,
+  Dart configuration, limits and its own conceptual diagram. Preserved detailed
+  equation guides and linked them from the learning path and both READMEs.
+- Authored 21 accessible SVG diagrams with deterministic standard-library Python
+  generation. Reviewed geometric conventions, including screen-Y wall normals,
+  expanded-circle ray entry and exact-radius versus grid-candidate filtering.
+- Corrected stale README/roadmap claims about optional spatial lookup, laboratory
+  populations, collective rules and finite wall following versus contact physics.
+- Created the initial GitHub Wiki Home and cloned the separate Wiki repository
+  through GitHub Desktop. Added an explicit, reviewable mirror command: it rewrites
+  links and copies images without network, commits, deletions or credentials.
+  Reviewed handbook sources remain in this repository; Wiki publication is
+  verified separately after syncing, not inferred from the local export.
+- Local evidence: documentation links/coverage/XML checks passed for 27 documents,
+  all 18 implemented SteeringBehavior classes and 21 diagrams. Extracted 22 Dart
+  snippets; all generated programs compiled/executed with the package config.
+  Dart analysis passed. The normal test launcher hit the restricted pub cache;
+  invoking the existing test runner directly with package_config.json passed all
+  81 tests. No runtime library or Flutter application behavior changed.
+- Invoked crapper, dryer and mutator on lib as required by the workflow; these
+  installed tools still report no supported Dart sources. No scores claimed.
+- Added stable-SDK CI checks for documentation, diagram reproducibility and
+  extracted snippets; excluded maintenance tooling from the published package.

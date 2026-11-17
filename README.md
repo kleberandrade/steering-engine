@@ -8,11 +8,37 @@ characters and simulations. No runtime dependencies, Flutter imports, IO or netw
 access in the core.
 
 [Português](README.pt-BR.md) · [Getting started](doc/getting_started.md) ·
+[Learning guide](doc/wiki/Home.md) · [Wiki](https://github.com/kleberandrade/steering-engine/wiki) ·
 [Equations](doc/behaviors.md) · [Architecture](doc/architecture.md) ·
 [Flutter lab](example/flutter_lab/README.md) · [Roadmap](doc/roadmap.md) ·
 [Flocking](doc/flocking.md) · [Obstacle avoidance](doc/obstacle_avoidance.md) · [Path following](doc/path_following.md) · [Contributing](CONTRIBUTING.md)
 
 ![Steering behavior concepts](doc/images/steering.svg)
+
+## Learn step by step
+
+A behavior turns a goal into **acceleration**. The engine integrates it into
+velocity and position; your Flutter or Flame application draws the result.
+Start with [units, vectors and a complete loop](doc/wiki/Foundations.md), then
+compare [Seek](doc/wiki/Seek.md) (approach) with [Arrive](doc/wiki/Arrive.md)
+(approach and slow down).
+
+The bilingual [learning guide](doc/wiki/Home.md) and
+[GitHub Wiki](https://github.com/kleberandrade/steering-engine/wiki) explain all
+18 behaviors and composition strategies with diagrams, pseudocode, parameters,
+Dart snippets, experiments and limits.
+
+| Learn | Chapters |
+| --- | --- |
+| Move one agent | [Seek](doc/wiki/Seek.md), [Flee](doc/wiki/Flee.md), [Arrive](doc/wiki/Arrive.md), [Brake](doc/wiki/Brake.md) |
+| Anticipate and explore | [Pursuit](doc/wiki/Pursuit.md), [Evade](doc/wiki/Evade.md), [Wander](doc/wiki/Wander.md) |
+| Combine decisions | [Weighted blend](doc/wiki/Weighted-Blend.md), [Priority](doc/wiki/Priority-Steering.md) |
+| Navigate geometry | [Path](doc/wiki/Path-Following.md), [Obstacles](doc/wiki/Obstacle-Avoidance.md), [Walls](doc/wiki/Wall-Following.md) |
+| Move together | [Separation](doc/wiki/Separation.md), [Alignment](doc/wiki/Alignment.md), [Cohesion](doc/wiki/Cohesion.md), [Flocking](doc/wiki/Flocking.md) |
+| Organize and scale | [Leader](doc/wiki/Leader-Following.md), [Queue](doc/wiki/Queue-Following.md), [Spatial index](doc/wiki/Spatial-Index.md) |
+
+For practical combinations and common problems, see
+[recipes and troubleshooting](doc/wiki/Recipes.md).
 
 ## Status and installation
 
@@ -142,9 +168,10 @@ agents = [
 
 Replace the complete frame after evaluation. Neighbor queries exclude the
 observer by identity; use the original snapshot, not a copy. The current query
-is linear, so full-flock work is O(n²). See the [equations and visual guide](doc/flocking.md)
+is linear in this constructor, so full-flock work is O(n²); use
+`AgentNeighborhood.spatial(agents)` for optional grid lookup. See the [equations and visual guide](doc/flocking.md)
 and run `dart run example/flocking.dart`. The lab compares each rule and lets
-you tune weights for 24 agents. Flocking does not provide collision resolution.
+you tune weights for 24, 100, 500 or 1000 agents. Flocking does not provide collision resolution.
 
 ## Explore visually
 
@@ -170,7 +197,8 @@ advancement. World edges wrap in the demo; the core leaves boundaries to callers
 - Wander seeds reproduce matching call sequences on the same runtime; trajectories
   are not promised identical across different time steps or runtimes.
 - Collision resolution, vehicle dynamics and moving-obstacle prediction remain future work.
-  Avoidance currently supports static circles; walls and moving obstacles are not modeled.
+  Obstacle avoidance supports static circles. Wall following provides local
+  segment guidance, without contact resolution or wall-avoidance guarantees.
   Steering can consume a planned route; it does not replace pathfinding.
 
 See [equations and conventions](doc/behaviors.md) for exact formulas.
@@ -199,7 +227,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the complete checks.
 ## Scientific references
 
 1. Reynolds, C. W. (1999). [Steering Behaviors for Autonomous Characters](https://www.red3d.com/cwr/steer/gdc99/). Game Developers Conference. Conceptual basis for local movement and behavior composition.
-2. Reynolds, C. W. (1987). [Flocks, Herds, and Schools: A Distributed Behavioral Model](https://www.red3d.com/cwr/boids/). SIGGRAPH. Foundation for the planned collective behaviors.
+2. Reynolds, C. W. (1987). [Flocks, Herds, and Schools: A Distributed Behavioral Model](https://www.red3d.com/cwr/boids/). SIGGRAPH. Conceptual foundation for the collective behaviors.
 
 This implementation uses an explicit acceleration/response-time convention and
 bounded prediction, documented above; it is not a verbatim port of Reynolds's demos.

@@ -48,6 +48,13 @@ asserts. Atualize o changelog e não confunda código no GitHub com publicação
 
 Contributions use the MIT license.
 
+Learning chapters live in `doc/wiki/`, with both languages in each page. Check
+links, algorithm coverage and diagrams with `python3 tool/check_docs.py` and
+`python3 tool/generate_wiki_diagrams.py --check`. See
+[Wiki maintenance](doc/wiki-maintenance.md) for snippet validation and publishing.
+Atualize os capítulos bilíngues junto das equações; publique a Wiki a partir das
+fontes revisadas para evitar explicações divergentes.
+
 Validate `example/flame_lab` separately with stable Flutter using pub get,
 analysis, its component/step tests and a web build. Run benchmark timings outside
 CI and record the runtime, fixture and raw data; never assert universal speedups.

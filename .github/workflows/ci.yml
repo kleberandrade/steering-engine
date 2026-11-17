@@ -20,6 +20,20 @@ jobs:
       - run: dart format --output=none --set-exit-if-changed lib test example benchmark
         if: matrix.sdk == 'stable'
       - run: dart analyze --fatal-infos
+      - uses: actions/setup-python@v5
+        if: matrix.sdk == 'stable'
+        with:
+          python-version: '3.x'
+      - run: python3 tool/check_docs.py --extract-dart /tmp/steering-doc-examples
+        if: matrix.sdk == 'stable'
+      - run: python3 tool/generate_wiki_diagrams.py --check
+        if: matrix.sdk == 'stable'
+      - name: Compile and run handbook examples
+        if: matrix.sdk == 'stable'
+        run: |
+          for example in /tmp/steering-doc-examples/*.dart; do
+            dart --packages=.dart_tool/package_config.json "$example"
+          done
       - run: dart test
       - run: dart run example/steering_engine_example.dart
       - run: dart run example/composition.dart

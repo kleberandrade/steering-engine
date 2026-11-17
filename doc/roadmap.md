@@ -27,7 +27,8 @@
   velocity alignment, positional cohesion and composable flocking.
 - Synchronous frame updates and a 24-agent lab with independent rule/weight controls.
 - Observações compartilhadas, atualização simultânea e demonstração com 24 agentes.
-  Spatial queries remain linear and whole-flock evaluation remains O(n²).
+  The linear constructor retains O(n²) whole-flock work; the optional spatial
+  index described below reduces candidates in suitable scenes.
 
 ## Spatial perception and following / Busca e seguimento
 

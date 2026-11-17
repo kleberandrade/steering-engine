@@ -1,5 +1,12 @@
 # Equações e convenções
 
+## Explicações ilustradas
+
+Para intuição, diagramas, pseudocódigo passo a passo e ajustes de cada
+comportamento, comece pelo [guia didático bilíngue](wiki/Home.md). Este documento
+é a referência matemática compacta; os [Fundamentos](wiki/Foundations.md)
+definem as unidades e o loop de simulação.
+
 p é posição; v, velocidade; V, velocidade máxima; A, aceleração máxima; T, tempo
 de resposta positivo em segundos. `limit(x, m)` limita o módulo sem mudar a
 direção. Normalizar o vetor zero retorna zero.

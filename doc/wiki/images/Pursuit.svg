@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title description">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<title id="title">Pursuit</title>
+<desc id="description">A constant-velocity target prediction is used as the Seek or Flee destination.</desc>
+<rect width="800" height="360" rx="16" fill="#f6f8fc"/>
+<text x="30" y="36" fill="#172a42" font-family="Arial, sans-serif" font-size="21">Pursuit</text>
+<circle cx="175" cy="250" r="11" fill="#1758a8" stroke="#1758a8" stroke-width="2"/>
+<text x="167" y="281" fill="#1758a8" font-family="Arial, sans-serif" font-size="16">p</text>
+<circle cx="480" cy="170" r="11" fill="#a45100" stroke="#a45100" stroke-width="2"/>
+<text x="472" y="201" fill="#a45100" font-family="Arial, sans-serif" font-size="16">target</text>
+<line x1="480" y1="170" x2="580" y2="90" stroke="#a45100" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="580" cy="90" r="9" fill="none" stroke="#a45100" stroke-width="2"/>
+<line x1="566" y1="90" x2="594" y2="90" stroke="#a45100" stroke-width="2"/>
+<line x1="580" y1="76" x2="580" y2="104" stroke="#a45100" stroke-width="2"/>
+<text x="595" y="78" fill="#a45100" font-family="Arial, sans-serif" font-size="16">predicted</text>
+<line x1="175" y1="250" x2="580" y2="90" stroke="#536579" stroke-width="3" stroke-dasharray="7 6"/>
+<line x1="175" y1="250" x2="395" y2="163" stroke="#087454" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="35" y="335" fill="#087454" font-family="Arial, sans-serif" font-size="16">predicted = target.position + target.velocity * horizon</text>
+</svg>

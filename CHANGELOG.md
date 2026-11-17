@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- Bilingual learning handbook and GitHub Wiki covering all 18 steering behaviors
+  and composition strategies, with conceptual diagrams, pseudocode, tuning,
+  worked examples and troubleshooting. / Guia didático bilíngue e Wiki.
+- Reproducible diagram generation, documentation checks and Wiki export tooling.
+
 ## 0.1.0 — 2026-11-17
 
 Initial release source:

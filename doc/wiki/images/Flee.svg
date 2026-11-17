@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title description">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<title id="title">Flee</title>
+<desc id="description">Desired velocity points toward the fixed target for Seek and away for Flee; current velocity is independent.</desc>
+<rect width="800" height="360" rx="16" fill="#f6f8fc"/>
+<text x="30" y="36" fill="#172a42" font-family="Arial, sans-serif" font-size="21">Flee</text>
+<circle cx="300" cy="210" r="11" fill="#1758a8" stroke="#1758a8" stroke-width="2"/>
+<text x="292" y="241" fill="#1758a8" font-family="Arial, sans-serif" font-size="16">p</text>
+<circle cx="590" cy="150" r="9" fill="none" stroke="#a45100" stroke-width="2"/>
+<line x1="576" y1="150" x2="604" y2="150" stroke="#a45100" stroke-width="2"/>
+<line x1="590" y1="136" x2="590" y2="164" stroke="#a45100" stroke-width="2"/>
+<text x="605" y="138" fill="#a45100" font-family="Arial, sans-serif" font-size="16">target</text>
+<line x1="300" y1="210" x2="590" y2="150" stroke="#a45100" stroke-width="3" stroke-dasharray="7 6"/>
+<line x1="300" y1="210" x2="125" y2="246" stroke="#087454" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="300" y1="210" x2="300" y2="110" stroke="#1758a8" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="312" y="105" fill="#1758a8" font-family="Arial, sans-serif" font-size="16">v</text>
+<text x="50" y="310" fill="#087454" font-family="Arial, sans-serif" font-size="16">u = normalize(p - target) * V</text>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title description">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<title id="title">Wall-Following</title>
+<desc id="description">A forward probe projects onto a finite wall; the target advances along the tangent and offsets along its normal.</desc>
+<rect width="800" height="360" rx="16" fill="#f6f8fc"/>
+<text x="30" y="36" fill="#172a42" font-family="Arial, sans-serif" font-size="21">Wall-Following</text>
+<line x1="100" y1="120" x2="690" y2="120" stroke="#a45100" stroke-width="5"/>
+<text x="590" y="100" fill="#a45100" font-family="Arial, sans-serif" font-size="16">wall segment</text>
+<circle cx="170" cy="230" r="11" fill="#1758a8" stroke="#1758a8" stroke-width="2"/>
+<text x="162" y="261" fill="#1758a8" font-family="Arial, sans-serif" font-size="16">p</text>
+<line x1="170" y1="230" x2="330" y2="230" stroke="#1758a8" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="270" y="260" fill="#1758a8" font-family="Arial, sans-serif" font-size="16">probe</text>
+<line x1="330" y1="230" x2="330" y2="120" stroke="#536579" stroke-width="3" stroke-dasharray="7 6"/>
+<text x="280" y="100" fill="#536579" font-family="Arial, sans-serif" font-size="16">projection</text>
+<line x1="330" y1="120" x2="500" y2="120" stroke="#087454" stroke-width="3" marker-end="url(#arrow)"/>
+<line x1="500" y1="120" x2="500" y2="190" stroke="#087454" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="500" cy="190" r="9" fill="none" stroke="#a45100" stroke-width="2"/>
+<line x1="486" y1="190" x2="514" y2="190" stroke="#a45100" stroke-width="2"/>
+<line x1="500" y1="176" x2="500" y2="204" stroke="#a45100" stroke-width="2"/>
+<text x="515" y="178" fill="#a45100" font-family="Arial, sans-serif" font-size="16">offset target</text>
+<line x1="170" y1="230" x2="460" y2="195" stroke="#087454" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="510" y="270" fill="#087454" font-family="Arial, sans-serif" font-size="16">left normal = +Y (screen)</text>
+<text x="35" y="335" fill="#536579" font-family="Arial, sans-serif" font-size="16">target = projection + tangent * lookAhead + chosenNormal * wallOffset</text>
+</svg>

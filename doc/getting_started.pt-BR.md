@@ -1,5 +1,12 @@
 # Primeiros passos
 
+## Trilha de aprendizado
+
+Começando em steering? Leia os [Fundamentos](wiki/Foundations.md) e siga o
+[guia didático ilustrado](wiki/Home.md) ou a
+[Wiki do GitHub](https://github.com/kleberandrade/steering-engine/wiki). Cada
+comportamento tem pseudocódigo, diagrama, ajustes e limites da implementação.
+
 1. Adicione a dependência por caminho do README e execute `dart pub get`.
 2. Crie um `SteeringAgent` com posição e limites de velocidade e aceleração.
 3. Comece com `Arrive` para observar aproximação e frenagem.

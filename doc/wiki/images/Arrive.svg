@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="360" viewBox="0 0 800 360" role="img" aria-labelledby="title description">
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="context-stroke"/></marker></defs>
+<title id="title">Arrive</title>
+<desc id="description">Concentric stop and slowing radii around a destination reduce desired speed with distance.</desc>
+<rect width="800" height="360" rx="16" fill="#f6f8fc"/>
+<text x="30" y="36" fill="#172a42" font-family="Arial, sans-serif" font-size="21">Arrive</text>
+<circle cx="515" cy="190" r="9" fill="none" stroke="#a45100" stroke-width="2"/>
+<line x1="501" y1="190" x2="529" y2="190" stroke="#a45100" stroke-width="2"/>
+<line x1="515" y1="176" x2="515" y2="204" stroke="#a45100" stroke-width="2"/>
+<text x="530" y="178" fill="#a45100" font-family="Arial, sans-serif" font-size="16">target</text>
+<circle cx="515" cy="190" r="125" fill="none" stroke="#a45100" stroke-width="2" stroke-dasharray="7 6"/>
+<circle cx="515" cy="190" r="35" fill="none" stroke="#a45100" stroke-width="2"/>
+<circle cx="120" cy="190" r="11" fill="#1758a8" stroke="#1758a8" stroke-width="2"/>
+<text x="112" y="221" fill="#1758a8" font-family="Arial, sans-serif" font-size="16">p</text>
+<line x1="120" y1="190" x2="300" y2="190" stroke="#087454" stroke-width="3" marker-end="url(#arrow)"/>
+<circle cx="420" cy="190" r="11" fill="#1758a8" stroke="#1758a8" stroke-width="2"/>
+<text x="412" y="221" fill="#1758a8" font-family="Arial, sans-serif" font-size="16">inside R1</text>
+<line x1="420" y1="190" x2="465" y2="190" stroke="#087454" stroke-width="3" marker-end="url(#arrow)"/>
+<text x="495" y="75" fill="#a45100" font-family="Arial, sans-serif" font-size="16">R1: slowing</text>
+<text x="554" y="229" fill="#a45100" font-family="Arial, sans-serif" font-size="16">R0: stop</text>
+<text x="40" y="330" fill="#536579" font-family="Arial, sans-serif" font-size="16">Outside R1: u = V    |    Inside R0: u = 0; actual v still needs braking</text>
+</svg>

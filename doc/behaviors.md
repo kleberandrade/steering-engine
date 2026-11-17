@@ -1,5 +1,12 @@
 # Equations and conventions
 
+## Illustrated explanations
+
+For intuition, diagrams, step-by-step pseudocode and tuning of every behavior,
+start with the bilingual [learning guide](wiki/Home.md). This document is the
+compact mathematical reference; [Foundations](wiki/Foundations.md) defines units
+and the simulation loop.
+
 Let p be position, v velocity, V maximum speed, A maximum acceleration and T the
 positive response time in seconds. `limit(x, m)` preserves direction and caps
 magnitude at m. The normalized zero vector is zero.

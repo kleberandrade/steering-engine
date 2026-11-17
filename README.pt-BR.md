@@ -5,10 +5,36 @@ personagens autônomos e simulações. O núcleo não possui dependências em ru
 imports de Flutter, IO ou acesso à rede.
 
 [English](README.md) · [Primeiros passos](doc/getting_started.pt-BR.md) ·
+[Guia didático](doc/wiki/Home.md) · [Wiki](https://github.com/kleberandrade/steering-engine/wiki) ·
 [Equações](doc/behaviors.pt-BR.md) · [Arquitetura](doc/architecture.md) ·
 [Laboratório Flutter](example/flutter_lab/README.md) · [Roadmap](doc/roadmap.md)
 
 ![Conceitos dos comportamentos de movimento](doc/images/steering.svg)
+
+## Aprenda passo a passo
+
+Um comportamento transforma um objetivo em **aceleração**. O engine integra essa
+aceleração em velocidade e posição; sua aplicação Flutter ou Flame desenha o
+resultado. Comece por [unidades, vetores e um loop completo](doc/wiki/Foundations.md)
+e compare [Seek](doc/wiki/Seek.md), que busca o alvo, com
+[Arrive](doc/wiki/Arrive.md), que também reduz a velocidade ao chegar.
+
+O [guia didático](doc/wiki/Home.md) e a
+[Wiki do GitHub](https://github.com/kleberandrade/steering-engine/wiki) explicam os
+18 comportamentos e estratégias de composição, com diagramas, pseudocódigo,
+parâmetros, trechos em Dart, experiências e limites. Cada capítulo é bilíngue.
+
+| Aprenda | Capítulos |
+| --- | --- |
+| Mover um agente | [Seek](doc/wiki/Seek.md), [Flee](doc/wiki/Flee.md), [Arrive](doc/wiki/Arrive.md), [Brake](doc/wiki/Brake.md) |
+| Antecipar e explorar | [Pursuit](doc/wiki/Pursuit.md), [Evade](doc/wiki/Evade.md), [Wander](doc/wiki/Wander.md) |
+| Combinar decisões | [Mistura](doc/wiki/Weighted-Blend.md), [Prioridade](doc/wiki/Priority-Steering.md) |
+| Navegar na geometria | [Trajetória](doc/wiki/Path-Following.md), [Obstáculos](doc/wiki/Obstacle-Avoidance.md), [Paredes](doc/wiki/Wall-Following.md) |
+| Mover em grupo | [Separação](doc/wiki/Separation.md), [Alinhamento](doc/wiki/Alignment.md), [Coesão](doc/wiki/Cohesion.md), [Flocking](doc/wiki/Flocking.md) |
+| Organizar e escalar | [Líder](doc/wiki/Leader-Following.md), [Fila](doc/wiki/Queue-Following.md), [Índice espacial](doc/wiki/Spatial-Index.md) |
+
+Para combinações práticas e problemas comuns, consulte
+[receitas e diagnóstico](doc/wiki/Recipes.md).
 
 ## Estado e instalação
 
@@ -135,9 +161,11 @@ agents = [
 
 Substitua o quadro completo depois de calcular o próximo estado. A consulta
 exclui o observador por identidade: use o snapshot original, sem copiá-lo.
-O custo do grupo é O(n²) nesta versão. Veja o [guia visual e as equações](doc/flocking.md)
+Com esse construtor linear, o custo do grupo é O(n²); use
+`AgentNeighborhood.spatial(agents)` para a busca opcional em grade.
+Veja o [guia visual e as equações](doc/flocking.md)
 e execute `dart run example/flocking.dart`. O laboratório permite comparar as
-regras e ajustar pesos para 24 agentes; flocking não resolve colisões.
+regras e ajustar pesos para 24, 100, 500 ou 1000 agentes; flocking não resolve colisões.
 
 ## Laboratório visual
 
@@ -177,7 +205,7 @@ Consulte [equações](doc/behaviors.pt-BR.md) e [contribuição](CONTRIBUTING.md
 ## Referências científicas
 
 1. Reynolds, C. W. (1999). [Steering Behaviors for Autonomous Characters](https://www.red3d.com/cwr/steer/gdc99/). GDC. Base conceitual dos comportamentos e da composição.
-2. Reynolds, C. W. (1987). [Flocks, Herds, and Schools: A Distributed Behavioral Model](https://www.red3d.com/cwr/boids/). SIGGRAPH. Base dos comportamentos coletivos planejados.
+2. Reynolds, C. W. (1987). [Flocks, Herds, and Schools: A Distributed Behavioral Model](https://www.red3d.com/cwr/boids/). SIGGRAPH. Base conceitual dos comportamentos coletivos.
 
 Esta implementação explicita aceleração, tempo de resposta e previsão limitada;
 não é uma transcrição dos exemplos originais de Reynolds.

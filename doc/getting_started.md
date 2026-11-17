@@ -1,5 +1,12 @@
 # Getting started
 
+## Learning path
+
+New to steering? Start with [Foundations](wiki/Foundations.md), then follow the
+[illustrated learning guide](wiki/Home.md) or the
+[GitHub Wiki](https://github.com/kleberandrade/steering-engine/wiki). Every behavior
+has pseudocode, diagrams, tuning examples and implementation limits.
+
 1. Add the local path dependency from the README and run `dart pub get`.
 2. Create a `SteeringAgent` with a position, maximum speed and acceleration.
 3. Choose a behavior. Start with `Arrive` to observe approach and braking.
