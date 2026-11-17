@@ -6,6 +6,8 @@ of the pure Dart engine and is not published to pub.dev.
 - Original code-drawn orbit-and-heading logo and matching SVG favicons.
 - Horizontally scrollable navigation on narrow screens; keyboard-focusable
   Material controls for Laboratory, Learn, Examples and Documentation.
+- Circular, locally drawn Brazil/United Kingdom flags with accessible labels and
+  selected-language menu state. No emoji flags or external asset downloads.
 - English and Brazilian Portuguese interface, native Material localization and
   educational content. Browser preference is shared by the two laboratories;
   disabled storage falls back to the active session. Desktop tests use a safe

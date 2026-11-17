@@ -68,6 +68,109 @@ class _MarkPainter extends CustomPainter {
   bool shouldRepaint(_MarkPainter oldDelegate) => false;
 }
 
+/// Locally drawn circular country flags; no emoji or remote image dependency.
+class CircularFlag extends StatelessWidget {
+  const CircularFlag({
+    super.key,
+    required this.portuguese,
+    required this.label,
+  });
+  final bool portuguese;
+  final String label;
+  @override
+  Widget build(BuildContext context) => Semantics(
+    image: true,
+    label: label,
+    child: SizedBox(
+      width: 28,
+      height: 28,
+      child: CustomPaint(painter: _FlagPainter(portuguese)),
+    ),
+  );
+}
+
+class _FlagPainter extends CustomPainter {
+  const _FlagPainter(this.portuguese);
+  final bool portuguese;
+  @override
+  void paint(Canvas canvas, Size size) {
+    canvas.save();
+    canvas.clipPath(Path()..addOval(Offset.zero & size));
+    canvas.scale(size.width / 28, size.height / 28);
+    final paint = Paint();
+    canvas.drawRect(
+      const Rect.fromLTWH(0, 0, 28, 28),
+      paint..color = Color(portuguese ? 0xff168447 : 0xff163c82),
+    );
+    if (portuguese) {
+      canvas.drawPath(
+        Path()
+          ..moveTo(2, 14)
+          ..lineTo(14, 4)
+          ..lineTo(26, 14)
+          ..lineTo(14, 24)
+          ..close(),
+        paint..color = const Color(0xffffcf35),
+      );
+      canvas.drawCircle(
+        const Offset(14, 14),
+        6,
+        paint..color = const Color(0xff163c82),
+      );
+      canvas.drawArc(
+        const Rect.fromLTWH(7, 12, 15, 9),
+        3.55,
+        1.55,
+        false,
+        paint
+          ..color = Colors.white
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.4,
+      );
+    } else {
+      void diagonal(Color color, double width) {
+        canvas.drawPath(
+          Path()
+            ..moveTo(-2, -2)
+            ..lineTo(30, 30)
+            ..moveTo(30, -2)
+            ..lineTo(-2, 30),
+          paint
+            ..color = color
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = width,
+        );
+      }
+
+      diagonal(Colors.white, 6);
+      diagonal(const Color(0xffce2b37), 2);
+      paint.style = PaintingStyle.fill;
+      canvas.drawRect(
+        const Rect.fromLTWH(10, 0, 8, 28),
+        paint..color = Colors.white,
+      );
+      canvas.drawRect(const Rect.fromLTWH(0, 10, 28, 8), paint);
+      canvas.drawRect(
+        const Rect.fromLTWH(12, 0, 4, 28),
+        paint..color = const Color(0xffce2b37),
+      );
+      canvas.drawRect(const Rect.fromLTWH(0, 12, 28, 4), paint);
+    }
+    canvas.restore();
+    canvas.drawCircle(
+      size.center(Offset.zero),
+      size.width / 2 - .5,
+      Paint()
+        ..color = Colors.white38
+        ..style = PaintingStyle.stroke,
+    );
+  }
+
+  @override
+  bool shouldRepaint(_FlagPainter oldDelegate) =>
+      portuguese != oldDelegate.portuguese;
+}
+
 class LabShell extends StatefulWidget {
   const LabShell({
     super.key,
@@ -86,6 +189,12 @@ class _LabShellState extends State<LabShell> {
   int _page = 0;
   late bool _pt = platform.loadLanguage() == 'pt';
   String text(String en, String pt) => _pt ? pt : en;
+  Widget flag(bool portuguese) => CircularFlag(
+    portuguese: portuguese,
+    label: portuguese
+        ? text('Brazil flag', 'Bandeira do Brasil')
+        : text('United Kingdom flag', 'Bandeira do Reino Unido'),
+  );
   void preset(String mode) {
     widget.onPreset?.call(mode);
     setState(() => _page = 0);
@@ -130,15 +239,35 @@ class _LabShellState extends State<LabShell> {
                 setState(() => _pt = value);
                 platform.saveLanguage(value ? 'pt' : 'en');
               },
-              itemBuilder: (context) => const [
-                PopupMenuItem(value: false, child: Text('English')),
-                PopupMenuItem(value: true, child: Text('Português')),
+              itemBuilder: (context) => [
+                CheckedPopupMenuItem(
+                  value: false,
+                  checked: !_pt,
+                  child: Row(
+                    children: [
+                      flag(false),
+                      const SizedBox(width: 10),
+                      const Text('English'),
+                    ],
+                  ),
+                ),
+                CheckedPopupMenuItem(
+                  value: true,
+                  checked: _pt,
+                  child: Row(
+                    children: [
+                      flag(true),
+                      const SizedBox(width: 10),
+                      const Text('Português'),
+                    ],
+                  ),
+                ),
               ],
               child: Padding(
                 padding: const EdgeInsets.all(12),
                 child: Row(
                   children: [
-                    const Icon(Icons.language),
+                    flag(_pt),
                     const SizedBox(width: 4),
                     Text(_pt ? 'PT-BR' : 'EN'),
                   ],

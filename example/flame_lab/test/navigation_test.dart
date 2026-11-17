@@ -30,7 +30,12 @@ void main() {
     expect(before?.paused, isTrue);
     await tester.tap(find.byKey(const Key('language')));
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Português').last);
+    await tester.tap(
+      find.ancestor(
+        of: find.text('Português').last,
+        matching: find.byType(CheckedPopupMenuItem<bool>),
+      ),
+    );
     await tester.pumpAndSettle();
     await tester.tap(find.text('Laboratório'));
     await tester.pump();

@@ -416,3 +416,7 @@
   or performed as part of this laboratory work. CLI examples and four JavaScript
   compile/run smoke checks passed. The package dry-run initially warned about
   uncommitted metadata; validation of the clean commit is a separate final gate.
+
+- Follow-up before the first push: the user requested circular flag language
+  buttons. Added local vector Brazil/UK flags, accessible country labels and
+  checked locale menu items, preserving the existing locale/state behavior.

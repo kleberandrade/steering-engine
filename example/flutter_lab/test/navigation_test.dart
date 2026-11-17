@@ -9,36 +9,54 @@ void main() {
   ) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1100));
     addTearDown(() => tester.binding.setSurfaceSize(null));
-    await tester.pumpWidget(const SteeringLab());
-    await tester.tap(find.text('Pause'));
-    await tester.pump();
-    final before =
-        (tester
-                    .widget<CustomPaint>(find.byKey(const Key('simulation')))
-                    .painter!
-                as SteeringPainter)
-            .agent
-            .position;
-    await tester.tap(find.text('Learn'));
-    await tester.pump();
-    expect(find.text('Motion from small rules'), findsOneWidget);
-    await tester.tap(find.byKey(const Key('language')));
-    await tester.pumpAndSettle();
-    await tester.tap(find.text('Português').last);
-    await tester.pumpAndSettle();
-    expect(find.text('Movimento a partir de pequenas regras'), findsOneWidget);
-    await tester.tap(find.text('Laboratório'));
-    await tester.pump();
-    expect(find.text('Continuar'), findsOneWidget);
-    final after =
-        (tester
-                    .widget<CustomPaint>(find.byKey(const Key('simulation')))
-                    .painter!
-                as SteeringPainter)
-            .agent
-            .position;
-    expect(after, before);
-    expect(tester.takeException(), isNull);
+    final semantics = tester.ensureSemantics();
+    try {
+      await tester.pumpWidget(const SteeringLab());
+      expect(
+        find.bySemanticsLabel(RegExp('United Kingdom flag')),
+        findsWidgets,
+      );
+      await tester.tap(find.text('Pause'));
+      await tester.pump();
+      final before =
+          (tester
+                      .widget<CustomPaint>(find.byKey(const Key('simulation')))
+                      .painter!
+                  as SteeringPainter)
+              .agent
+              .position;
+      await tester.tap(find.text('Learn'));
+      await tester.pump();
+      expect(find.text('Motion from small rules'), findsOneWidget);
+      await tester.tap(find.byKey(const Key('language')));
+      await tester.pumpAndSettle();
+      await tester.tap(
+        find.ancestor(
+          of: find.text('Português').last,
+          matching: find.byType(CheckedPopupMenuItem<bool>),
+        ),
+      );
+      await tester.pumpAndSettle();
+      expect(
+        find.text('Movimento a partir de pequenas regras'),
+        findsOneWidget,
+      );
+      expect(find.bySemanticsLabel(RegExp('Bandeira do Brasil')), findsWidgets);
+      await tester.tap(find.text('Laboratório'));
+      await tester.pump();
+      expect(find.text('Continuar'), findsOneWidget);
+      final after =
+          (tester
+                      .widget<CustomPaint>(find.byKey(const Key('simulation')))
+                      .painter!
+                  as SteeringPainter)
+              .agent
+              .position;
+      expect(after, before);
+      expect(tester.takeException(), isNull);
+    } finally {
+      semantics.dispose();
+    }
   });
   testWidgets('mobile navigation opens translated presets and documentation', (
     tester,
@@ -58,7 +76,12 @@ void main() {
     await tester.tap(find.byKey(const Key('language')));
     await tester.pump();
     await tester.pump(const Duration(milliseconds: 300));
-    await tester.tap(find.text('Português').last);
+    await tester.tap(
+      find.ancestor(
+        of: find.text('Português').last,
+        matching: find.byType(CheckedPopupMenuItem<bool>),
+      ),
+    );
     await tester.pump();
     expect(find.text('Pausar'), findsOneWidget);
     expect(find.textContaining('Velocidade máxima'), findsOneWidget);
