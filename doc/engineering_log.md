@@ -376,3 +376,9 @@
   "Insufficient permissions" / "Authentication failed" (exit 65). No successful
   hosted publication is claimed. Keep v0.2.1 unchanged and retry its failed upload
   only after the package's external repository/event/environment grant is fixed.
+- User confirmed correcting the pub.dev settings. Re-ran failed jobs in the same
+  workflow, attempt 2, without moving the tag or changing the package version.
+  Upload job 134082223266 succeeded; at 13:44:39 UTC pub.dev explicitly confirmed
+  steering_engine 0.2.1 uploaded successfully. Recorded actual server evidence and
+  updated both README dependency examples to ^0.2.1. Site indexing can take ten
+  minutes; no publisher-ownership or package-score verification is claimed.

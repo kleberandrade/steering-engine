@@ -71,8 +71,9 @@ available. Hosted upload stays conditional on explicit external authorization.
 Adding YAML alone does not grant external publishing authority. On 2026-11-17 the
 user reported saving pub.dev authorization; the repository activation variable and
 tag-restricted `pub.dev` environment were then configured. The first actual
-v0.2.1 upload was refused for insufficient permissions, so the external grant
-still needs correction/verification before automatic upload can succeed.
+v0.2.1 upload was refused for insufficient permissions. After the user corrected
+the external grant, attempt 2 succeeded: pub.dev explicitly confirmed the 0.2.1
+upload at 10:44 America/Sao_Paulo on 2026-11-17. No tag or version was recreated.
 
 | Setting / Campo | Value / Valor |
 | --- | --- |
@@ -90,10 +91,10 @@ then enable the repository flag. Existing ownership must be verified separately;
 this workflow does not transfer the package to kleberandrade.dev.
 
 A autorização persistente permite publicar versões a quem pode enviar alterações
-relevantes à main/tags, após os gates. A confirmação independente do publisher e
-a autorização efetiva no pub.dev ainda precisam de verificação: o envio de
-v0.2.1 foi recusado por permissão insuficiente. O domínio permanece bloqueado para
-inspeção pelo agente; a configuração salva foi informada pelo usuário.
+relevantes à main/tags, após os gates. O upload da 0.2.1 foi confirmado pelo servidor
+na segunda tentativa, após a correção informada pelo usuário. A titularidade do
+publisher continua sendo uma verificação separada. O domínio permanece bloqueado
+para inspeção pelo agente; a evidência do upload está nos logs do GitHub.
 Não adicione credenciais pessoais ao repositório para contornar esse bloqueio.
 
 ## Failure and recovery / Falhas e recuperação
@@ -112,6 +113,13 @@ A recuperação usa a tag existente; não gera outra versão para esconder uma f
 O workflow ignora commits de documentação isolados e impede encadeamento recursivo.
 
 ## Evidence and sources / Evidência e fontes
+
+Publication [44089922934, attempt 2](https://github.com/kleberandrade/steering-engine/actions/runs/44089922934/attempts/2)
+succeeded. Upload job 134082223266 records the server's successful upload response
+for steering_engine 0.2.1. Site indexing may take up to ten minutes.
+
+Publicação confirmada pelo servidor na tentativa 2, sem recriar v0.2.1. Esse fluxo
+valida o envio autenticado; não é uma inspeção do painel ou da pontuação do pub.dev.
 
 Manual publishing preflight [44078811339](https://github.com/kleberandrade/steering-engine/actions/runs/44078811339)
 passed Dart 3.3/stable before the automatic-bump addition; no upload occurred.

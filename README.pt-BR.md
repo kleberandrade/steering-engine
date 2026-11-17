@@ -41,12 +41,12 @@ Para combinações práticas e problemas comuns, consulte
 
 ```yaml
 dependencies:
-  steering_engine: ^0.2.0
+  steering_engine: ^0.2.1
 ```
 
 Execute `dart pub get` e importe `package:steering_engine/steering_engine.dart`.
-A publicação da 0.2.0 foi informada pelo mantenedor; a confirmação independente
-da versão hospedada e do publisher está no [registro da release](doc/release_0.2.0.md).
+O pub.dev confirmou o upload da 0.2.1 via GitHub Actions OIDC; veja a
+[evidência de publicação](doc/automated_publishing.md). A titularidade do publisher é uma verificação separada.
 O núcleo exige Dart **>=3.3.0 <4.0.0**, sem depender de Flutter ou Flame.
 
 Para desenvolver o package localmente, substitua a entrada por `path: ../steering-engine`.
