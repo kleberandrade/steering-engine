@@ -16,8 +16,10 @@ access in the core.
 
 ## Status and installation
 
-Initial development version: **0.1.0-dev.1**. This repository does not imply a
-pub.dev publication. Use a local dependency while developing:
+Source version **0.1.0**, prepared for the first hosted release. Publication is
+verified separately from source versioning; see [release validation](doc/release_0.1.0.md).
+The core requires Dart **>=3.3.0 <4.0.0**, with no Flutter or Flame dependency.
+Before hosted availability is confirmed, use a local path or a reviewed Git ref.
 
 ```yaml
 dependencies:
@@ -25,8 +27,8 @@ dependencies:
     path: ../steering-engine
 ```
 
-Requires Dart **>=3.3.0 <4.0.0**. The optional Flutter lab has its own SDK constraint
-and does not add Flutter to your core application dependencies.
+The [Flutter lab](example/flutter_lab/README.md) and [Flame example](doc/flame.md)
+have their own SDK constraints and are validated independently.
 
 ## Make a character arrive
 
@@ -167,11 +169,19 @@ advancement. World edges wrap in the demo; the core leaves boundaries to callers
   conflicting goals may cancel motion or prevent arrival.
 - Wander seeds reproduce matching call sequences on the same runtime; trajectories
   are not promised identical across different time steps or runtimes.
-- Spatial indexing, collision resolution and vehicle dynamics are future work.
+- Collision resolution, vehicle dynamics and moving-obstacle prediction remain future work.
   Avoidance currently supports static circles; walls and moving obstacles are not modeled.
   Steering can consume a planned route; it does not replace pathfinding.
 
 See [equations and conventions](doc/behaviors.md) for exact formulas.
+
+## Spatial index and following modes
+
+Use `AgentNeighborhood.spatial(agents)` for optional grid lookup with the same
+neighbor order and exact filtering. Compare populations and measured tick cost
+in the lab. Read [spatial lookup](doc/spatial_index.md), [benchmarks](doc/benchmarks/README.md),
+[leader / queue / wall following](doc/following.md) and [Flame integration](doc/flame.md).
+All four following families, including the existing waypoint follower, are covered.
 
 ## Development
 

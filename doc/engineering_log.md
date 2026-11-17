@@ -151,3 +151,19 @@
 - Prepared a separate Flame 1.38 example and component-mapping tests. It requires
   a newer Flutter SDK than the local installation, so its analysis/tests/build
   are validated in the stable-SDK CI job, independently of the pure Dart core.
+
+## 2026-11-17 — release preparation
+
+- Complete CI run 44020178457 passed Dart 3.3/stable, all core tests, the expanded
+  Flutter lab, Flame adapter tests/web build, JS examples and pub dry run.
+- Prepared source 0.1.0, reorganized release notes and added English/Portuguese
+  following, spatial-index and Flame guides. The behavior audit includes existing
+  waypoint paths plus leader following, spatial queuing and finite wall following.
+- Repeated current-code linear runs with the same AOT benchmark executable. The
+  recorded uniform-scene medians are 66.07 ms linear vs 14.86 ms grid at 1000
+  agents; at 100 agents the grid is slower. Reported process RSS and limitations
+  separately rather than treating RSS as isolated index allocation.
+- Consolidated geometry projections on the tested Vec2 dot product. Core tests,
+  architecture checks and release source validation remain independent of Flutter.
+- Actual publication and hosted metadata are verified after the release-source
+  CI; a source version and successful dry run are not an upload confirmation.

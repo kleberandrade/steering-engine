@@ -12,8 +12,11 @@ imports de Flutter, IO ou acesso à rede.
 
 ## Estado e instalação
 
-Versão inicial em desenvolvimento: **0.1.0-dev.1**. A presença do código no
-GitHub não significa publicação no pub.dev. Para desenvolvimento local:
+Versão de código **0.1.0**, preparada para a primeira publicação. A disponibilidade
+no pub.dev é verificada separadamente; veja a [validação da versão](doc/release_0.1.0.md).
+O núcleo exige Dart **>=3.3.0 <4.0.0**, sem dependências de Flutter ou Flame.
+Enquanto a disponibilidade hospedada não estiver confirmada, use caminho local
+ou um commit revisado do GitHub.
 
 ```yaml
 dependencies:
@@ -21,8 +24,7 @@ dependencies:
     path: ../steering-engine
 ```
 
-O núcleo exige Dart **>=3.3.0 <4.0.0**. O laboratório possui uma restrição própria
-de Flutter e não adiciona essa dependência ao núcleo.
+O laboratório Flutter e o exemplo Flame possuem requisitos próprios de SDK.
 
 ## Faça um personagem chegar ao destino
 
@@ -150,6 +152,14 @@ observe os vetores de velocidade e aceleração, ajuste os limites e avance quad
 a quadro. Pursuit e Evade usam um alvo em órbita. As bordas do laboratório
 reposicionam o agente no lado oposto; esse recurso pertence apenas ao exemplo.
 
+## Índice espacial e novos seguidores
+
+Use `AgentNeighborhood.spatial(agents)` para busca opcional em grade, preservando
+ordem e filtros. O laboratório compara população e custo do passo. Consulte
+[busca espacial](doc/spatial_index.md), [medições](doc/benchmarks/README.md),
+[leader / queue / wall following](doc/following.md) e [integração Flame](doc/flame.md).
+Path following também está implementado por waypoints.
+
 ## Convenções e limites
 
 O integrador usa Euler semi-implícito com limites de aceleração e velocidade.
@@ -159,7 +169,7 @@ são imutáveis. Parâmetros inválidos geram `ArgumentError` em runtime.
 
 Wander repete sequências de chamadas com a mesma seed no mesmo runtime; passos de
 tempo diferentes podem gerar trajetórias diferentes. A combinação de objetivos
-opostos pode cancelar o movimento. Índices espaciais, resolução de colisões e dinâmica de
+opostos pode cancelar o movimento. Resolução de colisões e dinâmica de
 veículos estão no roadmap. Planejamento global de rotas continua separado.
 
 Consulte [equações](doc/behaviors.pt-BR.md) e [contribuição](CONTRIBUTING.md).

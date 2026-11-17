@@ -10,7 +10,7 @@ using independently calculated expectations and complete movement scenarios.
 
 ```sh
 dart pub get
-dart format --output=none --set-exit-if-changed lib test example
+dart format --output=none --set-exit-if-changed lib test example benchmark
 dart analyze --fatal-infos
 dart test
 dart run example/steering_engine_example.dart
@@ -18,6 +18,8 @@ dart run example/composition.dart
 dart run example/path_following.dart
 dart run example/obstacle_avoidance.dart
 dart run example/flocking.dart
+dart run example/following.dart
+dart run example/spatial_index.dart
 dart compile js example/steering_engine_example.dart -o /tmp/steering-example.js
 node /tmp/steering-example.js
 dart compile js example/path_following.dart -o /tmp/steering-path.js
@@ -45,3 +47,8 @@ Preserve o núcleo independente de Flutter e valide entradas sem depender de
 asserts. Atualize o changelog e não confunda código no GitHub com publicação.
 
 Contributions use the MIT license.
+
+Validate `example/flame_lab` separately with stable Flutter using pub get,
+analysis, its component/step tests and a web build. Run benchmark timings outside
+CI and record the runtime, fixture and raw data; never assert universal speedups.
+The 0.1.0 release audit is in `doc/release_0.1.0.md`.

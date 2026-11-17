@@ -1,17 +1,19 @@
-# steering_flame_example
+# Steering Engine + Flame
 
-A new Flutter project.
+A separate Flame 1.38.x app demonstrating 24 shared-frame agents, fixed-step
+steering and PositionComponent coordinate mapping. Requires Flutter >=3.47 and
+Dart >=3.11. The core package remains pure Dart >=3.3.
 
-## Getting Started
+```sh
+flutter pub get
+flutter run -d chrome
+flutter analyze --fatal-infos
+flutter test
+flutter build web --no-web-resources-cdn
+```
 
-This project is a starting point for a Flutter application.
+Tap the scene to change the target; use Reset to restore initial snapshots.
+See [integration details](../../doc/flame.md). No collision solver is included.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Exemplo separado com 24 agentes: toque muda o alvo e Reset reinicia o cenário.
+Flame renderiza os componentes enquanto steering_engine calcula o movimento.

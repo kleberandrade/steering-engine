@@ -19,7 +19,7 @@ Evade track a moving target; target dragging applies to the fixed-target modes.
 
 The world is 1000 × 620 distance units and wraps at its edges. The core engine
 does not implement wrapping. Ticker elapsed time feeds a fixed-step accumulator;
-frame gaps above 0.1 seconds are discarded so resuming a background tab does not
+frame gaps above 0.1 seconds are capped and excess catch-up after three ticks is discarded so resuming a background tab does not
 simulate a large jump. This is an educational lab, not real-time clock tracking.
 
 Escolha o comportamento, clique ou arraste o alvo, ajuste os limites e observe
@@ -68,3 +68,17 @@ separada e pode ser zerada. Pause/Step avança todo o quadro; Reset reproduz a
 configuração inicial. O anel mostra a vizinhança do agente destacado. As bordas
 reposicionam os agentes, mas as distâncias continuam euclidianas, sem correção
 de colisões. Página, tema e desenho ficam em arquivos separados sob `lib/lab/`.
+
+## Population, profiling and navigation
+
+Choose 24/100/500/1000 agents and switch the spatial index on or off. The physics
+HUD measures only tick computation, not paint/layout. Large populations use a
+seeded distribution across the world; the original 24-agent layout stays clustered.
+No more than three catch-up ticks run per frame. Leader following shows a moving
+leader and its trailing target. Queue demonstrates eight lane occupants arriving
+behind one another. Wall following shows finite wall geometry and a local offset
+probe. See [following conventions](../../doc/following.md).
+
+Escolha a população e compare índice espacial com busca linear. O tempo mede a
+física do passo, não a renderização. As três novas demonstrações cobrem líder,
+fila espacial e paredes; o seguidor de waypoints continua disponível.

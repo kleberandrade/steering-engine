@@ -2,42 +2,23 @@
 
 ## Unreleased
 
-### Fixed
+## 0.1.0 — 2026-11-17
 
-- Fit behavior labels within the playground dropdown on constrained widths.
-- Paint playground control feedback on its own Material surface.
+Initial release source:
 
-### Compatibility
-
-- Keep Flutter Material imports compatible across the documented minimum and newer stable SDKs.
-
-### Added
-
-- Immutable neighborhood snapshots, Separation, Alignment, Cohesion and composed Flocking.
-- Shared-frame simulation, a 24-agent lab, independent rule and weight controls,
-  mathematical tests and a bilingual visual guide.
-
-### Internal organization
-
-- Separate core, mathematics, individual/group behaviors, composition, geometry,
-  navigation and perception modules while preserving public package imports.
-- Separate the Flutter page, renderer and theme.
-
-- Static CircleObstacle geometry and ObstacleAvoidance with agent radius, detection
-  margin, earliest ray entry selection, overlap response and bounded braking.
-- Read-only ObstacleThreat inspection, priority example, visual lab controls,
-  bilingual geometry guide and swept-clearance simulation tests.
-
-- Immutable SteeringPath and per-agent FollowPath with looping routes, capture
-  radii, bounded arrival, reset and traversal inspection.
-- Numbered route visualization in the Flutter lab and a runnable route example.
-
-### 0.1.0-dev.1 — initial development
-
-- Pure Dart immutable vectors, agent snapshots and bounded integration.
+- Pure Dart immutable vectors/agents and bounded semi-implicit Euler integration.
 - Seek, Flee, Arrive, Pursuit, Evade, seeded Wander and Brake.
-- Weighted blend, priority selection and custom behavior contract.
-- Interactive Flutter lab, bilingual documentation and scientific references.
-- Core mathematics, validation, simulation and Flutter interaction tests.
+- Weighted and priority composition with runtime numeric validation.
+- Waypoint path following, leader following, movement-filtering spatial queues
+  and finite-segment wall following.
+- Static circular obstacle avoidance, agent radius and read-only threat queries.
+- Shared-frame Separation, Alignment, Cohesion and Flocking.
+- Optional spatial-grid lookup preserving linear neighbor order and exact filtering,
+  with conservative numeric/large-query fallbacks.
+- Reproducible native timing/RSS reports and an adjustable 24/100/500/1000-agent lab.
+- Separate Flame example and independent Flutter/Flame CI checks.
+- English/Portuguese guides, visual diagrams and scientific references.
+- Organized core, math, geometry, perception, navigation and behavior modules.
 
-This is a source development version, not a hosted release announcement.
+Source/release notes do not themselves perform pub.dev publication. Hosted
+availability is verified separately in the release validation record.

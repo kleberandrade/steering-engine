@@ -1,0 +1,1 @@
+{"strategy":"linear","agents":500,"frames":15,"warmup":5,"median_us":17019,"p95_us":17835,"rss_before_bytes":13041664,"rss_after_bytes":16433152,"peak_rss_bytes":16433152,"checksum":4802.213464635236,"sdk":"3.11.5 (stable) (Wed Apr 15 00:36:32 2026 -0700) on \"macos_arm64\"","os":"macos","fixture":"seed42, fixed-density uniform positions, repeated identical frame"}

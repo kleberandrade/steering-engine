@@ -91,9 +91,9 @@ final class ObstacleAvoidance implements SteeringBehavior {
       var entry = 0.0;
       if (!overlapping) {
         if (heading.length == 0) continue;
-        final lateral = _dot(offset, side);
+        final lateral = offset.dot(side);
         if (lateral.abs() > radius) continue;
-        final along = _dot(offset, heading);
+        final along = offset.dot(heading);
         // Divide first to avoid squaring world-scale distances.
         final ratio = lateral / radius;
         final halfChord = radius * math.sqrt(math.max(0, 1 - ratio * ratio));
@@ -123,15 +123,9 @@ final class ObstacleAvoidance implements SteeringBehavior {
       final direction = away.length == 0 ? side : away.normalized;
       return (direction * agent.maxAcceleration).limited(agent.maxAcceleration);
     }
-    final lateral = _dot(threat.obstacle.center - agent.position, side);
+    final lateral = (threat.obstacle.center - agent.position).dot(side);
     final turn = lateral > 0 ? -side : side;
     final direction = (turn - heading * brakingWeight).normalized;
     return (direction * agent.maxAcceleration).limited(agent.maxAcceleration);
   }
-}
-
-double _dot(Vec2 a, Vec2 b) {
-  final result = a.x * b.x + a.y * b.y;
-  if (!result.isFinite) throw ArgumentError('Projection is not representable');
-  return result;
 }

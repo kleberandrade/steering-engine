@@ -37,9 +37,10 @@ Pass the actual snapshot being updated, not a copy representing the same agent.
 A distinct coincident snapshot remains a neighbor. Radius zero is a valid query;
 the three steering rules require positive radii.
 
-Queries scan the observation linearly. Whole-flock evaluation with these rules
-is O(n²). There is no spatial index, field-of-view filter, collision solver or
-wrapped distance calculation. The lab wraps positions visually; agents across
+The original constructor scans linearly, with O(n²) whole-flock work. The optional
+[spatial constructor](spatial_index.md) preserves query semantics with candidate
+cell lookup and linear fallback. There is no field-of-view filter, collision solver
+or wrapped distance calculation. The lab wraps positions visually; agents across
 opposite edges do not count as nearby until their Euclidean distance qualifies.
 
 ## Exact acceleration conventions
@@ -122,8 +123,8 @@ zero desativa a regra. Vizinhos na borda contam na média. Na sobreposição exa
 Separation não inventa uma direção. Nenhuma dessas regras resolve colisões ou
 promete distância fixa entre os agentes.
 
-A consulta de vizinhos é linear e a simulação completa é O(n²), sem índice
-espacial. O laboratório reposiciona agentes ao cruzar as bordas, mas a distância
+O construtor original usa consulta linear e simulação O(n²); a alternativa
+`.spatial` usa células candidatas com os mesmos resultados e fallback linear. O laboratório reposiciona agentes ao cruzar as bordas, mas a distância
 entre vizinhos continua euclidiana. Alvos e obstáculos são comportamentos
 separados e podem ser combinados conforme a aplicação.
 

@@ -11,6 +11,7 @@ void main() {
   test('dot product and wall projection have independently calculated results',
       () {
     expect(Vec2(3, 4).dot(Vec2(1, -2)), -5);
+    expect(() => Vec2(1e200, 0).dot(Vec2(1e200, 0)), throwsArgumentError);
     final wall = WallSegment(Vec2(0, 0), Vec2(100, 0));
     expect(wall.closestPoint(Vec2(30, 20)), Vec2(30, 0));
     expect(wall.closestPoint(Vec2(-10, 20)), Vec2.zero);
@@ -145,5 +146,18 @@ void main() {
             movement: Brake(), direction: Vec2.zero),
         throwsArgumentError);
     expect(() => WallFollowing([wall], lookAhead: 0), throwsArgumentError);
+    expect(() => LeaderFollowing(leader, responseTime: 0), throwsArgumentError);
+    expect(() => LeaderFollowing(leader, fallbackDirection: Vec2.zero),
+        throwsArgumentError);
+    expect(
+        () => QueueFollowing(AgentNeighborhood([]),
+            movement: Brake(), responseTime: 0),
+        throwsArgumentError);
+    expect(
+        () => QueueFollowing(AgentNeighborhood([]),
+            movement: Brake(), laneRadius: 0),
+        throwsArgumentError);
+    expect(() => WallFollowing([wall], maxDistance: 0), throwsArgumentError);
+    expect(() => WallFollowing([wall], responseTime: 0), throwsArgumentError);
   });
 }
