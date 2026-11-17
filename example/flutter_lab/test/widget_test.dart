@@ -77,4 +77,31 @@ void main() {
     expect(scene(tester).target.y, closeTo(310, 0.01));
     expect(tester.takeException(), isNull);
   });
+  testWidgets('flocking advances every agent from a shared frame and resets',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const SteeringLab());
+    await tester.tap(find.text('Pause'));
+    await tester.pump();
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.ensureVisible(find.text('Flocking').last);
+    await tester.tap(find.text('Flocking').last);
+    await tester.pump(const Duration(milliseconds: 300));
+    final initial = scene(tester).flock.map((a) => a.position).toList();
+    expect(initial.length, 24);
+    await tester.tap(find.text('Step'));
+    await tester.pump();
+    for (var i = 0; i < initial.length; i++) {
+      expect(scene(tester).flock[i].position, isNot(initial[i]));
+    }
+    final paused = scene(tester).flock[1].position;
+    await tester.pump(const Duration(milliseconds: 100));
+    expect(scene(tester).flock[1].position, paused);
+    await tester.tap(find.text('Reset'));
+    await tester.pump();
+    expect(scene(tester).flock.map((a) => a.position).toList(), initial);
+    expect(tester.takeException(), isNull);
+  });
 }

@@ -86,3 +86,49 @@
   These results are unsupported-language outcomes, not passing quality scores.
   Dart tests, analysis and explicit mathematical checks supply the validation;
   no CRAP, duplication or mutation score is claimed.
+
+## 2026-11-17 — group steering with /ub-mode
+
+- Read the explicitly requested local ub-mode workflow. Reorganized source and
+  lab responsibilities in a separate baseline-preserving commit before adding
+  group behavior. No public imports or existing constructor names were changed.
+- Wrote the group contract and mathematical tests first and observed missing-API
+  failures, then implemented AgentNeighborhood, Separation, Alignment, Cohesion
+  and Flocking. Alignment delegates velocity response; Flocking delegates weights
+  to the existing WeightedBlend rather than introducing another blend algorithm.
+- The 16 new tests independently verify local acceleration equations, snapshot
+  ownership and identity, duplicate references, inclusive radii, validation,
+  symmetry and frame-order independence. A pair's relative motion is compared
+  against the analytic damped-system solution, with integration tolerance.
+- All 68 core tests and Dart analysis pass. The CLI advances 24 agents for 20
+  simulated seconds with one shared observation per frame, on Dart and JS.
+- Added a 24-agent visual lab with independent rule modes, weight controls,
+  neighborhood rendering and seeded reset. Added its interaction test before
+  the renderer/frame changes; initial analysis caught the absent flock contract.
+- Resolved the new Flutter Alignment name collision explicitly and documented
+  import prefixes for consumers. Local Flutter analysis/build and remote CI are
+  tracked separately; no unsupported-language quality score is claimed.
+- Added bilingual equations, a vector diagram, public-import guidance, roadmap
+  updates and CLI/JS CI coverage. No package publication or release tag was made.
+
+## 2026-11-17 — shared-frame flocking
+
+- Applied the requested ub-mode workflow: preserved the 52-test refactor baseline,
+  wrote the new public API tests first and observed missing-API failures, then
+  implemented neighborhood ownership and collective rules. The new lab interaction
+  test also preceded its renderer API and initially failed analysis as expected.
+- Added 16 group tests for independent separation/alignment/cohesion calculations,
+  snapshot identity and ownership, exact boundaries, symmetric/coincident agents,
+  weights, limits, validation and frame-order independence. All 68 core tests pass.
+- The synchronous pair scenario uses an independent solution of d''+4d'+0.2d=0
+  to check both relative distance and speed while retaining shared translation.
+- The 24-agent CLI advances toward its destination on Dart and JavaScript. The
+  Flutter lab supports isolated rules, weighted flocking, separate target bias,
+  a visible neighborhood, synchronous stepping and seeded reset. World wrapping
+  remains a demo concern; perception uses Euclidean distance.
+- Kept the supported public import unchanged. Documented the Flutter Alignment
+  name collision and the import-prefix alternative. Dart and Flutter analysis
+  pass; local widget testing still requires the socket-capable CI environment.
+- Quality-tool language limitations remain as recorded above. No unsupported
+  metrics are claimed. Remote CI and dry-run publication are checked after push;
+  no hosted package publication or release tag is part of this change.

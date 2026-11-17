@@ -25,6 +25,9 @@ jobs:
       - run: dart run example/composition.dart
       - run: dart run example/path_following.dart
       - run: dart run example/obstacle_avoidance.dart
+      - run: dart run example/flocking.dart
+      - run: dart compile js example/flocking.dart -o /tmp/steering-flocking.js
+      - run: node /tmp/steering-flocking.js
       - run: dart compile js example/obstacle_avoidance.dart -o /tmp/steering-obstacles.js
       - run: node /tmp/steering-obstacles.js
       - run: dart compile js example/path_following.dart -o /tmp/steering-path.js

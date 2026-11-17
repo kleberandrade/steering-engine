@@ -19,3 +19,8 @@ export 'src/behaviors/individual/pursuit.dart';
 export 'src/behaviors/individual/evade.dart';
 export 'src/behaviors/individual/wander.dart';
 export 'src/behaviors/individual/brake.dart';
+export 'src/perception/agent_neighborhood.dart';
+export 'src/behaviors/group/separation.dart';
+export 'src/behaviors/group/alignment.dart';
+export 'src/behaviors/group/cohesion.dart';
+export 'src/behaviors/group/flocking.dart';

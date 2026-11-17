@@ -17,12 +17,15 @@ dart run example/steering_engine_example.dart
 dart run example/composition.dart
 dart run example/path_following.dart
 dart run example/obstacle_avoidance.dart
+dart run example/flocking.dart
 dart compile js example/steering_engine_example.dart -o /tmp/steering-example.js
 node /tmp/steering-example.js
 dart compile js example/path_following.dart -o /tmp/steering-path.js
 node /tmp/steering-path.js
 dart compile js example/obstacle_avoidance.dart -o /tmp/steering-obstacles.js
 node /tmp/steering-obstacles.js
+dart compile js example/flocking.dart -o /tmp/steering-flocking.js
+node /tmp/steering-flocking.js
 dart pub publish --dry-run
 cd example/flutter_lab
 flutter pub get

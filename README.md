@@ -10,7 +10,7 @@ access in the core.
 [Português](README.pt-BR.md) · [Getting started](doc/getting_started.md) ·
 [Equations](doc/behaviors.md) · [Architecture](doc/architecture.md) ·
 [Flutter lab](example/flutter_lab/README.md) · [Roadmap](doc/roadmap.md) ·
-[Obstacle avoidance](doc/obstacle_avoidance.md) · [Path following](doc/path_following.md) · [Contributing](CONTRIBUTING.md)
+[Flocking](doc/flocking.md) · [Obstacle avoidance](doc/obstacle_avoidance.md) · [Path following](doc/path_following.md) · [Contributing](CONTRIBUTING.md)
 
 ![Steering behavior concepts](doc/images/steering.svg)
 
@@ -120,6 +120,30 @@ are not evaluated. It is selection, not an accumulated force budget.
 Implement `SteeringBehavior.calculate(agent, dt)` to add a custom algorithm.
 The engine caps custom outputs before integrating motion.
 
+## Flock with local neighbors
+
+Build one `AgentNeighborhood(agents)` per frame and evaluate all agents against
+that shared observation. `Separation`, `Alignment` and `Cohesion` can be used
+independently; `Flocking` composes them through `WeightedBlend`.
+
+```dart
+final observed = AgentNeighborhood(agents);
+final flocking = Flocking(observed,
+  separationRadius: 25, neighborRadius: 80,
+  separationWeight: 1.5, alignmentWeight: 1, cohesionWeight: 0.7,
+);
+agents = [
+  for (final agent in agents)
+    const SteeringEngine().step(agent, flocking, 1 / 60),
+];
+```
+
+Replace the complete frame after evaluation. Neighbor queries exclude the
+observer by identity; use the original snapshot, not a copy. The current query
+is linear, so full-flock work is O(n²). See the [equations and visual guide](doc/flocking.md)
+and run `dart run example/flocking.dart`. The lab compares each rule and lets
+you tune weights for 24 agents. Flocking does not provide collision resolution.
+
 ## Explore visually
 
 ```sh
@@ -128,7 +152,7 @@ flutter pub get
 flutter run -d chrome
 ```
 
-The lab offers all seven local behaviors, path following, obstacle avoidance, weighted and priority compositions,
+The lab offers individual and collective behaviors, path following, obstacle avoidance and compositions,
 click/drag targets, a moving target, a seeded wander stream, velocity and
 acceleration arrows, trails, adjustable limits, pause, reset and fixed-step
 advancement. World edges wrap in the demo; the core leaves boundaries to callers.
@@ -143,7 +167,7 @@ advancement. World edges wrap in the demo; the core leaves boundaries to callers
   conflicting goals may cancel motion or prevent arrival.
 - Wander seeds reproduce matching call sequences on the same runtime; trajectories
   are not promised identical across different time steps or runtimes.
-- Flocking, collision resolution and vehicle dynamics are future work.
+- Spatial indexing, collision resolution and vehicle dynamics are future work.
   Avoidance currently supports static circles; walls and moving obstacles are not modeled.
   Steering can consume a planned route; it does not replace pathfinding.
 

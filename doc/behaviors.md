@@ -63,3 +63,9 @@ accuracy; use a sensible, consistent coordinate scale and fixed steps.
 See [the bilingual geometry guide](obstacle_avoidance.md) for expanded circle
 radii, ray entry selection, overlap response, braking and numerical limits.
 Consulte o guia bilíngue para as equações e limitações do desvio circular.
+
+## Collective rules / Regras coletivas
+
+See [flocking](flocking.md) for exact neighborhood, separation, alignment,
+cohesion and shared-frame conventions. / Veja o guia bilíngue de flocking para
+as equações e a atualização simultânea dos agentes.

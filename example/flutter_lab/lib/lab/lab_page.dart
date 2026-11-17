@@ -1,7 +1,7 @@
 import 'dart:math' as math;
 // Preserve the lab's documented minimum Flutter SDK.
 // ignore: deprecated_member_use
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Alignment;
 import 'package:steering_engine/steering_engine.dart';
 import 'lab_theme.dart';
 import 'package:flutter/scheduler.dart';
@@ -25,6 +25,10 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     'Brake',
     'Path following',
     'Obstacle avoidance',
+    'Separation',
+    'Alignment',
+    'Cohesion',
+    'Flocking',
     'Weighted blend',
     'Priority'
   ];
@@ -42,6 +46,13 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   double _slowing = 150;
   double _lookAhead = 1.2;
   double _clearance = 10;
+  double _separationWeight = 1.5;
+  double _alignmentWeight = 1;
+  double _cohesionWeight = 0.7;
+  double _targetWeight = 0.2;
+  List<SteeringAgent> _flock = const [];
+  bool get _isGroupMode =>
+      const ['Separation', 'Alignment', 'Cohesion', 'Flocking'].contains(_mode);
   final List<CircleObstacle> _obstacles = [
     CircleObstacle(Vec2(480, 300), radius: 60),
     CircleObstacle(Vec2(700, 450), radius: 45),
@@ -80,6 +91,21 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
         velocity: Vec2(35, 0),
         maxSpeed: _speed,
         maxAcceleration: _acceleration);
+    if (_isGroupMode) {
+      final random = math.Random(42);
+      _flock = List.unmodifiable(List.generate(24, (i) {
+        final angle = random.nextDouble() * math.pi * 2;
+        return SteeringAgent(
+            position: Vec2(300 + (i % 6) * 40 + random.nextDouble() * 8,
+                230 + (i ~/ 6) * 40 + random.nextDouble() * 8),
+            velocity: Vec2(math.cos(angle), math.sin(angle)) * (_speed * 0.45),
+            maxSpeed: _speed,
+            maxAcceleration: _acceleration);
+      }));
+      _agent = _flock.first;
+    } else {
+      _flock = const [];
+    }
     _wander = Wander(seed: 42);
     _follower = FollowPath(_route, waypointRadius: 24, slowingRadius: 100);
     _time = 0;
@@ -143,17 +169,49 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     }
   }
 
+  SteeringAgent _wrapped(SteeringAgent agent) => agent.copyWith(
+      position: Vec2(agent.position.x % worldSize.width,
+          agent.position.y % worldSize.height));
+
+  void _advanceFlock() {
+    final snapshot = AgentNeighborhood(_flock);
+    final SteeringBehavior rule = switch (_mode) {
+      'Separation' => Separation(snapshot, radius: 32),
+      'Alignment' => Alignment(snapshot, radius: 110),
+      'Cohesion' => Cohesion(snapshot, radius: 110),
+      _ => WeightedBlend([
+          WeightedBehavior(Flocking(snapshot,
+              separationRadius: 32,
+              neighborRadius: 110,
+              separationWeight: _separationWeight,
+              alignmentWeight: _alignmentWeight,
+              cohesionWeight: _cohesionWeight)),
+          WeightedBehavior(Arrive(_target, slowingRadius: 150),
+              weight: _targetWeight),
+        ]),
+    };
+    // Sample the whole frame before replacing any agent snapshot.
+    final forces = [for (final agent in _flock) rule.calculate(agent, 1 / 60)];
+    final next = [
+      for (var i = 0; i < _flock.length; i++)
+        _wrapped(engine.step(_flock[i], _SampledForce(forces[i]), 1 / 60))
+    ];
+    _flock = List.unmodifiable(next);
+    _agent = _flock.first;
+    _force = forces.first;
+  }
+
   void _advance() {
-    final behavior = _behavior();
-    // Evaluate exactly once: Wander owns a random stream.
-    final force = behavior.calculate(_agent, 1 / 60);
-    _force = force;
-    _agent = engine.step(_agent, _SampledForce(force), 1 / 60);
+    final previous = _agent.position;
+    if (_isGroupMode) {
+      _advanceFlock();
+    } else {
+      final force = _behavior().calculate(_agent, 1 / 60);
+      _force = force;
+      _agent = _wrapped(engine.step(_agent, _SampledForce(force), 1 / 60));
+    }
     _time += 1 / 60;
-    final p = _agent.position;
-    if (p.x < 0 || p.x > worldSize.width || p.y < 0 || p.y > worldSize.height) {
-      _agent = _agent.copyWith(
-          position: Vec2(p.x % worldSize.width, p.y % worldSize.height));
+    if ((_agent.position - previous).length > worldSize.height / 2) {
       _trail.clear();
     }
     _trail.add(_agent.position);
@@ -271,6 +329,10 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                         child: CustomPaint(
                             key: const Key('simulation'),
                             painter: SteeringPainter(
+                                flock: _flock,
+                                neighborhoodRadius: _isGroupMode
+                                    ? (_mode == 'Separation' ? 32 : 110)
+                                    : null,
                                 avoidance: _mode == 'Obstacle avoidance'
                                     ? _avoidance
                                     : null,
@@ -296,9 +358,11 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
           _metric('SIMULATION', '${_time.toStringAsFixed(2)} s', labGold),
         ]),
         const SizedBox(height: 14),
-        const Text(
-            'Tap or drag to move the gold target. Pursuit / Evade use an orbiting target. Path following uses the numbered route.\nEdges wrap for this demo; the core has no world boundaries.',
-            style: TextStyle(color: labMuted, height: 1.6, fontSize: 12)),
+        Text(
+            _isGroupMode
+                ? '24 agents share one snapshot per tick. The ring shows the selected agent’s neighborhood. Flocking optionally follows the gold target.\nEdges wrap visually; neighbor distances remain Euclidean.'
+                : 'Tap or drag to move the gold target. Pursuit / Evade use an orbiting target. Path following uses the numbered route.\nEdges wrap for this demo; the core has no world boundaries.',
+            style: const TextStyle(color: labMuted, height: 1.6, fontSize: 12)),
       ]);
 
   Widget _metric(String label, String value, Color color) =>
@@ -352,9 +416,16 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                 300,
                 (value) => setState(() {
                       _speed = value;
-                      _agent = _agent.copyWith(
-                          maxSpeed: value,
-                          velocity: _agent.velocity.limited(value));
+                      if (_isGroupMode) {
+                        _flock = List.unmodifiable(_flock.map((a) => a.copyWith(
+                            maxSpeed: value,
+                            velocity: a.velocity.limited(value))));
+                        _agent = _flock.first;
+                      } else {
+                        _agent = _agent.copyWith(
+                            maxSpeed: value,
+                            velocity: _agent.velocity.limited(value));
+                      }
                     })),
             _slider(
                 'Maximum acceleration',
@@ -363,7 +434,13 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                 500,
                 (value) => setState(() {
                       _acceleration = value;
-                      _agent = _agent.copyWith(maxAcceleration: value);
+                      if (_isGroupMode) {
+                        _flock = List.unmodifiable(_flock
+                            .map((a) => a.copyWith(maxAcceleration: value)));
+                        _agent = _flock.first;
+                      } else {
+                        _agent = _agent.copyWith(maxAcceleration: value);
+                      }
                     })),
             if (_mode == 'Arrive' ||
                 _mode == 'Weighted blend' ||
@@ -377,6 +454,40 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                   (value) => setState(() {
                         _slowing = value;
                       })),
+            if (_mode == 'Flocking') ...[
+              _slider(
+                  'Separation weight',
+                  _separationWeight,
+                  0,
+                  3,
+                  (value) => setState(() {
+                        _separationWeight = value;
+                      })),
+              _slider(
+                  'Alignment weight',
+                  _alignmentWeight,
+                  0,
+                  3,
+                  (value) => setState(() {
+                        _alignmentWeight = value;
+                      })),
+              _slider(
+                  'Cohesion weight',
+                  _cohesionWeight,
+                  0,
+                  3,
+                  (value) => setState(() {
+                        _cohesionWeight = value;
+                      })),
+              _slider(
+                  'Target attraction',
+                  _targetWeight,
+                  0,
+                  1,
+                  (value) => setState(() {
+                        _targetWeight = value;
+                      })),
+            ],
             if (_mode == 'Obstacle avoidance') ...[
               Text('Look-ahead ${_lookAhead.toStringAsFixed(2)} s',
                   style: const TextStyle(fontSize: 12)),
@@ -424,11 +535,20 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   Widget _slider(String label, double value, double min, double max,
           ValueChanged<double> onChanged) =>
       Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('$label  ${value.round()}', style: const TextStyle(fontSize: 12)),
+        Text('$label  ${value < 5 ? value.toStringAsFixed(2) : value.round()}',
+            style: const TextStyle(fontSize: 12)),
         Slider(value: value, min: min, max: max, onChanged: onChanged),
       ]);
 
   String get _description => switch (_mode) {
+        'Separation' =>
+          'Nearby agents repel with distance-weighted acceleration. Exact overlaps have no invented escape direction.',
+        'Alignment' =>
+          'Agents match the mean velocity of neighbors within 110 units.',
+        'Cohesion' =>
+          'Agents accelerate toward the mean neighbor position, without damping shared motion.',
+        'Flocking' =>
+          'Combine separation, alignment and cohesion. Target attraction is a separate demo behavior and can be set to zero.',
         'Obstacle avoidance' =>
           'Avoid the first predicted circle, then resume arrival. Move the target to explore; points inside obstacles may be unreachable.',
         'Path following' =>

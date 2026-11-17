@@ -13,9 +13,13 @@ class SteeringPainter extends CustomPainter {
       required this.trail,
       required this.showVectors,
       required this.showTrail,
+      this.flock = const [],
+      this.neighborhoodRadius,
       this.route,
       this.avoidance,
       this.slowingRadius});
+  final List<SteeringAgent> flock;
+  final double? neighborhoodRadius;
   final SteeringPath? route;
   final ObstacleAvoidance? avoidance;
   final SteeringAgent agent;
@@ -40,6 +44,41 @@ class SteeringPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y), Offset(worldSize.width, y), grid);
     }
     Offset offset(Vec2 v) => Offset(v.x, v.y);
+    if (flock.isNotEmpty) {
+      final radius = neighborhoodRadius!;
+      final neighbors =
+          AgentNeighborhood(flock).neighborsFor(agent, radius: radius).toSet();
+      canvas.drawCircle(
+          offset(agent.position),
+          radius,
+          Paint()
+            ..color = labCyan.withValues(alpha: 0.12)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2);
+      for (final other in flock.skip(1)) {
+        final color = neighbors.contains(other)
+            ? const Color(0xffb2a4ff)
+            : const Color(0xff5c8f95);
+        if (showVectors) {
+          _arrow(
+              canvas,
+              offset(other.position),
+              offset(other.position + other.velocity * 0.2),
+              color.withValues(alpha: 0.5));
+        }
+        canvas.save();
+        canvas.translate(other.position.x, other.position.y);
+        canvas.rotate(math.atan2(other.velocity.y, other.velocity.x));
+        final body = Path()
+          ..moveTo(10, 0)
+          ..lineTo(-7, -5)
+          ..lineTo(-4, 0)
+          ..lineTo(-7, 5)
+          ..close();
+        canvas.drawPath(body, Paint()..color = color);
+        canvas.restore();
+      }
+    }
     if (avoidance != null) {
       final behavior = avoidance!;
       final threat = behavior.findThreat(agent);

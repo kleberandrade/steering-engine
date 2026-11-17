@@ -21,12 +21,19 @@
 - Círculos estáticos, raio do agente, margem de detecção, composição por prioridade
   e exemplos com medição de separação. No collision solver or guarantee.
 
+## Collective movement / Movimento coletivo implementado
+
+- Shared immutable AgentNeighborhood observations, separation with linear falloff,
+  velocity alignment, positional cohesion and composable flocking.
+- Synchronous frame updates and a 24-agent lab with independent rule/weight controls.
+- Observações compartilhadas, atualização simultânea e demonstração com 24 agentes.
+  Spatial queries remain linear and whole-flock evaluation remains O(n²).
+
 ## Next / Próximas etapas
 
-1. Separation, alignment and cohesion, then composed flocking.
-2. Spatial neighbor lookup and measured multi-agent performance.
-3. Optional Flame integration guide and a dedicated example.
-4. Publication review, stable version and a separate pub.dev publication.
+1. Spatial neighbor lookup and measured multi-agent performance.
+2. Optional Flame integration guide and a dedicated example.
+3. Publication review, stable version and a separate pub.dev publication.
 
 Estas etapas são planejamento, não funcionalidades já disponíveis. Não há
 cronograma ou compatibilidade de API futura garantidos durante a fase inicial.

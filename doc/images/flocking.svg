@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="930" height="270" viewBox="0 0 930 270" role="img" aria-label="Separation repels, alignment matches velocity, and cohesion attracts toward a local center">
+ <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="5" refY="3" orient="auto"><path d="M0 0 6 3 0 6" fill="none" stroke="#6ae4d4" stroke-width="1.5"/></marker></defs>
+ <rect width="930" height="270" rx="18" fill="#111b2a"/>
+ <g font-family="Arial,sans-serif" fill="#d9e4f3">
+  <text x="24" y="31" font-size="13" letter-spacing="2">FLOCKING / THREE LOCAL RULES</text>
+  <g transform="translate(20 48)">
+   <rect width="286" height="200" rx="12" fill="#162235"/>
+   <text x="16" y="27" font-size="14">SEPARATION</text>
+   <circle cx="145" cy="105" r="62" fill="none" stroke="#42546d" stroke-dasharray="4 5"/>
+   <circle cx="173" cy="80" r="7" fill="#a497ff"/><circle cx="178" cy="126" r="7" fill="#a497ff"/>
+   <circle cx="145" cy="105" r="9" fill="#6ae4d4"/>
+   <path d="M134 105H93" stroke="#6ae4d4" stroke-width="2" marker-end="url(#arrow)"/>
+   <text x="16" y="183" fill="#8b9bb4" font-size="12">Repel nearby neighbors</text>
+  </g>
+  <g transform="translate(322 48)">
+   <rect width="286" height="200" rx="12" fill="#162235"/>
+   <text x="16" y="27" font-size="14">ALIGNMENT</text>
+   <circle cx="145" cy="105" r="62" fill="none" stroke="#42546d" stroke-dasharray="4 5"/>
+   <circle cx="113" cy="79" r="7" fill="#a497ff"/><circle cx="161" cy="131" r="7" fill="#a497ff"/>
+   <path d="M114 71 130 52 M162 123 178 104" stroke="#a497ff" stroke-width="2"/>
+   <circle cx="145" cy="105" r="9" fill="#6ae4d4"/>
+   <path d="M153 95 175 68" stroke="#6ae4d4" stroke-width="2" marker-end="url(#arrow)"/>
+   <text x="16" y="183" fill="#8b9bb4" font-size="12">Match local average velocity</text>
+  </g>
+  <g transform="translate(624 48)">
+   <rect width="286" height="200" rx="12" fill="#162235"/>
+   <text x="16" y="27" font-size="14">COHESION</text>
+   <circle cx="140" cy="105" r="62" fill="none" stroke="#42546d" stroke-dasharray="4 5"/>
+   <circle cx="172" cy="75" r="7" fill="#a497ff"/><circle cx="182" cy="130" r="7" fill="#a497ff"/>
+   <circle cx="177" cy="102.5" r="4" fill="#f3c577"/>
+   <circle cx="140" cy="105" r="9" fill="#6ae4d4"/>
+   <path d="M151 105 169 103" stroke="#6ae4d4" stroke-width="2" marker-end="url(#arrow)"/>
+   <text x="16" y="183" fill="#8b9bb4" font-size="12">Attract toward the local center</text>
+  </g>
+ </g>
+</svg>

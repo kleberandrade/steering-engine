@@ -13,6 +13,16 @@
 
 ### Added
 
+- Immutable neighborhood snapshots, Separation, Alignment, Cohesion and composed Flocking.
+- Shared-frame simulation, a 24-agent lab, independent rule and weight controls,
+  mathematical tests and a bilingual visual guide.
+
+### Internal organization
+
+- Separate core, mathematics, individual/group behaviors, composition, geometry,
+  navigation and perception modules while preserving public package imports.
+- Separate the Flutter page, renderer and theme.
+
 - Static CircleObstacle geometry and ObstacleAvoidance with agent radius, detection
   margin, earliest ray entry selection, overlap response and bounded braking.
 - Read-only ObstacleThreat inspection, priority example, visual lab controls,

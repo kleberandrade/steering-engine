@@ -49,3 +49,22 @@ movimento; observe o alcance e o obstáculo destacado. A prioridade dá preferê
 ao desvio e depois retoma Arrive. Não há correção física de colisões; alvos dentro
 de obstáculos podem ser inalcançáveis. As mesmas regras de pausa, passo e Reset
 continuam disponíveis.
+
+## Collective modes / Modos coletivos
+
+Separation, Alignment, Cohesion and Flocking simulate 24 agents. Every tick reads
+one shared observation and replaces the entire frame. Flocking has three rule
+weights and a separate target-attraction control (zero disables target seeking).
+The highlighted agent's neighborhood is drawn as a ring. Pause/Step advances all
+agents; Reset reproduces the initial layout and velocities from seed 42.
+
+Position wrapping belongs to the demo; neighborhood distances are ordinary
+Euclidean distances. Agents across opposite borders do not see one another as
+nearby. The simulator does not resolve contacts between agents.
+
+Os quatro modos coletivos usam 24 agentes com observação comum a cada passo.
+Compare cada regra e ajuste os três pesos no Flocking. A atração pelo alvo é
+separada e pode ser zerada. Pause/Step avança todo o quadro; Reset reproduz a
+configuração inicial. O anel mostra a vizinhança do agente destacado. As bordas
+reposicionam os agentes, mas as distâncias continuam euclidianas, sem correção
+de colisões. Página, tema e desenho ficam em arquivos separados sob `lib/lab/`.

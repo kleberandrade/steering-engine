@@ -113,6 +113,30 @@ geometria sem alterar estado. É uma heurística local, sem garantia de impedir
 colisões. Veja o [guia visual](doc/obstacle_avoidance.md) e execute
 `dart run example/obstacle_avoidance.dart` para testar a cena completa.
 
+## Simule um grupo com flocking
+
+Crie um `AgentNeighborhood(agents)` por quadro e calcule todos os agentes com
+essa mesma observação. Separation, Alignment e Cohesion podem ser usados
+isoladamente; Flocking os combina por WeightedBlend.
+
+```dart
+final observed = AgentNeighborhood(agents);
+final flocking = Flocking(observed,
+  separationRadius: 25, neighborRadius: 80,
+  separationWeight: 1.5, alignmentWeight: 1, cohesionWeight: 0.7,
+);
+agents = [
+  for (final agent in agents)
+    const SteeringEngine().step(agent, flocking, 1 / 60),
+];
+```
+
+Substitua o quadro completo depois de calcular o próximo estado. A consulta
+exclui o observador por identidade: use o snapshot original, sem copiá-lo.
+O custo do grupo é O(n²) nesta versão. Veja o [guia visual e as equações](doc/flocking.md)
+e execute `dart run example/flocking.dart`. O laboratório permite comparar as
+regras e ajustar pesos para 24 agentes; flocking não resolve colisões.
+
 ## Laboratório visual
 
 ```sh
@@ -121,7 +145,7 @@ flutter pub get
 flutter run -d chrome
 ```
 
-Troque os sete comportamentos locais, o seguidor de trajetória, o desvio de obstáculos e as duas composições, mova o alvo com o mouse,
+Compare os comportamentos individuais e coletivos, o seguidor de trajetória, o desvio de obstáculos e as duas composições, mova o alvo com o mouse,
 observe os vetores de velocidade e aceleração, ajuste os limites e avance quadro
 a quadro. Pursuit e Evade usam um alvo em órbita. As bordas do laboratório
 reposicionam o agente no lado oposto; esse recurso pertence apenas ao exemplo.
@@ -135,7 +159,7 @@ são imutáveis. Parâmetros inválidos geram `ArgumentError` em runtime.
 
 Wander repete sequências de chamadas com a mesma seed no mesmo runtime; passos de
 tempo diferentes podem gerar trajetórias diferentes. A combinação de objetivos
-opostos pode cancelar o movimento. Flocking, resolução de colisões e dinâmica de
+opostos pode cancelar o movimento. Índices espaciais, resolução de colisões e dinâmica de
 veículos estão no roadmap. Planejamento global de rotas continua separado.
 
 Consulte [equações](doc/behaviors.pt-BR.md) e [contribuição](CONTRIBUTING.md).
