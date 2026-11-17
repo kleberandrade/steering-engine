@@ -1,0 +1,48 @@
+name: Dart and Flutter CI
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  dart:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        sdk: ['3.3.0', stable]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: ${{ matrix.sdk }}
+      - run: dart pub get
+      - run: dart format --output=none --set-exit-if-changed lib test example
+        if: matrix.sdk == 'stable'
+      - run: dart analyze --fatal-infos
+      - run: dart test
+      - run: dart run example/steering_engine_example.dart
+      - run: dart run example/composition.dart
+      - run: dart compile js example/steering_engine_example.dart -o /tmp/steering-example.js
+      - run: node /tmp/steering-example.js
+      - run: dart pub publish --dry-run
+        if: matrix.sdk == 'stable'
+  flutter_lab:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: example/flutter_lab
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze --fatal-infos
+      - run: flutter test
+      - run: flutter build web --no-web-resources-cdn
+      - uses: actions/upload-artifact@v4
+        with:
+          name: steering-lab-web
+          path: example/flutter_lab/build/web

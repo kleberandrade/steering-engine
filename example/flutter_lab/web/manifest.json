@@ -1,0 +1,16 @@
+{
+  "name": "Steering Engine Laboratory",
+  "short_name": "Steering Lab",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0b111c",
+  "theme_color": "#0b111c",
+  "description": "Interactive steering behaviors in Dart and Flutter.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

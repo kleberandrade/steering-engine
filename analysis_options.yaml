@@ -1,0 +1,7 @@
+include: package:lints/recommended.yaml
+analyzer:
+  exclude:
+    - example/flutter_lab/**
+linter:
+  rules:
+    public_member_api_docs: true

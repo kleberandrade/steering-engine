@@ -1,0 +1,14 @@
+# Dart and Flutter generated files
+.dart_tool/
+.packages
+.pub-cache/
+build/
+coverage/
+doc/api/
+*.js.deps
+*.js.map
+.flutter-plugins*
+.DS_Store
+.idea/
+*.iml
+pubspec.lock
