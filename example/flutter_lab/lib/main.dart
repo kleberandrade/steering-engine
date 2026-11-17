@@ -1,5 +1,7 @@
 import 'dart:math' as math;
 
+// Preserve Flutter 3.35 compatibility while newer SDKs re-export Material here.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:steering_engine/steering_engine.dart';

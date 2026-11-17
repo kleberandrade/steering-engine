@@ -34,3 +34,14 @@
   roadmap and CI example execution. Dart and Flutter analysis pass.
 - Existing local widget-test socket and publication-resolution restrictions
   remain. No package publication or release tag has been created.
+
+## 2026-11-17 — GitHub synchronization and CI compatibility
+
+- Published main through the authorized GitHub Desktop session and verified
+  origin/main at a4e022e. The worktree is clean and tracks origin/main.
+- First remote CI run 44012704639 passed Dart 3.3 and stable, including tests,
+  JavaScript examples and the publication dry run. The Flutter 3.50 job exposed
+  Material's library-level deprecation introduced after Flutter 3.47.
+- Retained the legacy Material import to support the documented Flutter 3.35
+  minimum. Suppressed only that import's deprecation, with an inline reason, in
+  the application and widget tests. Other fatal analyzer checks remain enabled.

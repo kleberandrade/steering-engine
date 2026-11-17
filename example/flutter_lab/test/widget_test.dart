@@ -1,3 +1,5 @@
+// Preserve Flutter 3.35 compatibility while newer SDKs re-export Material here.
+// ignore: deprecated_member_use
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:steering_engine_lab/main.dart';

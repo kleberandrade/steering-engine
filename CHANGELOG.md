@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+### Compatibility
+
+- Keep Flutter Material imports compatible across the documented minimum and newer stable SDKs.
+
 ### Added
 
 - Immutable SteeringPath and per-agent FollowPath with looping routes, capture
