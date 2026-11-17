@@ -360,3 +360,11 @@
   report location expected by crapper, every release helper's CRAP is below 10
   (maximum 8). These metrics apply only to tool/release_bump.py, not Dart runtime.
   Dryer reported no >=0.8 duplicate candidates.
+- User confirmed saving pub.dev trust. Enabled PUB_DEV_PUBLISH_ENABLED and created
+  the GitHub pub.dev environment restricted to version-shaped tags v*.*.*.
+- Actual patch release run 44089081021 exposed a packaging gate missed by preview:
+  pub publish --dry-run rejects uncommitted pubspec/changelog changes (exit 65).
+  No tag or source release was pushed. Moved the local metadata commit before the
+  dry run; the atomic remote push still occurs only after all validation passes.
+  Remote execution will verify the real packaging behavior, rather than a test
+  that only asserts workflow step text/order. Runtime/Python code is unchanged.

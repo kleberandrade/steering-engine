@@ -90,23 +90,25 @@ jobs:
           sdk: stable
       - name: Apply and validate release metadata
         if: steps.plan.outputs.changed == 'true' && env.RELEASE_DRY_RUN != 'true'
+        env:
+          RELEASE_VERSION: ${{ steps.plan.outputs.version }}
         run: |
           python3 tool/release_bump.py --bump "$RELEASE_BUMP" --apply --notes "$RUNNER_TEMP/release-notes.md"
           dart pub get
           dart analyze --fatal-infos
           dart test
-          dart pub publish --dry-run
           git diff --check
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add pubspec.yaml CHANGELOG.md
+          git commit -m "chore(release): $RELEASE_VERSION [skip release]"
+          dart pub publish --dry-run
       - name: Atomically push metadata and version tag
         if: steps.plan.outputs.changed == 'true' && env.RELEASE_DRY_RUN != 'true'
         env:
           RELEASE_VERSION: ${{ steps.plan.outputs.version }}
           RELEASE_TAG: ${{ steps.plan.outputs.tag }}
         run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add pubspec.yaml CHANGELOG.md
-          git commit -m "chore(release): $RELEASE_VERSION [skip release]"
           git tag -a "$RELEASE_TAG" -m "Release $RELEASE_VERSION"
           git push --atomic origin HEAD:refs/heads/main "refs/tags/$RELEASE_TAG"
       - name: Create GitHub source release
