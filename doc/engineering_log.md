@@ -49,3 +49,6 @@
   assertion in both existing widget tests. Replaced the controls' opaque
   DecoratedBox with a shaped Material and inner Padding, so switches paint
   feedback on the visible surface. The existing tests supply the regression.
+- The existing narrow-layout test now passes. The desktop-size test exposed a
+  42-pixel dropdown overflow with the wider waypoint/composition labels under
+  test fonts; enabled isExpanded so the selected label uses its finite width.

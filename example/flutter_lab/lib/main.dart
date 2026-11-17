@@ -331,6 +331,7 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                     TextStyle(color: _muted, letterSpacing: 1.5, fontSize: 11)),
             const SizedBox(height: 12),
             DropdownButtonFormField<String>(
+                isExpanded: true,
                 initialValue: _mode,
                 decoration: const InputDecoration(
                     border: OutlineInputBorder(), isDense: true),

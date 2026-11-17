@@ -4,6 +4,7 @@
 
 ### Fixed
 
+- Fit behavior labels within the playground dropdown on constrained widths.
 - Paint playground control feedback on its own Material surface.
 
 ### Compatibility
