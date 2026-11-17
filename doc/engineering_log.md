@@ -210,3 +210,9 @@
   installed tools still report no supported Dart sources. No scores claimed.
 - Added stable-SDK CI checks for documentation, diagram reproducibility and
   extracted snippets; excluded maintenance tooling from the published package.
+- Publication evidence: source commit 22ed69f is pushed on main; Wiki commit
+  6d674c2 is pushed on its master branch. Browser verification showed 22 pages,
+  working Home-to-Arrive navigation, the grouped sidebar and an Arrive SVG loaded
+  at its native 800x360 dimensions. The Wiki mirror check reports zero differences.
+  CI run 44024426229 passed both Dart SDK jobs, handbook checks/snippets, Flutter
+  lab and Flame jobs. The publication change is documentation-only.
