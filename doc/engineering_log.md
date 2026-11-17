@@ -368,3 +368,11 @@
   dry run; the atomic remote push still occurs only after all validation passes.
   Remote execution will verify the real packaging behavior, rather than a test
   that only asserts workflow step text/order. Runtime/Python code is unchanged.
+- Source CI 44089430224 passed on 2d7c73d. Manual patch run 44089848165 then
+  succeeded, atomically creating c85156f and v0.2.1 and dispatching publisher
+  44089922934 on that tag. Local main was fast-forwarded through GitHub Desktop.
+- Publisher validation passed on Dart 3.3/stable; official reusable validation
+  and archive jobs passed. Final upload job 134062768446 failed with pub.dev
+  "Insufficient permissions" / "Authentication failed" (exit 65). No successful
+  hosted publication is claimed. Keep v0.2.1 unchanged and retry its failed upload
+  only after the package's external repository/event/environment grant is fixed.

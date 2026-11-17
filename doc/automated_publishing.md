@@ -68,7 +68,11 @@ Upload is possible only when explicitly selecting an existing version tag,
 The bump/source-release workflow is installed independently of hosted upload.
 `AUTO_RELEASE_ENABLED=false` disables automatic bumps; manual previews remain
 available. Hosted upload stays conditional on explicit external authorization.
-No pub.dev trust grant or enabling variable has been set by merely adding YAML.
+Adding YAML alone does not grant external publishing authority. On 2026-11-17 the
+user reported saving pub.dev authorization; the repository activation variable and
+tag-restricted `pub.dev` environment were then configured. The first actual
+v0.2.1 upload was refused for insufficient permissions, so the external grant
+still needs correction/verification before automatic upload can succeed.
 
 | Setting / Campo | Value / Valor |
 | --- | --- |
@@ -87,7 +91,9 @@ this workflow does not transfer the package to kleberandrade.dev.
 
 A autorização persistente permite publicar versões a quem pode enviar alterações
 relevantes à main/tags, após os gates. A confirmação independente do publisher e
-a ativação no pub.dev continuam pendentes enquanto o domínio estiver bloqueado.
+a autorização efetiva no pub.dev ainda precisam de verificação: o envio de
+v0.2.1 foi recusado por permissão insuficiente. O domínio permanece bloqueado para
+inspeção pelo agente; a configuração salva foi informada pelo usuário.
 Não adicione credenciais pessoais ao repositório para contornar esse bloqueio.
 
 ## Failure and recovery / Falhas e recuperação
