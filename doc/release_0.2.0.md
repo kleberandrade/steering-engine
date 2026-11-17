@@ -38,3 +38,21 @@ publisher remains kleberandrade.dev, subject to verification of actual ownership
 A versão hospedada e o publisher continuam sem confirmação. A primeira publicação
 precisa do fluxo Dart CLI com autenticação do usuário. A publicação GitHub/Pages
 não executa esse upload. Consulte o [histórico da 0.1.0](release_0.1.0.md).
+
+## Verified remote evidence / Evidência remota verificada
+
+- [CI 44031135395](https://github.com/kleberandrade/steering-engine/actions/runs/44031135395)
+  passed at commit 6bbd346: Dart 3.3/stable, all 97 core tests, handbook checks,
+  VM/JavaScript examples, pub dry run, Flutter/Flame tests and web builds, followed
+  by successful GitHub Pages deployment.
+- [GitHub release and tag v0.2.0](https://github.com/kleberandrade/steering-engine/releases/tag/v0.2.0)
+  was visibly verified at the same validated commit. This is a source release.
+- Wiki mirror commit 02b9f34 publishes the continuous-path chapter and image.
+  The local mirror-equivalence check reports zero differences.
+- Ten repository discovery topics, description and Pages website were visibly
+  verified in About. They are separate from the version tag.
+
+The first source CI attempt stopped on scene-test title formatting under Dart
+3.14. Shortening that title fixed the check; no checks were weakened or skipped.
+Live browser inspection of the prior web deployment was interrupted; the deployment
+and widget-test evidence above do not imply an additional visual browser check.

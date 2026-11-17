@@ -276,3 +276,12 @@
   supported sources, so no complexity/duplication/mutation scores are asserted.
 - Prior Pages deployment run 44025798157 succeeded for source 3ec2d20. The live
   browser check was interrupted; deployment success is not visual verification.
+- Final remote evidence: CI 44031135395 succeeded at 6bbd346 for minimum/stable
+  Dart, all 97 core tests, handbook/public JS examples, pub dry run, Flutter/Flame
+  analysis/tests/builds and Pages deployment. The first source CI stopped only on
+  a scene-test title formatter difference; shortening the title fixed it without
+  changing runtime code or relaxing gates.
+- Visibly published and verified GitHub source release/tag v0.2.0 at validated
+  commit 6bbd346. Wiki mirror 02b9f34 is pushed and equivalent to reviewed sources.
+  Ten discovery topics are present. No hosted pub.dev upload or publisher transfer
+  is claimed; browser-domain access remains unverified after the prior denial.
