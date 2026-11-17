@@ -36,10 +36,10 @@ jobs:
           RELEASE_TAG: ${{ github.ref_name }}
         run: |
           python3 - <<'PY'
-          import os, re
+          import os
           from pathlib import Path
-          versions = re.findall(r'^version:\s*(\S+)\s*$', Path('pubspec.yaml').read_text(), re.M)
-          if len(versions) != 1 or os.environ['RELEASE_TAG'] != 'v' + versions[0]:
+          from tool.release_bump import package_version
+          if os.environ['RELEASE_TAG'] != 'v' + package_version(Path('.')):
               raise SystemExit('Tag and pubspec version must match exactly')
           PY
       - name: Reject branch upload requests

@@ -148,6 +148,7 @@ class GitReleaseTest(unittest.TestCase):
     def test_invalid_package_metadata_is_rejected(self):
         for text in ['name: another_package\nversion: 0.2.0\n',
                      'name: steering_engine\nversion: 0.2\n',
+                     'name: steering_engine\nversion: 0.2.0-dev\n',
                      'name: steering_engine\nversion: 0.2.0\nversion: 0.3.0\n']:
             (self.repo / 'pubspec.yaml').write_text(text)
             with self.assertRaises(ValueError):
