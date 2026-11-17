@@ -246,3 +246,33 @@
   FollowPath contract is preserved; no planned algorithm is claimed implemented.
 - crapper/dryer/mutator were invoked on lib; installed tools still report no Dart
   sources. Deployment/Wiki mirror status is recorded after remote verification.
+
+## 2026-11-17 — source 0.2.0 continuous-route delivery
+
+- Added and visibly verified ten GitHub topics, an accurate description and the
+  Pages website in About. Retained version tags as separate release evidence.
+- Implemented immutable PolylinePath and PathProjection, finite and constrained
+  projection, duplicate-edge skipping, explicit all-coincident rejection and
+  open-clamped/loop-wrapped arc sampling. Existing FollowPath is unchanged.
+- Added FollowPolyline with one progress state per agent, shared geometry, predicted
+  projection, global first acquisition, forward-window monotonic traversal,
+  unwrapped laps, explicit reset/reacquisition and bounded final arrival.
+- Added an optional tangent-angle/distance corner speed cap. The executable paired
+  L-route comparison reduced peak corner-neighborhood speed from 39.9721 to
+  37.7693 but increased maximum route distance from 4.8020 to 4.9133. Documented
+  the tradeoff rather than claiming universally better tracking.
+- Wrote new public-API tests first and observed missing API compilation failures.
+  All 97 core tests now pass locally, preserving the prior 81 and adding 16 cases
+  for independent geometry/math, branch windows, priority skips, laps, shared
+  geometry, bounds and complete open/looping trajectories. VM and JS examples pass.
+- Added a separate continuous lab scene with last projection and arc target,
+  preserving the old mode. Added a widget regression; local Flutter analysis and
+  hosted-base-path web build passed. Full Flutter/Flame tests run in CI.
+- Added the bilingual Wiki chapter and reproducible SVG, updated navigation,
+  README installation version, architecture, implementation record and 0.2.0
+  audit. Checks cover 19 algorithms, 23 Dart snippets and 22 diagrams. Source
+  version is prepared as 0.2.0; hosted pub.dev availability remains unverified.
+- Invoked crapper/dryer/mutator after the Dart change; installed tools report no
+  supported sources, so no complexity/duplication/mutation scores are asserted.
+- Prior Pages deployment run 44025798157 succeeded for source 3ec2d20. The live
+  browser check was interrupted; deployment success is not visual verification.

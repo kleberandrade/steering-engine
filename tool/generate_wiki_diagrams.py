@@ -186,6 +186,18 @@ def diagrams():
         s.circle(x,180,58,color); s.text(x-80,270,label,color,18)
     s.line(210,180,340,180,GREEN,True); s.line(460,180,590,180,GREEN,True)
     s.text(80,330,'Stateful calculate(): simulation only. Rendering reads the completed frame.')
+    s = new('Continuous-Path', 'A predicted position projects onto a finite polyline. Arc-distance look-ahead crosses the corner and chooses a target on the next edge.')
+    s.line(100,245,475,245,ORANGE,width=4)
+    s.line(475,245,475,85,ORANGE,width=4)
+    s.agent(250,180)
+    s.line(250,180,340,180,BLUE,True); s.text(280,150,'predicted p + v*time',BLUE)
+    s.line(340,180,340,245,MUTED,dash=True)
+    s.agent(340,245,'projection',GREEN)
+    s.line(340,245,475,245,GREEN,True)
+    s.line(475,245,475,165,GREEN,True)
+    s.target(475,165,'arc target')
+    s.text(540,235,'ahead along route',GREEN)
+    s.text(35,335,'FollowPolyline: finite projection + arc target; FollowPath keeps waypoint capture')
     return scenes
 
 

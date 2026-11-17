@@ -9,6 +9,21 @@ SteeringPainter scene(WidgetTester tester) =>
         as SteeringPainter;
 
 void main() {
+  testWidgets('continuous paths expose projection and a moving arc target',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const SteeringLab(initialMode: 'Continuous path'));
+    expect(scene(tester).route, isNotNull);
+    await tester.tap(find.text('Pause'));
+    await tester.pump();
+    await tester.tap(find.text('Step'));
+    await tester.pump();
+    expect(scene(tester).projection, isNotNull);
+    expect(scene(tester).target, isNot(scene(tester).projection!.point));
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('a chapter link initializes its requested group scene',
       (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));

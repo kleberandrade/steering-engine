@@ -21,6 +21,7 @@ All pages are bilingual. Shared pseudocode uses the glossary from Foundations.
 | 3. Antecipação / Anticipation | [Pursuit](Pursuit.md), [Evade](Evade.md), [Wander](Wander.md) | Prever e explorar / predict and explore |
 | 4. Decisões / Decisions | [Mistura](Weighted-Blend.md), [Prioridade](Priority-Steering.md) | Combinar sem perder a intenção / compose intentionally |
 | 5. Ambiente / Environment | [Trajetória](Path-Following.md), [Obstáculos](Obstacle-Avoidance.md), [Paredes](Wall-Following.md) | Usar geometria local / use local geometry |
+| 5b. Segmentos / Segments | [Seguimento contínuo / Continuous path](Continuous-Path.md) | Projeção finita e alvo por distância / finite projection and arc target |
 | 6. Grupo / Group | [Separação](Separation.md), [Alinhamento](Alignment.md), [Coesão](Cohesion.md), [Flocking](Flocking.md) | Atualizar o bando simultaneamente / update a flock synchronously |
 | 7. Organização / Organization | [Líder](Leader-Following.md), [Fila](Queue-Following.md), [Índice espacial](Spatial-Index.md) | Seguir e consultar vizinhos / follow and query neighbors |
 | 8. Prática / Practice | [Receitas e diagnóstico](Recipes.md) | Levar ao Flutter/Flame / use in Flutter and Flame |

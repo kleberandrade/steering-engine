@@ -66,6 +66,11 @@ Observe waypointIndex ao entrar no círculo de captura. Aumente waypointRadius e
 
 ## Limites e diagnóstico / Limits and troubleshooting
 
+Para seguir segmentos com projeção e antecipação por distância, use
+[FollowPolyline](Continuous-Path.md), disponível na fonte 0.2.0. O contrato de
+FollowPath continua inalterado. / For continuous segment guidance see FollowPolyline;
+the waypoint-capture contract remains unchanged.
+
 Uma instância por agente. Não projeta no segmento, não encontra a rota mais curta nem suaviza curvas. dt grande pode pular o círculo e deixar o agente voltando. No máximo n-1 trocas por avaliação evita laço infinito em pontos duplicados. / Capture-radius following, not continuous segment projection or pathfinding.
 
 ## Implementação e leitura / Implementation and reading

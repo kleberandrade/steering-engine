@@ -16,6 +16,7 @@ dart test
 dart run example/steering_engine_example.dart
 dart run example/composition.dart
 dart run example/path_following.dart
+dart run example/polyline_following.dart
 dart run example/obstacle_avoidance.dart
 dart run example/flocking.dart
 dart run example/following.dart

@@ -26,7 +26,7 @@ compare [Seek](doc/wiki/Seek.md) (approach) with [Arrive](doc/wiki/Arrive.md)
 
 The bilingual [learning guide](doc/wiki/Home.md) and
 [GitHub Wiki](https://github.com/kleberandrade/steering-engine/wiki) explain all
-18 behaviors and composition strategies with diagrams, pseudocode, parameters,
+19 behaviors and composition strategies with diagrams, pseudocode, parameters,
 Dart snippets, experiments and limits.
 
 | Learn | Chapters |
@@ -43,8 +43,8 @@ For practical combinations and common problems, see
 
 ## Status and installation
 
-Source version **0.1.0**, prepared for the first hosted release. Publication is
-verified separately from source versioning; see [release validation](doc/release_0.1.0.md).
+Source version **0.2.0**, prepared for the first hosted release. Publication is
+verified separately from source versioning; see [release validation](doc/release_0.2.0.md).
 The core requires Dart **>=3.3.0 <4.0.0**, with no Flutter or Flame dependency.
 Before hosted availability is confirmed, use a local path or a reviewed Git ref.
 
@@ -59,17 +59,17 @@ have their own SDK constraints and are validated independently.
 
 ### Hosted installation after publication is confirmed
 
-Once version 0.1.0 is confirmed on [pub.dev](https://pub.dev/packages/steering_engine),
+Once version 0.2.0 is confirmed on [pub.dev](https://pub.dev/packages/steering_engine),
 the hosted dependency is:
 
 ```yaml
 dependencies:
-  steering_engine: ^0.1.0
+  steering_engine: ^0.2.0
 ```
 
 Until then, use the local-path setup above. Publisher ownership and hosted
 availability are tracked independently in the release audit; this example does
-not confirm an upload. The [0.2.0 plan](doc/roadmap_0.2.0.md) is separate from 0.1.0.
+not confirm an upload. See the [0.2.0 implementation record](doc/roadmap_0.2.0.md) for design decisions and measured limits.
 
 ## Make a character arrive
 
@@ -110,6 +110,22 @@ units/second², and `dt` is seconds. Render `agent.position` with Flutter
 
 `Pursuit` and `Evade` capture immutable target snapshots: rebuild them when the
 target updates. All built-in behaviors return bounded **acceleration**, not force.
+
+## Continuous segment following (0.2.0)
+
+Use `PolylinePath` and `FollowPolyline` for predicted-position projection and an
+arc-distance target. Retain one follower per agent; share geometry. Normal
+progress is forward-only; call `reacquire(agent)` after a teleport. Corner preview
+is a configurable desired-speed policy, with no exact-tracking guarantee.
+[Guide and measured comparison](doc/wiki/Continuous-Path.md) ·
+[Online scene](https://kleberandrade.github.io/steering-engine/?mode=Continuous%20path).
+
+```dart
+final geometry = PolylinePath(SteeringPath([
+  Vec2(0, 0), Vec2(100, 0), Vec2(100, 100),
+]));
+final follower = FollowPolyline(geometry, lookAheadDistance: 30);
+```
 
 ## Follow a route
 

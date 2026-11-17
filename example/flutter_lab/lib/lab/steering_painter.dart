@@ -19,6 +19,7 @@ class SteeringPainter extends CustomPainter {
       this.queueLane = false,
       this.neighborhoodRadius,
       this.route,
+      this.projection,
       this.avoidance,
       this.slowingRadius});
   final List<SteeringAgent> flock;
@@ -27,6 +28,7 @@ class SteeringPainter extends CustomPainter {
   final bool queueLane;
   final double? neighborhoodRadius;
   final SteeringPath? route;
+  final PathProjection? projection;
   final ObstacleAvoidance? avoidance;
   final SteeringAgent agent;
   final Vec2 target;
@@ -154,6 +156,12 @@ class SteeringPainter extends CustomPainter {
               offset(entry), 5, Paint()..color = const Color(0xffffd298));
         }
       }
+    }
+    if (projection != null) {
+      final point = offset(projection!.point);
+      canvas.drawLine(offset(agent.position), point,
+          Paint()..color = const Color(0xff6ae4d4));
+      canvas.drawCircle(point, 6, Paint()..color = const Color(0xff6ae4d4));
     }
     if (route != null) {
       final points = route!.waypoints;

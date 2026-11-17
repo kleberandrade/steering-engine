@@ -8,6 +8,7 @@ const labModes = [
   'Wander',
   'Brake',
   'Path following',
+  'Continuous path',
   'Leader following',
   'Queue',
   'Wall following',

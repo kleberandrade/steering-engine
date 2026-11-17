@@ -22,7 +22,7 @@ e compare [Seek](doc/wiki/Seek.md), que busca o alvo, com
 
 O [guia didático](doc/wiki/Home.md) e a
 [Wiki do GitHub](https://github.com/kleberandrade/steering-engine/wiki) explicam os
-18 comportamentos e estratégias de composição, com diagramas, pseudocódigo,
+19 comportamentos e estratégias de composição, com diagramas, pseudocódigo,
 parâmetros, trechos em Dart, experiências e limites. Cada capítulo é bilíngue.
 
 | Aprenda | Capítulos |
@@ -39,8 +39,8 @@ Para combinações práticas e problemas comuns, consulte
 
 ## Estado e instalação
 
-Versão de código **0.1.0**, preparada para a primeira publicação. A disponibilidade
-no pub.dev é verificada separadamente; veja a [validação da versão](doc/release_0.1.0.md).
+Versão de código **0.2.0**, preparada para a primeira publicação. A disponibilidade
+no pub.dev é verificada separadamente; veja a [validação da versão](doc/release_0.2.0.md).
 O núcleo exige Dart **>=3.3.0 <4.0.0**, sem dependências de Flutter ou Flame.
 Enquanto a disponibilidade hospedada não estiver confirmada, use caminho local
 ou um commit revisado do GitHub.
@@ -55,17 +55,17 @@ O laboratório Flutter e o exemplo Flame possuem requisitos próprios de SDK.
 
 ### Instalação hospedada após confirmar a publicação
 
-Quando a versão 0.1.0 estiver confirmada no
+Quando a versão 0.2.0 estiver confirmada no
 [pub.dev](https://pub.dev/packages/steering_engine), a dependência será:
 
 ```yaml
 dependencies:
-  steering_engine: ^0.1.0
+  steering_engine: ^0.2.0
 ```
 
 Até essa confirmação, use o caminho local acima. A disponibilidade e o publisher
 são conferidos separadamente no registro da release; esse exemplo não confirma
-um upload. O [plano da 0.2.0](doc/roadmap_0.2.0.md) está separado da 0.1.0.
+um upload. Veja o [registro de implementação da 0.2.0](doc/roadmap_0.2.0.md) para decisões e limites medidos.
 
 ## Faça um personagem chegar ao destino
 
@@ -120,6 +120,23 @@ Os pesos multiplicam as acelerações sem normalização automática; a soma é 
 `PrioritySteering([principal, alternativa], epsilon: 0.001)` escolhe a primeira
 saída acima do limiar e não avalia as demais. É seleção por prioridade.
 Implemente `SteeringBehavior.calculate(agent, dt)` para criar seus algoritmos.
+
+## Seguimento contínuo por segmentos (0.2.0)
+
+Use `PolylinePath` e `FollowPolyline` para projetar uma posição prevista e mirar
+um alvo adiante pela distância do percurso. Preserve um seguidor por agente e
+compartilhe a geometria. O progresso normal só avança; após teletransporte, chame
+`reacquire(agent)`. A redução de velocidade nas curvas é configurável, sem
+garantia de seguir exatamente a linha.
+[Guia e comparação medida](doc/wiki/Continuous-Path.md) ·
+[Cena online](https://kleberandrade.github.io/steering-engine/?mode=Continuous%20path).
+
+```dart
+final geometry = PolylinePath(SteeringPath([
+  Vec2(0, 0), Vec2(100, 0), Vec2(100, 100),
+]));
+final follower = FollowPolyline(geometry, lookAheadDistance: 30);
+```
 
 ## Siga uma trajetória
 

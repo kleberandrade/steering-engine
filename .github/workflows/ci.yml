@@ -38,6 +38,9 @@ jobs:
       - run: dart run example/steering_engine_example.dart
       - run: dart run example/composition.dart
       - run: dart run example/path_following.dart
+      - run: dart run example/polyline_following.dart
+      - run: dart compile js example/polyline_following.dart -o /tmp/steering-polyline.js
+      - run: node /tmp/steering-polyline.js
       - run: dart run example/obstacle_avoidance.dart
       - run: dart run example/flocking.dart
       - run: dart run example/following.dart

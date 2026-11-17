@@ -20,6 +20,7 @@ CHAPTERS = {
     'ObstacleAvoidance': 'Obstacle-Avoidance', 'LeaderFollowing': 'Leader-Following',
     'QueueFollowing': 'Queue-Following', 'WallFollowing': 'Wall-Following',
     'WeightedBlend': 'Weighted-Blend', 'PrioritySteering': 'Priority-Steering',
+    'FollowPolyline': 'Continuous-Path',
 }
 
 

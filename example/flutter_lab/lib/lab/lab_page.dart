@@ -81,6 +81,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     Vec2(350, 470),
   ], loop: true);
   late FollowPath _follower;
+  late FollowPolyline _polylineFollower;
+  late final PolylinePath _polyline = PolylinePath(_route);
 
   @override
   void initState() {
@@ -137,6 +139,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     _neighborCount = 0;
     _wander = Wander(seed: 42);
     _follower = FollowPath(_route, waypointRadius: 24, slowingRadius: 100);
+    _polylineFollower = FollowPolyline(_polyline,
+        lookAheadDistance: 45, searchDistance: 110, cornerSlowingDistance: 90);
     _time = 0;
     _accumulator = 0;
     _last = null;
@@ -187,6 +191,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
         return _wallRule;
       case 'Path following':
         return _follower;
+      case 'Continuous path':
+        return _polylineFollower;
       case 'Brake':
         return Brake();
       case 'Weighted blend':
@@ -283,9 +289,11 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
               : (_mode == 'Pursuit' || _mode == 'Evade')
                   ? Vec2(650 + 170 * math.cos(_time * 0.5),
                       310 + 150 * math.sin(_time * 0.5))
-                  : _mode == 'Path following'
-                      ? _follower.currentTarget
-                      : _target;
+                  : _mode == 'Continuous path'
+                      ? _polylineFollower.currentTarget
+                      : _mode == 'Path following'
+                          ? _follower.currentTarget
+                          : _target;
 
   void _setTarget(Offset local, Size size) => setState(() {
         _target = Vec2(
@@ -405,8 +413,15 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                                 avoidance: _mode == 'Obstacle avoidance'
                                     ? _avoidance
                                     : null,
-                                route:
-                                    _mode == 'Path following' ? _route : null,
+                                route: const [
+                                  'Path following',
+                                  'Continuous path'
+                                ].contains(_mode)
+                                    ? _route
+                                    : null,
+                                projection: _mode == 'Continuous path'
+                                    ? _polylineFollower.lastProjection
+                                    : null,
                                 agent: _agent,
                                 target: _visibleTarget,
                                 force: _force,
@@ -654,6 +669,8 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
           'Avoid the first predicted circle, then resume arrival. Move the target to explore; points inside obstacles may be unreachable.',
         'Path following' =>
           'Follow a looping route. The gold ring marks the active waypoint; slow down near each corner.',
+        'Continuous path' =>
+          'Project ahead onto route segments. The cyan point is the projection; the gold target advances by arc distance with corner-speed preview.',
         'Seek' =>
           'Accelerate toward the target. Momentum carries the agent past it.',
         'Flee' =>

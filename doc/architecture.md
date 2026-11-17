@@ -48,3 +48,15 @@ Import only `package:steering_engine/steering_engine.dart`; implementation paths
 under `src/` are internal and may change. The reorganized source preserves every
 existing public class and constructor. / O import público continua igual; os
 caminhos internos em `src/` não fazem parte da API de consumo.
+
+## Continuous route geometry / Geometria contínua
+
+`navigation/polyline_path.dart` holds immutable segment geometry and pure
+projection/sampling queries. `PathProjection` exposes the finite point, fraction,
+arc distance and query distance. `navigation/follow_polyline.dart` owns only one
+agent's traversal progress; geometry can be shared. First/global reacquisition
+and normal monotonic windowed following are explicit distinct operations.
+`FollowPath` and `SteeringPath` retain their released contracts.
+
+Geometria compartilhável fica separada do estado de cada seguidor. A previsão de
+curvas limita velocidade desejada; não adiciona colisões ou dinâmica de veículos.

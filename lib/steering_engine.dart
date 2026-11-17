@@ -10,6 +10,8 @@ export 'src/composition/weighted_blend.dart';
 export 'src/composition/priority_steering.dart';
 export 'src/navigation/steering_path.dart';
 export 'src/navigation/follow_path.dart';
+export 'src/navigation/polyline_path.dart';
+export 'src/navigation/follow_polyline.dart';
 export 'src/geometry/circle_obstacle.dart';
 export 'src/navigation/obstacle_avoidance.dart';
 export 'src/behaviors/individual/seek.dart';

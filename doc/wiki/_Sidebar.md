@@ -15,6 +15,7 @@
   - [Priority steering](Priority-Steering.md)
 - **Navegação / Navigation**
   - [Path following](Path-Following.md)
+  - [Continuous path](Continuous-Path.md)
   - [Obstacle avoidance](Obstacle-Avoidance.md)
   - [Leader following](Leader-Following.md)
   - [Queue following](Queue-Following.md)

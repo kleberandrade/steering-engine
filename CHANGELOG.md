@@ -2,13 +2,28 @@
 
 ## Unreleased
 
+## 0.2.0 — 2026-11-17
+
+Source release; pub.dev availability is verified separately.
+
+- Add immutable PolylinePath geometry, finite PathProjection queries and arc-length
+  sampling, with explicit duplicate-edge and degenerate-route policies.
+- Add per-agent FollowPolyline with predicted-position projection, forward progress
+  windows, loop laps, explicit reset/reacquisition and final arrival.
+- Add configurable corner-preview speed reduction, independent mathematical tests
+  and a measured trajectory comparison; existing FollowPath remains unchanged.
+- Add a continuous-path lab mode with projection/arc target visualization and a
+  bilingual Wiki chapter, diagram, executable Dart/JS example and regression checks.
+- Geometria por segmentos, seguimento contínuo, antecipação de curvas, laboratório
+  e documentação bilíngue; o seguidor por waypoints mantém o comportamento anterior.
+
 - Publish the checked Flutter/Flame web artifacts through GitHub Pages; add
   chapter links that select the corresponding laboratory scene on startup.
   / Laboratórios web e links diretos dos capítulos para cada comportamento.
-- Document the proposed 0.2.0 continuous-path design, compatibility and acceptance
-  criteria without changing the current version or waypoint behavior.
+- Record the implemented continuous-path design, compatibility and acceptance
+  criteria with the original waypoint behavior preserved.
 
-- Bilingual learning handbook and GitHub Wiki covering all 18 steering behaviors
+- Bilingual learning handbook and GitHub Wiki covering all 19 steering behaviors
   and composition strategies, with conceptual diagrams, pseudocode, tuning,
   worked examples and troubleshooting. / Guia didático bilíngue e Wiki.
 - Reproducible diagram generation, documentation checks and Wiki export tooling.

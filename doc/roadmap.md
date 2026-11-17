@@ -1,8 +1,8 @@
 # Roadmap / Próximos passos
 
-Next planned release / Próxima versão planejada:
+Implemented source evolution / Evolução implementada na fonte:
 [0.2.0 — continuous paths / trajetórias contínuas](roadmap_0.2.0.md).
-This is a design plan, not an implemented release. / É planejamento, não release.
+Source implementation; hosted publication is separate. / Implementado na fonte; publicação hospedada à parte.
 
 ## 0.1 foundation / Base implementada
 
@@ -15,7 +15,7 @@ This is a design plan, not an implemented release. / É planejamento, não relea
 - Immutable waypoint routes, independent per-agent traversal, looping or final
   arrival, capture-radius following, reset and a visual route demo.
 - Rotas por waypoints, estado de percurso por agente, repetição ou chegada final,
-  reinício e demonstração visual. Segment projection remains future work.
+  reinício e demonstração visual. Continuous segment projection is available separately through FollowPolyline.
 
 ## Static obstacle avoidance / Desvio de obstáculos implementado
 
@@ -50,13 +50,13 @@ Interactive demos / Demonstrações interativas:
 [Flame](https://kleberandrade.github.io/steering-engine/flame/) ·
 [deployment guide / guia de publicação](web_deployment.md).
 
-Source 0.1.0 is prepared and verified by CI; actual pub.dev publication is recorded
-separately in [release validation](release_0.1.0.md). No source version or tag alone
+The 0.2.0 source adds continuous paths; actual pub.dev publication is recorded
+separately in [release validation](release_0.2.0.md). No source version or tag alone
 is evidence that a hosted package exists.
 
 ## Future / Evolução futura
 
-- Continuous segment-projection path following and richer corner handling.
+- Further curve smoothing and richer corner handling beyond the current preview.
 - Dynamic obstacle prediction, wall avoidance/contact resolution and vehicle models.
 - Larger-scene profiling and additional neighbor-search strategies.
-- Projeção contínua, obstáculos móveis e física permanecem fora da versão inicial.
+- Suavização adicional de curvas, obstáculos móveis e física permanecem futuros.

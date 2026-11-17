@@ -79,6 +79,12 @@ de colisões. Página, tema e desenho ficam em arquivos separados sob `lib/lab/`
 
 ## Population, profiling and navigation
 
+Continuous path adds finite-segment projection and an arc-distance target on the
+same looping route as Path following. The cyan point shows the last projection;
+the gold ring is the current target. Compare both modes; Reset clears traversal.
+O modo contínuo desenha a projeção e o alvo adiante, preservando o modo por
+waypoints. Veja [o capítulo](../../doc/wiki/Continuous-Path.md).
+
 Choose 24/100/500/1000 agents and switch the spatial index on or off. The physics
 HUD measures only tick computation, not paint/layout. Large populations use a
 seeded distribution across the world; the original 24-agent layout stays clustered.
