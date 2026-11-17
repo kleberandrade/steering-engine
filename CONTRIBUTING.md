@@ -67,6 +67,13 @@ lab modes using `?mode=...`; test both recognized labels and safe fallbacks.
 O deploy web não publica o package; mantenha esses estados independentes.
 
 Future hosted releases use the prepared [tag/OIDC publishing flow](doc/automated_publishing.md).
-Manual workflow runs are preflight only. Activation requires explicit pub.dev
+Release previews default to dry_run=true; publisher runs default to validation.
+Explicit publication requires a matching tag and publish=true or a tag push.
+Activation requires explicit pub.dev
 repository authorization and the repository flag; do not store personal tokens
 or reuse an already published version/tag.
+
+Automatic versioning follows conventional commits after exact-main CI success.
+Use fix/perf for patches, feat for minors, and document breaking changes explicitly.
+Docs-only commits do not create releases. Test the policy with
+`python3 -m unittest discover -s tool -p 'test_*.py' -v`.

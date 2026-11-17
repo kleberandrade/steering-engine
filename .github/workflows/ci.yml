@@ -28,6 +28,8 @@ jobs:
         if: matrix.sdk == 'stable'
       - run: python3 tool/generate_wiki_diagrams.py --check
         if: matrix.sdk == 'stable'
+      - run: python3 -m unittest discover -s tool -p 'test_*.py' -v
+        if: matrix.sdk == 'stable'
       - name: Compile and run handbook examples
         if: matrix.sdk == 'stable'
         run: |

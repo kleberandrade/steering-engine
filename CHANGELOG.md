@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- Add automatic conventional-commit versioning after successful main CI, with
+  atomic metadata/tag pushes and explicit tag-scoped publisher dispatch.
+  / Bump semântico automático, tag atômica e publicador executado na tag.
+
 - Prepare a disabled-by-default stable-tag/OIDC publishing workflow with version
   matching and minimum/stable Dart gates; manual runs are validation only.
 - Add compact/portrait/landscape lab interaction checks and the proposed 0.3.0

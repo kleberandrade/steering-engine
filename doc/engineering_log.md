@@ -319,3 +319,29 @@
   needed. CI 44079491580 at dec0e87 passed all 11 lab tests, including all three
   mobile sizes; Dart 3.3/stable and Flame jobs also passed. This remains widget
   coverage, not a claim of real-device or live-browser visual inspection.
+
+## 2026-11-17 — automatic semantic bump and tag-scoped publishing chain
+
+- Replaced the missing version step with a standard-library Python release planner
+  and Git fixture tests. The first test run failed on the absent module, then the
+  policy and metadata updates passed. Tests cover patch/minor/breaking changes,
+  pre-1.0 policy, read-only preview, notes, stale/dirty checkouts, tag collisions,
+  metadata validation, CLI outputs and prevention of duplicate bumps.
+- Added a trusted-main workflow_run chain after complete source CI, with an exact
+  head/CI gate, manual dry-run preview, conventional-commit classification, another
+  metadata validation gate, and atomic non-forced commit/tag pushes. Only pubspec
+  and changelog are changed. Docs/test/chore/ci commits alone do not release.
+- Addressed GitHub token event suppression explicitly: after creating a source
+  release, the workflow dispatches the publisher on the created tag, rather than
+  assuming its token-created tag triggers another workflow. Pub.dev's maintainer
+  discussion confirms tag-ref workflow_dispatch support. No personal token added.
+- Publisher manual runs retain validation-only defaults; explicit tag uploads
+  require publish=true and PUB_DEV_PUBLISH_ENABLED. Branch upload requests fail.
+  External pub.dev trust activation remains pending the saved-domain access block;
+  no trust grant or enabling variable has been added during this change.
+- Eleven Python/Git tests pass locally. Workflow YAML, document links, all 19
+  algorithm chapters and 22 reproducible diagrams pass. Crapper complexity-only
+  reports a maximum CC of 8 after separating commit reading and changelog rendering;
+  coverage.py is unavailable, so no CRAP/coverage score is asserted. Dryer reports
+  no >=0.8 duplicate candidates. Mutation analysis was started in isolated overlays;
+  final results and remote preview/CI evidence are recorded separately.

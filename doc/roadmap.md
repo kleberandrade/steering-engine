@@ -50,7 +50,8 @@ Source implementation; hosted publication is separate. / Implementado na fonte; 
 ## Release / Publicação
 
 [Automated publishing / Publicação automatizada](automated_publishing.md)
-describes the prepared, disabled-by-default tag/OIDC workflow and activation gate.
+describes the automatic conventional-commit bump and source-release chain,
+with hosted publishing conditional on the pub.dev authorization gate.
 
 Interactive demos / Demonstrações interativas:
 [Flutter lab](https://kleberandrade.github.io/steering-engine/) ·
