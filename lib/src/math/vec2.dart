@@ -29,6 +29,15 @@ final class Vec2 {
   /// Unit direction, or [zero] when this vector has no direction.
   Vec2 get normalized => length == 0 ? zero : this / length;
 
+  /// Scalar dot product; rejects an unrepresentable result.
+  double dot(Vec2 other) {
+    final result = x * other.x + y * other.y;
+    if (!result.isFinite) {
+      throw ArgumentError('Dot product is not representable');
+    }
+    return result;
+  }
+
   /// Adds two vectors.
   Vec2 operator +(Vec2 other) => Vec2(x + other.x, y + other.y);
 

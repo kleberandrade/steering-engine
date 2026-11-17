@@ -24,6 +24,9 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     'Wander',
     'Brake',
     'Path following',
+    'Leader following',
+    'Queue',
+    'Wall following',
     'Obstacle avoidance',
     'Separation',
     'Alignment',
@@ -50,9 +53,26 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   double _alignmentWeight = 1;
   double _cohesionWeight = 0.7;
   double _targetWeight = 0.2;
+  int _population = 24;
+  bool _useSpatial = true;
+  double _physicsMs = 0;
+  int _neighborCount = 0;
+  final List<WallSegment> _walls = [
+    WallSegment(Vec2(100, 150), Vec2(850, 150)),
+    WallSegment(Vec2(850, 150), Vec2(850, 500)),
+    WallSegment(Vec2(850, 500), Vec2(100, 500)),
+    WallSegment(Vec2(100, 500), Vec2(100, 150)),
+  ];
+  WallFollowing get _wallRule =>
+      WallFollowing(_walls, wallOffset: 20, lookAhead: 30, maxDistance: 150);
   List<SteeringAgent> _flock = const [];
-  bool get _isGroupMode =>
-      const ['Separation', 'Alignment', 'Cohesion', 'Flocking'].contains(_mode);
+  bool get _isGroupMode => const [
+        'Separation',
+        'Alignment',
+        'Cohesion',
+        'Flocking',
+        'Queue'
+      ].contains(_mode);
   final List<CircleObstacle> _obstacles = [
     CircleObstacle(Vec2(480, 300), radius: 60),
     CircleObstacle(Vec2(700, 450), radius: 45),
@@ -93,8 +113,23 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
         maxAcceleration: _acceleration);
     if (_isGroupMode) {
       final random = math.Random(42);
-      _flock = List.unmodifiable(List.generate(24, (i) {
+      _flock = List.unmodifiable(
+          List.generate(_mode == 'Queue' ? 8 : _population, (i) {
         final angle = random.nextDouble() * math.pi * 2;
+        if (_mode == 'Queue') {
+          return SteeringAgent(
+              position: Vec2(680 - i * 70.0, 310),
+              maxSpeed: _speed,
+              maxAcceleration: _acceleration);
+        }
+        if (_population > 24) {
+          return SteeringAgent(
+              position: Vec2(40 + random.nextDouble() * 920,
+                  40 + random.nextDouble() * 540),
+              velocity: Vec2(math.cos(angle), math.sin(angle)) * (_speed * .45),
+              maxSpeed: _speed,
+              maxAcceleration: _acceleration);
+        }
         return SteeringAgent(
             position: Vec2(300 + (i % 6) * 40 + random.nextDouble() * 8,
                 230 + (i ~/ 6) * 40 + random.nextDouble() * 8),
@@ -106,6 +141,15 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     } else {
       _flock = const [];
     }
+    if (_mode == 'Wall following') {
+      _agent = SteeringAgent(
+          position: Vec2(250, 190),
+          velocity: Vec2(50, 0).limited(_speed),
+          maxSpeed: _speed,
+          maxAcceleration: _acceleration);
+    }
+    _physicsMs = 0;
+    _neighborCount = 0;
     _wander = Wander(seed: 42);
     _follower = FollowPath(_route, waypointRadius: 24, slowingRadius: 100);
     _time = 0;
@@ -121,11 +165,14 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     if (!_running || previous == null) return;
     _accumulator += math.min(0.1, (elapsed - previous).inMicroseconds / 1e6);
     var changed = false;
-    while (_accumulator >= 1 / 60) {
+    var steps = 0;
+    while (_accumulator >= 1 / 60 && steps < 3) {
+      steps++;
       _advance();
       _accumulator -= 1 / 60;
       changed = true;
     }
+    if (_accumulator >= 1 / 60) _accumulator %= 1 / 60;
     if (changed && mounted) setState(() {});
   }
 
@@ -149,6 +196,10 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
       case 'Obstacle avoidance':
         return PrioritySteering(
             [_avoidance, Arrive(_target, slowingRadius: _slowing)]);
+      case 'Leader following':
+        return LeaderFollowing(moving, distance: 65, avoidanceRadius: 18);
+      case 'Wall following':
+        return _wallRule;
       case 'Path following':
         return _follower;
       case 'Brake':
@@ -174,8 +225,18 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
           agent.position.y % worldSize.height));
 
   void _advanceFlock() {
-    final snapshot = AgentNeighborhood(_flock);
+    final snapshot = _useSpatial
+        ? AgentNeighborhood.spatial(_flock, cellSize: 80)
+        : AgentNeighborhood(_flock);
+    _neighborCount = snapshot
+        .neighborsFor(_flock.first, radius: _mode == 'Separation' ? 32 : 110)
+        .length;
     final SteeringBehavior rule = switch (_mode) {
+      'Queue' => QueueFollowing(snapshot,
+          movement: Arrive(Vec2(920, 310), slowingRadius: 100),
+          spacing: 55,
+          lookAhead: 140,
+          laneRadius: 18),
       'Separation' => Separation(snapshot, radius: 32),
       'Alignment' => Alignment(snapshot, radius: 110),
       'Cohesion' => Cohesion(snapshot, radius: 110),
@@ -202,6 +263,7 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   }
 
   void _advance() {
+    final timer = Stopwatch()..start();
     final previous = _agent.position;
     if (_isGroupMode) {
       _advanceFlock();
@@ -216,14 +278,29 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
     }
     _trail.add(_agent.position);
     if (_trail.length > 420) _trail.removeAt(0);
+    timer.stop();
+    _physicsMs = timer.elapsedMicroseconds / 1000;
   }
 
-  Vec2 get _visibleTarget => (_mode == 'Pursuit' || _mode == 'Evade')
-      ? Vec2(
-          650 + 170 * math.cos(_time * 0.5), 310 + 150 * math.sin(_time * 0.5))
-      : _mode == 'Path following'
-          ? _follower.currentTarget
-          : _target;
+  SteeringAgent get _leaderSnapshot => SteeringAgent(
+      position: Vec2(
+          650 + 170 * math.cos(_time * .5), 310 + 150 * math.sin(_time * .5)),
+      velocity: Vec2(-85 * math.sin(_time * .5), 75 * math.cos(_time * .5)),
+      maxSpeed: 100);
+
+  Vec2 get _visibleTarget => _mode == 'Leader following'
+      ? LeaderFollowing(_leaderSnapshot, distance: 65, avoidanceRadius: 18)
+          .target
+      : _mode == 'Wall following'
+          ? (_wallRule.targetFor(_agent) ?? _target)
+          : _mode == 'Queue'
+              ? Vec2(920, 310)
+              : (_mode == 'Pursuit' || _mode == 'Evade')
+                  ? Vec2(650 + 170 * math.cos(_time * 0.5),
+                      310 + 150 * math.sin(_time * 0.5))
+                  : _mode == 'Path following'
+                      ? _follower.currentTarget
+                      : _target;
 
   void _setTarget(Offset local, Size size) => setState(() {
         _target = Vec2(
@@ -330,6 +407,13 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                             key: const Key('simulation'),
                             painter: SteeringPainter(
                                 flock: _flock,
+                                walls: _mode == 'Wall following'
+                                    ? _walls
+                                    : const [],
+                                leader: _mode == 'Leader following'
+                                    ? _leaderSnapshot
+                                    : null,
+                                queueLane: _mode == 'Queue',
                                 neighborhoodRadius: _isGroupMode
                                     ? (_mode == 'Separation' ? 32 : 110)
                                     : null,
@@ -355,12 +439,15 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
               labCyan),
           _metric('ACCELERATION', '${_force.length.toStringAsFixed(1)} u/s²',
               const Color(0xffa497ff)),
+          if (_isGroupMode) _metric('POPULATION', '${_flock.length}', labCyan),
+          _metric('PHYSICS', '${_physicsMs.toStringAsFixed(2)} ms', labGold),
+          if (_isGroupMode) _metric('NEIGHBORS', '$_neighborCount', labCyan),
           _metric('SIMULATION', '${_time.toStringAsFixed(2)} s', labGold),
         ]),
         const SizedBox(height: 14),
         Text(
             _isGroupMode
-                ? '24 agents share one snapshot per tick. The ring shows the selected agent’s neighborhood. Flocking optionally follows the gold target.\nEdges wrap visually; neighbor distances remain Euclidean.'
+                ? '${_flock.length} agents share one snapshot per tick. The ring shows the selected agent’s neighborhood. Flocking optionally follows the gold target.\nEdges wrap visually; neighbor distances remain Euclidean.'
                 : 'Tap or drag to move the gold target. Pursuit / Evade use an orbiting target. Path following uses the numbered route.\nEdges wrap for this demo; the core has no world boundaries.',
             style: const TextStyle(color: labMuted, height: 1.6, fontSize: 12)),
       ]);
@@ -454,6 +541,29 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
                   (value) => setState(() {
                         _slowing = value;
                       })),
+            if (_isGroupMode && _mode != 'Queue') ...[
+              DropdownButtonFormField<int>(
+                  initialValue: _population,
+                  isExpanded: true,
+                  decoration: const InputDecoration(labelText: 'Population'),
+                  items: [
+                    for (final count in [24, 100, 500, 1000])
+                      DropdownMenuItem(value: count, child: Text('$count'))
+                  ],
+                  onChanged: (value) => setState(() {
+                        _population = value!;
+                        _reset();
+                      })),
+              SwitchListTile(
+                  key: const Key('spatial-toggle'),
+                  contentPadding: EdgeInsets.zero,
+                  title: const Text('Spatial neighbor index',
+                      style: TextStyle(fontSize: 13)),
+                  value: _useSpatial,
+                  onChanged: (value) => setState(() {
+                        _useSpatial = value;
+                      })),
+            ],
             if (_mode == 'Flocking') ...[
               _slider(
                   'Separation weight',
@@ -541,6 +651,12 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
       ]);
 
   String get _description => switch (_mode) {
+        'Leader following' =>
+          'Arrive at a trailing point behind the moving leader. Local leader clearance takes priority.',
+        'Queue' =>
+          'Eight agents brake behind the nearest forward lane occupant, then resume arrival. This is spatial queuing.',
+        'Wall following' =>
+          'Project ahead onto a local wall segment and seek a tangential offset target. Corners are local decisions.',
         'Separation' =>
           'Nearby agents repel with distance-weighted acceleration. Exact overlaps have no invented escape direction.',
         'Alignment' =>

@@ -17,7 +17,7 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
       - run: dart pub get
-      - run: dart format --output=none --set-exit-if-changed lib test example
+      - run: dart format --output=none --set-exit-if-changed lib test example benchmark
         if: matrix.sdk == 'stable'
       - run: dart analyze --fatal-infos
       - run: dart test
@@ -26,6 +26,11 @@ jobs:
       - run: dart run example/path_following.dart
       - run: dart run example/obstacle_avoidance.dart
       - run: dart run example/flocking.dart
+      - run: dart run example/following.dart
+      - run: dart compile js example/following.dart -o /tmp/steering-following.js
+      - run: node /tmp/steering-following.js
+      - run: dart compile js example/spatial_index.dart -o /tmp/steering-spatial.js
+      - run: node /tmp/steering-spatial.js
       - run: dart compile js example/flocking.dart -o /tmp/steering-flocking.js
       - run: node /tmp/steering-flocking.js
       - run: dart compile js example/obstacle_avoidance.dart -o /tmp/steering-obstacles.js
@@ -55,3 +60,23 @@ jobs:
         with:
           name: steering-lab-web
           path: example/flutter_lab/build/web
+
+  flame_example:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: example/flame_lab
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+      - run: flutter pub get
+      - run: flutter analyze --fatal-infos
+      - run: flutter test
+      - run: flutter build web --no-web-resources-cdn
+      - uses: actions/upload-artifact@v4
+        with:
+          name: steering-flame-web
+          path: example/flame_lab/build/web

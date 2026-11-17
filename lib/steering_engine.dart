@@ -24,3 +24,7 @@ export 'src/behaviors/group/separation.dart';
 export 'src/behaviors/group/alignment.dart';
 export 'src/behaviors/group/cohesion.dart';
 export 'src/behaviors/group/flocking.dart';
+export 'src/geometry/wall_segment.dart';
+export 'src/navigation/leader_following.dart';
+export 'src/navigation/queue_following.dart';
+export 'src/navigation/wall_following.dart';

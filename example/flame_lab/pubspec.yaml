@@ -1,0 +1,19 @@
+name: steering_flame_example
+description: Flame component integration for the pure Dart steering engine.
+publish_to: none
+version: 1.0.0+1
+environment:
+  sdk: '>=3.11.0 <4.0.0'
+  flutter: '>=3.47.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  flame: ^1.38.2
+  steering_engine:
+    path: ../..
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+flutter:
+  uses-material-design: false

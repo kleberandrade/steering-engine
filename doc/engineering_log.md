@@ -132,3 +132,22 @@
 - Quality-tool language limitations remain as recorded above. No unsupported
   metrics are claimed. Remote CI and dry-run publication are checked after push;
   no hosted package publication or release tag is part of this change.
+
+## 2026-11-17 — spatial perception and remaining following behaviors
+
+- Measured the original linear implementation before index changes using native
+  AOT, fixed-density seed-42 fixtures and separate processes at 100/500/1000 agents.
+- Wrote spatial equivalence tests before the named constructor existed, observed
+  missing-API failures, then added conservative grid queries with sorted source
+  ordinals and exact filtering. Unsafe scales/expensive cell ranges fall back to
+  linear scans. Seeded neighbor lists and complete flock accelerations match.
+- Reduced unnecessary cell traversal after measuring the first index version;
+  retained scale-aware boundary padding and passed the same equivalence oracle.
+- Audited existing FollowPath. Added tested LeaderFollowing, movement-filtering
+  QueueFollowing and WallFollowing with immutable WallSegment geometry. They are
+  local steering rules, not collision solvers or a global queue reservation API.
+- All 81 core tests pass. New examples verify VM and JS integration. Added lab
+  population/index controls, per-tick physics timing and following demonstrations.
+- Prepared a separate Flame 1.38 example and component-mapping tests. It requires
+  a newer Flutter SDK than the local installation, so its analysis/tests/build
+  are validated in the stable-SDK CI job, independently of the pure Dart core.

@@ -1,0 +1,1 @@
+{"strategy":"spatial","agents":500,"frames":15,"warmup":5,"median_us":7073,"p95_us":7885,"rss_before_bytes":13107200,"rss_after_bytes":16678912,"peak_rss_bytes":16678912,"checksum":4802.213464635236,"sdk":"3.11.5 (stable) (Wed Apr 15 00:36:32 2026 -0700) on \"macos_arm64\"","os":"macos","fixture":"seed42, fixed-density uniform positions, repeated identical frame"}

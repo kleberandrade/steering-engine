@@ -104,4 +104,26 @@ void main() {
     expect(scene(tester).flock.map((a) => a.position).toList(), initial);
     expect(tester.takeException(), isNull);
   });
+  testWidgets('population and spatial controls update the measured flock scene',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1200));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const SteeringLab());
+    await tester.tap(find.text('Pause'));
+    await tester.pump();
+    await tester.tap(find.byType(DropdownButtonFormField<String>));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.ensureVisible(find.text('Flocking').last);
+    await tester.tap(find.text('Flocking').last);
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.byType(DropdownButtonFormField<int>));
+    await tester.pump(const Duration(milliseconds: 300));
+    await tester.tap(find.text('100').last);
+    await tester.pump(const Duration(milliseconds: 300));
+    expect(scene(tester).flock.length, 100);
+    await tester.tap(find.text('Step'));
+    await tester.pump();
+    expect(find.textContaining('ms'), findsWidgets);
+    expect(tester.takeException(), isNull);
+  });
 }

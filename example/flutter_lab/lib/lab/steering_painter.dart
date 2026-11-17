@@ -14,11 +14,17 @@ class SteeringPainter extends CustomPainter {
       required this.showVectors,
       required this.showTrail,
       this.flock = const [],
+      this.walls = const [],
+      this.leader,
+      this.queueLane = false,
       this.neighborhoodRadius,
       this.route,
       this.avoidance,
       this.slowingRadius});
   final List<SteeringAgent> flock;
+  final List<WallSegment> walls;
+  final SteeringAgent? leader;
+  final bool queueLane;
   final double? neighborhoodRadius;
   final SteeringPath? route;
   final ObstacleAvoidance? avoidance;
@@ -44,6 +50,37 @@ class SteeringPainter extends CustomPainter {
       canvas.drawLine(Offset(0, y), Offset(worldSize.width, y), grid);
     }
     Offset offset(Vec2 v) => Offset(v.x, v.y);
+    for (final wall in walls) {
+      canvas.drawLine(
+          offset(wall.start),
+          offset(wall.end),
+          Paint()
+            ..color = const Color(0xff91a8ff)
+            ..strokeWidth = 4);
+    }
+    if (queueLane) {
+      for (final y in [292.0, 328.0]) {
+        canvas.drawLine(
+            Offset(40, y),
+            Offset(960, y),
+            Paint()
+              ..color = const Color(0xff42546d)
+              ..strokeWidth = 1);
+      }
+    }
+    if (leader != null) {
+      canvas.save();
+      canvas.translate(leader!.position.x, leader!.position.y);
+      canvas.rotate(math.atan2(leader!.velocity.y, leader!.velocity.x));
+      canvas.drawPath(
+          Path()
+            ..moveTo(18, 0)
+            ..lineTo(-12, -10)
+            ..lineTo(-12, 10)
+            ..close(),
+          Paint()..color = labGold);
+      canvas.restore();
+    }
     if (flock.isNotEmpty) {
       final radius = neighborhoodRadius!;
       final neighbors =
