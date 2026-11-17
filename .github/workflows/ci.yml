@@ -69,7 +69,7 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze --fatal-infos
       - run: flutter test
-      - run: flutter build web --no-web-resources-cdn
+      - run: flutter build web --no-web-resources-cdn --base-href /steering-engine/
       - uses: actions/upload-artifact@v4
         with:
           name: steering-lab-web
@@ -89,8 +89,39 @@ jobs:
       - run: flutter pub get
       - run: flutter analyze --fatal-infos
       - run: flutter test
-      - run: flutter build web --no-web-resources-cdn
+      - run: flutter build web --no-web-resources-cdn --base-href /steering-engine/flame/
       - uses: actions/upload-artifact@v4
         with:
           name: steering-flame-web
           path: example/flame_lab/build/web
+
+  pages:
+    name: Publish interactive laboratories
+    needs: [dart, flutter_lab, flame_example]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - uses: actions/download-artifact@v4
+        with:
+          name: steering-lab-web
+          path: public
+      - uses: actions/download-artifact@v4
+        with:
+          name: steering-flame-web
+          path: public/flame
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - uses: actions/deploy-pages@v4
+        id: deployment

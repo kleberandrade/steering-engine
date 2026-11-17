@@ -3,13 +3,16 @@
 import 'package:flutter/material.dart';
 import 'lab/lab_page.dart';
 import 'lab/lab_theme.dart';
+import 'lab/lab_modes.dart';
 
 export 'lab/steering_painter.dart';
 
-void main() => runApp(const SteeringLab());
+void main() => runApp(SteeringLab(initialMode: modeFromUri(Uri.base)));
 
 class SteeringLab extends StatelessWidget {
-  const SteeringLab({super.key});
+  const SteeringLab({super.key, this.initialMode = 'Arrive'});
+
+  final String initialMode;
 
   @override
   Widget build(BuildContext context) => MaterialApp(
@@ -22,6 +25,6 @@ class SteeringLab extends StatelessWidget {
               seedColor: labCyan, brightness: Brightness.dark),
           useMaterial3: true,
         ),
-        home: const LabPage(),
+        home: LabPage(initialMode: initialMode),
       );
 }

@@ -41,6 +41,13 @@ agents = nextAgents
 | `alignmentWeight = 1`, `cohesionWeight = 1` | Ganhos sem normalização / unnormalized gains. |
 | `responseTime = 0.25` | Tempo de resposta de Alignment / alignment response time. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Flocking)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

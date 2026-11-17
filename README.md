@@ -9,6 +9,7 @@ access in the core.
 
 [Português](README.pt-BR.md) · [Getting started](doc/getting_started.md) ·
 [Learning guide](doc/wiki/Home.md) · [Wiki](https://github.com/kleberandrade/steering-engine/wiki) ·
+[Online lab](https://kleberandrade.github.io/steering-engine/) ·
 [Equations](doc/behaviors.md) · [Architecture](doc/architecture.md) ·
 [Flutter lab](example/flutter_lab/README.md) · [Roadmap](doc/roadmap.md) ·
 [Flocking](doc/flocking.md) · [Obstacle avoidance](doc/obstacle_avoidance.md) · [Path following](doc/path_following.md) · [Contributing](CONTRIBUTING.md)
@@ -55,6 +56,20 @@ dependencies:
 
 The [Flutter lab](example/flutter_lab/README.md) and [Flame example](doc/flame.md)
 have their own SDK constraints and are validated independently.
+
+### Hosted installation after publication is confirmed
+
+Once version 0.1.0 is confirmed on [pub.dev](https://pub.dev/packages/steering_engine),
+the hosted dependency is:
+
+```yaml
+dependencies:
+  steering_engine: ^0.1.0
+```
+
+Until then, use the local-path setup above. Publisher ownership and hosted
+availability are tracked independently in the release audit; this example does
+not confirm an upload. The [0.2.0 plan](doc/roadmap_0.2.0.md) is separate from 0.1.0.
 
 ## Make a character arrive
 
@@ -174,6 +189,12 @@ and run `dart run example/flocking.dart`. The lab compares each rule and lets
 you tune weights for 24, 100, 500 or 1000 agents. Flocking does not provide collision resolution.
 
 ## Explore visually
+
+[Open the online laboratory](https://kleberandrade.github.io/steering-engine/) or
+the [Flame demo](https://kleberandrade.github.io/steering-engine/flame/).
+Wiki chapters link directly to the relevant scene, for example
+[wall following](https://kleberandrade.github.io/steering-engine/?mode=Wall%20following).
+To run locally:
 
 ```sh
 cd example/flutter_lab

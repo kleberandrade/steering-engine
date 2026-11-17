@@ -6,6 +6,7 @@ imports de Flutter, IO ou acesso à rede.
 
 [English](README.md) · [Primeiros passos](doc/getting_started.pt-BR.md) ·
 [Guia didático](doc/wiki/Home.md) · [Wiki](https://github.com/kleberandrade/steering-engine/wiki) ·
+[Laboratório online](https://kleberandrade.github.io/steering-engine/) ·
 [Equações](doc/behaviors.pt-BR.md) · [Arquitetura](doc/architecture.md) ·
 [Laboratório Flutter](example/flutter_lab/README.md) · [Roadmap](doc/roadmap.md)
 
@@ -51,6 +52,20 @@ dependencies:
 ```
 
 O laboratório Flutter e o exemplo Flame possuem requisitos próprios de SDK.
+
+### Instalação hospedada após confirmar a publicação
+
+Quando a versão 0.1.0 estiver confirmada no
+[pub.dev](https://pub.dev/packages/steering_engine), a dependência será:
+
+```yaml
+dependencies:
+  steering_engine: ^0.1.0
+```
+
+Até essa confirmação, use o caminho local acima. A disponibilidade e o publisher
+são conferidos separadamente no registro da release; esse exemplo não confirma
+um upload. O [plano da 0.2.0](doc/roadmap_0.2.0.md) está separado da 0.1.0.
 
 ## Faça um personagem chegar ao destino
 
@@ -168,6 +183,12 @@ e execute `dart run example/flocking.dart`. O laboratório permite comparar as
 regras e ajustar pesos para 24, 100, 500 ou 1000 agentes; flocking não resolve colisões.
 
 ## Laboratório visual
+
+[Abra o laboratório online](https://kleberandrade.github.io/steering-engine/) ou
+a [demonstração Flame](https://kleberandrade.github.io/steering-engine/flame/).
+Cada capítulo da Wiki abre sua cena, como
+[wall following](https://kleberandrade.github.io/steering-engine/?mode=Wall%20following).
+Para executar localmente:
 
 ```sh
 cd example/flutter_lab

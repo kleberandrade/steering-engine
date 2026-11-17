@@ -34,6 +34,13 @@ return limit(A * direction, A)
 | `radius = 80` | Alcance e escala da atração / query radius and attraction scale. |
 | `neighborhood` | Observação imutável compartilhada / shared immutable observation. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Cohesion)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

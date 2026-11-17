@@ -8,6 +8,7 @@ import argparse
 from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
+from urllib.parse import parse_qs, urlparse
 
 ROOT = Path(__file__).resolve().parents[1]
 HANDBOOK = ROOT / 'doc/wiki'
@@ -28,7 +29,8 @@ def main():
     args = parser.parse_args()
     errors = []
     files = sorted(HANDBOOK.glob('*.md')) + [ROOT / 'README.md',
-             ROOT / 'README.pt-BR.md', ROOT / 'doc/wiki-maintenance.md']
+             ROOT / 'README.pt-BR.md', ROOT / 'doc/wiki-maintenance.md',
+             ROOT / 'doc/roadmap_0.2.0.md', ROOT / 'doc/web_deployment.md']
     for path in files:
         text = re.sub(r'```.*?```', '', path.read_text(), flags=re.S)
         for target in re.findall(r'\]\(([^)]+)\)', text):
@@ -44,12 +46,23 @@ def main():
         errors.append(f'Coverage differs: code={implemented ^ set(CHAPTERS)}')
     sidebar = (HANDBOOK / '_Sidebar.md').read_text()
     home = (HANDBOOK / 'Home.md').read_text()
+    mode_source = (ROOT / 'example/flutter_lab/lib/lab/lab_modes.dart').read_text()
+    lab_modes = set(re.findall(r"  '([^']+)'", mode_source))
+    linked_modes = set()
     for api, slug in CHAPTERS.items():
         path = HANDBOOK / f'{slug}.md'
         if not path.exists():
             errors.append(f'Missing chapter for {api}')
             continue
         content = path.read_text()
+        links = re.findall(r'\]\((https://kleberandrade.github.io/steering-engine/\?[^)]+)\)', content)
+        if len(links) != 1:
+            errors.append(f'{slug}: expected one online scene link')
+        for link in links:
+            mode = parse_qs(urlparse(link).query).get('mode', [''])[0]
+            if mode not in lab_modes:
+                errors.append(f'{slug}: unsupported scene {mode}')
+            linked_modes.add(mode)
         for required in ['## Intuição', '## Passo a passo', '## Parâmetros',
                          '## Uso em Dart', '## Experimente', '## Limites',
                          '```text', '```dart', f'images/{slug}.svg', '**English.**']:
@@ -57,6 +70,8 @@ def main():
                 errors.append(f'{slug}: missing {required}')
         if f'({slug}.md)' not in sidebar or f'({slug}.md)' not in home:
             errors.append(f'{slug}: missing navigation')
+    if linked_modes != lab_modes:
+        errors.append(f'Lab scene link coverage differs: {linked_modes ^ lab_modes}')
     for path in (HANDBOOK / 'images').glob('*.svg'):
         try:
             image = ET.parse(path).getroot()

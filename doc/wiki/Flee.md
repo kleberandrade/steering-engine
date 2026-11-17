@@ -34,6 +34,13 @@ return limit((u - v) / T, A)
 | `target` | Posição da ameaça / fixed threat position. |
 | `responseTime = 0.25` | Tempo de correção da velocidade / velocity response time. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Flee)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

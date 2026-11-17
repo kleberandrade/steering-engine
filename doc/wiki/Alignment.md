@@ -36,6 +36,13 @@ return limit((u - v)/T, A)
 | `responseTime = 0.25` | T da correção da velocidade / velocity response time. |
 | `neighborhood` | Mesmo quadro para todos os agentes / same frame for all agents. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Alignment)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

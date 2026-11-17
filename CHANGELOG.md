@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- Publish the checked Flutter/Flame web artifacts through GitHub Pages; add
+  chapter links that select the corresponding laboratory scene on startup.
+  / Laboratórios web e links diretos dos capítulos para cada comportamento.
+- Document the proposed 0.2.0 continuous-path design, compatibility and acceptance
+  criteria without changing the current version or waypoint behavior.
+
 - Bilingual learning handbook and GitHub Wiki covering all 18 steering behaviors
   and composition strategies, with conceptual diagrams, pseudocode, tuning,
   worked examples and troubleshooting. / Guia didático bilíngue e Wiki.

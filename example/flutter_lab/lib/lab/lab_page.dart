@@ -4,37 +4,21 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart' hide Alignment;
 import 'package:steering_engine/steering_engine.dart';
 import 'lab_theme.dart';
+import 'lab_modes.dart';
 import 'package:flutter/scheduler.dart';
 import 'steering_painter.dart';
 
 class LabPage extends StatefulWidget {
-  const LabPage({super.key});
+  const LabPage({super.key, this.initialMode = 'Arrive'});
+
+  final String initialMode;
 
   @override
   State<LabPage> createState() => _LabPageState();
 }
 
 class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
-  static const modes = [
-    'Arrive',
-    'Seek',
-    'Flee',
-    'Pursuit',
-    'Evade',
-    'Wander',
-    'Brake',
-    'Path following',
-    'Leader following',
-    'Queue',
-    'Wall following',
-    'Obstacle avoidance',
-    'Separation',
-    'Alignment',
-    'Cohesion',
-    'Flocking',
-    'Weighted blend',
-    'Priority'
-  ];
+  static const modes = labModes;
   static const engine = SteeringEngine();
   late final Ticker _ticker;
   Duration? _last;
@@ -101,6 +85,7 @@ class _LabPageState extends State<LabPage> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
+    _mode = modes.contains(widget.initialMode) ? widget.initialMode : 'Arrive';
     _reset();
     _ticker = createTicker(_tick)..start();
   }

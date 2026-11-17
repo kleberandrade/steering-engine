@@ -35,6 +35,13 @@ return zero
 | `behaviors` | Prioridade maior primeiro; lista copiada / highest priority first, copied list. |
 | `epsilon = 0.001` | Limiar finito >= 0 nas unidades de aceleração / nonnegative acceleration threshold. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Priority)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

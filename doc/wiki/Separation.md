@@ -37,6 +37,13 @@ return limit(A * mean(contributions), A)
 | `neighborhood` | Observação única do quadro / shared current-frame observation. |
 | `radius = 25` | R positivo; dentro dele a repulsão cresce linearmente / positive interaction radius. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Separation)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

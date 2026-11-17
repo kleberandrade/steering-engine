@@ -41,8 +41,22 @@ only after the package exists, per the official
 
 ## Português
 
+O inventário acima continua sendo da versão de código. A confirmação hospedada
+é tratada separadamente no acompanhamento ao final.
+
 O inventário acima confere path following, leader following, queue e wall
 following. A release de código v0.1.0 está no GitHub, com CI verde. O upload inicial no
 pub.dev continua pendente: execute o comando acima em um terminal normal e
 confirme a página da versão hospedada.
 A metodologia dos benchmarks evita promessas gerais de FPS ou memória por índice.
+
+## Follow-up / Acompanhamento
+
+Publication/publisher confirmation was attempted again on 2026-11-17. The browser
+origin approval gate denied access to pub.dev; no alternate route was used after
+that denial. Hosted version and publisher remain unverified. The README includes
+the future hosted dependency syntax, explicitly conditional on verified upload.
+The source version remains 0.1.0. No publisher transfer or hosted upload is claimed.
+
+A confirmação da versão e do publisher continua pendente por bloqueio de acesso
+ao pub.dev. Os laboratórios web e o plano da 0.2.0 são entregas independentes.

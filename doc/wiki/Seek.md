@@ -35,6 +35,13 @@ return a
 | `target` | Posição fixa / fixed position. Recrie se mudar / rebuild if it changes. |
 | `responseTime = 0.25` | T em segundos; menor corrige mais rápido até A / smaller T responds faster up to A. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Seek)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

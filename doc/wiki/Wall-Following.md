@@ -43,6 +43,13 @@ return Seek(target, responseTime=T).calculate(agent, dt)
 | `side = WallSide.left` | Normal (-ty,tx); em canvas +Y aponta para baixo / algebraic side, screen Y may point down. |
 | `fallbackDirection = (1,0)`, `responseTime = 0.25` | Direção parado e resposta / stationary heading and response. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Wall%20following)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

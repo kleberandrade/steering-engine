@@ -39,6 +39,13 @@ return Arrive(currentWaypoint, slowingRadius, stopRadius, T).calculate(agent, dt
 | `slowingRadius = 50`, `stopRadius = 1` | Frenagem em cada ponto / arrival at every point; slowing > stop >= 0. |
 | `responseTime = 0.25` | T de Arrive / arrival response time. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Path%20following)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

@@ -1,5 +1,13 @@
 # Steering laboratory / Laboratório de steering
 
+[Open online / Abrir online](https://kleberandrade.github.io/steering-engine/) ·
+[Learning Wiki / Wiki didática](https://github.com/kleberandrade/steering-engine/wiki)
+
+Chapter links use `?mode=Wall%20following` or another dropdown label to initialize
+the corresponding scene; missing/unknown modes fall back to Arrive.
+Os links dos capítulos abrem o comportamento correspondente; valores desconhecidos
+voltam para Arrive. The mode is selected at startup; reload a shared link to apply it.
+
 Flutter >=3.35.0, Dart >=3.9.0. The core remains compatible with Dart >=3.3.0.
 This app uses the source package at `../..`; no hosted publication is needed.
 

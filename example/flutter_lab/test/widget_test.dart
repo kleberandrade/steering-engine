@@ -9,6 +9,16 @@ SteeringPainter scene(WidgetTester tester) =>
         as SteeringPainter;
 
 void main() {
+  testWidgets('a chapter link initializes its requested group scene',
+      (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1400, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await tester.pumpWidget(const SteeringLab(initialMode: 'Queue'));
+    expect(scene(tester).flock.length, 8);
+    expect(find.text('Queue'), findsOneWidget);
+    expect(tester.takeException(), isNull);
+  });
+
   testWidgets('simulates, pauses, single-steps and resets the public engine',
       (tester) async {
     await tester.binding.setSurfaceSize(const Size(1400, 1000));

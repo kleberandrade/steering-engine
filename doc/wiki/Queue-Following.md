@@ -45,6 +45,13 @@ return limit(requested + h*(allowed-current), A)
 | `spacing = 25`, `laneRadius = 10` | Distância longitudinal entre centros e tolerância lateral / center gap and lateral tolerance. |
 | `lookAhead = 100`, `responseTime = 0.25` | Detecção e tempo de resposta / scan and response time. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Queue)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

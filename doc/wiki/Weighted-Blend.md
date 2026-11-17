@@ -36,6 +36,13 @@ return limit(sum, A)
 | `entries` | Lista copiada e imutável de WeightedBehavior / copied immutable entries. |
 | `weight = 1` | Peso finito >= 0; zero desativa avaliação / finite nonnegative gain; zero skips evaluation. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Weighted%20blend)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

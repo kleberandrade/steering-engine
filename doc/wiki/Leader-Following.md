@@ -41,6 +41,13 @@ return PrioritySteering([avoid, arrival]).calculate(agent, dt)
 | `fallbackDirection = (1,0)` | Direção se o líder parar / heading when stationary. |
 | `slowingRadius = 60`, `stopRadius = 1`, `responseTime = 0.25` | Configuração de Arrive / arrival settings. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Leader%20following)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

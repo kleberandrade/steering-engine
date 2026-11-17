@@ -10,6 +10,8 @@ contains intuition, a diagram, implementation-oriented pseudocode, tuning, a Dar
 configuration, an experiment and limits. Rendering stays in your application.
 All pages are bilingual. Shared pseudocode uses the glossary from Foundations.
 
+[Laboratório online / Online laboratory](https://kleberandrade.github.io/steering-engine/) · [Flame](https://kleberandrade.github.io/steering-engine/flame/)
+
 ## Trilha sugerida / Suggested learning path
 
 | Etapa / Stage | Leia / Read | Ao terminar / Outcome |

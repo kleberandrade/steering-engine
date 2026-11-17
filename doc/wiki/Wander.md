@@ -39,6 +39,13 @@ return Seek(p + offset, responseTime=T).calculate(agent, dt)
 | `seed` | Repete chamadas no mesmo runtime / repeats a matching call sequence on the same runtime. |
 | `responseTime = 0.25` | Resposta da velocidade / velocity response time. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Wander)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

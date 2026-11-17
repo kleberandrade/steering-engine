@@ -216,3 +216,33 @@
   at its native 800x360 dimensions. The Wiki mirror check reports zero differences.
   CI run 44024426229 passed both Dart SDK jobs, handbook checks/snippets, Flutter
   lab and Flame jobs. The publication change is documentation-only.
+
+## 2026-11-17 — publication follow-up, live labs and 0.2.0 plan
+
+- Rechecked the source-release audit before changing hosted installation claims.
+  The browser origin approval gate denied pub.dev access; no alternate route was
+  used after denial. Hosted version and publisher remain unverified, and no
+  transfer, upload or score is claimed. Both READMEs show the hosted dependency
+  syntax conditionally, retaining the working local-path installation.
+- Prepared GitHub Pages deployment of the existing Flutter and Flame artifacts,
+  with correct project/subdirectory base hrefs. All existing Dart/Flutter/Flame
+  jobs must pass before a main-branch deployment; PRs do not publish. Enabled
+  Pages' GitHub Actions source through repository settings. Runtime core remains
+  untouched and source version stays 0.1.0.
+- Added shareable lab mode links to every algorithm chapter. Labels live once in
+  lab_modes.dart; the entry point parses mode once, unknown/missing values fall
+  back to Arrive, and the requested mode initializes before scene reset.
+- Authored regression fixtures first: the independent Dart check failed on the
+  missing mode parser, then passed all 18 supported labels and unknown/empty
+  fallbacks. Added a Flutter unit test and a widget scenario checking Queue opens
+  with eight agents. Local Flutter analysis passed and the production web build
+  succeeded with the hosted base path; Flutter engine tests run in remote CI.
+- Extended documentation checks to the new deployment and 0.2.0 design guides,
+  and validated chapter-link coverage against all 18 supported laboratory modes.
+  All 29 document/link checks and 21 deterministic diagrams passed locally.
+- Recorded the 0.2.0 plan with a separate proposed FollowPolyline API, finite
+  segment projection, arc-distance look-ahead, explicit progress/reacquisition,
+  numerical acceptance fixtures and incremental release gates. The existing
+  FollowPath contract is preserved; no planned algorithm is claimed implemented.
+- crapper/dryer/mutator were invoked on lib; installed tools still report no Dart
+  sources. Deployment/Wiki mirror status is recorded after remote verification.

@@ -1,5 +1,9 @@
 # Roadmap / Próximos passos
 
+Next planned release / Próxima versão planejada:
+[0.2.0 — continuous paths / trajetórias contínuas](roadmap_0.2.0.md).
+This is a design plan, not an implemented release. / É planejamento, não release.
+
 ## 0.1 foundation / Base implementada
 
 - Seven local behaviors / Sete comportamentos locais.
@@ -40,6 +44,11 @@
 - Grade opcional, medições reproduzíveis, laboratório ampliado e integração Flame.
 
 ## Release / Publicação
+
+Interactive demos / Demonstrações interativas:
+[Flutter lab](https://kleberandrade.github.io/steering-engine/) ·
+[Flame](https://kleberandrade.github.io/steering-engine/flame/) ·
+[deployment guide / guia de publicação](web_deployment.md).
 
 Source 0.1.0 is prepared and verified by CI; actual pub.dev publication is recorded
 separately in [release validation](release_0.1.0.md). No source version or tag alone

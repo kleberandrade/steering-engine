@@ -59,3 +59,8 @@ Validate `example/flame_lab` separately with stable Flutter using pub get,
 analysis, its component/step tests and a web build. Run benchmark timings outside
 CI and record the runtime, fixture and raw data; never assert universal speedups.
 The 0.1.0 release audit is in `doc/release_0.1.0.md`.
+
+Deployment uses the existing CI artifacts after all checks pass on main; see
+[web deployment](doc/web_deployment.md). Wiki chapter links initialize supported
+lab modes using `?mode=...`; test both recognized labels and safe fallbacks.
+O deploy web não publica o package; mantenha esses estados independentes.

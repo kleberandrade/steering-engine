@@ -36,6 +36,13 @@ return Flee(predicted, responseTime=T).calculate(agent, dt)
 | `maxPrediction = 1` | Horizonte máximo em segundos; zero desativa antecipação / seconds; zero disables prediction. |
 | `responseTime = 0.25` | T da regra Flee / underlying velocity response time. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Evade)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

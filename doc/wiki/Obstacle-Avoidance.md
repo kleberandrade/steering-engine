@@ -53,6 +53,13 @@ return limit(A * normalize(turn - h*brakingWeight), A)
 | `brakingWeight = 0.5` | Componente de frenagem relativa à lateral / braking relative to lateral steering. |
 | `obstacles` | Círculos estáticos copiados / copied static circle geometry. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Obstacle%20avoidance)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram

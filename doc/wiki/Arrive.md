@@ -37,6 +37,13 @@ return limit((u - v) / T, A)
 | `stopRadius = 1` | R0: velocidade desejada zero, sem teletransporte / zero desired speed, no snapping. |
 | `responseTime = 0.25` | T positivo / positive T; R1 > R0 >= 0. |
 
+## Veja em movimento / See it move
+
+[Abra esta cena no laboratório / Open this lab scene](https://kleberandrade.github.io/steering-engine/?mode=Arrive)
+
+Pause, avance um passo e compare os vetores com o diagrama acima.
+Pause, single-step and compare the vectors with the diagram above.
+
 ## Uso em Dart / Dart usage
 
 Importe `package:steering_engine/steering_engine.dart`. Os trechos abaixo mostram
