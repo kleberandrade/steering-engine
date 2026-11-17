@@ -17,8 +17,10 @@ void main() {
     expect(game.agents.map((a) => a.position).toList(), before);
   });
   test('component transform is copied from the core state', () {
-    final agent =
-        SteeringAgent(position: Vec2(123, 456), velocity: Vec2(0, 10));
+    final agent = SteeringAgent(
+      position: Vec2(123, 456),
+      velocity: Vec2(0, 10),
+    );
     final component = AgentView()..sync(agent);
     expect(component.position.x, 123);
     expect(component.position.y, 456);

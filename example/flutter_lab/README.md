@@ -96,3 +96,13 @@ probe. See [following conventions](../../doc/following.md).
 Escolha a população e compare índice espacial com busca linear. O tempo mede a
 física do passo, não a renderização. As três novas demonstrações cobrem líder,
 fila espacial e paredes; o seguidor de waypoints continua disponível.
+
+## Navigation and learning / Navegação e aprendizado
+
+Use the top navigation to switch between the experiment, lessons, examples and
+source documentation. English and Brazilian Portuguese preserve the active
+experiment; browser storage remembers the preference when available. The
+[shared UI guide](../lab_ui/README.md) explains validation and maintenance.
+
+Use a navegação superior para alternar entre experimento, lições, exemplos e
+documentação. O idioma inglês/português preserva o experimento em andamento.

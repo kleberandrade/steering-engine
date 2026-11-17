@@ -10,7 +10,7 @@ using independently calculated expectations and complete movement scenarios.
 
 ```sh
 dart pub get
-dart format --output=none --set-exit-if-changed lib test example benchmark
+dart format --output=none --set-exit-if-changed lib test benchmark example/*.dart
 dart analyze --fatal-infos
 dart test
 dart run example/steering_engine_example.dart
@@ -30,8 +30,12 @@ node /tmp/steering-obstacles.js
 dart compile js example/flocking.dart -o /tmp/steering-flocking.js
 node /tmp/steering-flocking.js
 dart pub publish --dry-run
-cd example/flutter_lab
+cd example/lab_ui
 flutter pub get
+flutter analyze --fatal-infos
+cd ../flutter_lab
+flutter pub get
+dart format --output=none --set-exit-if-changed lib test
 flutter analyze --fatal-infos
 flutter test
 flutter build web --no-web-resources-cdn

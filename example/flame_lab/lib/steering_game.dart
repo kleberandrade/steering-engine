@@ -6,9 +6,9 @@ import 'package:steering_engine/steering_engine.dart' as steering;
 
 class SteeringDemoGame extends FlameGame {
   SteeringDemoGame()
-      : super(
-            camera:
-                CameraComponent.withFixedResolution(width: 1000, height: 620)) {
+    : super(
+        camera: CameraComponent.withFixedResolution(width: 1000, height: 620),
+      ) {
     reset();
   }
   List<steering.SteeringAgent> _agents = [];
@@ -19,14 +19,17 @@ class SteeringDemoGame extends FlameGame {
   CircleComponent? _targetView;
   void reset() {
     _accumulator = 0;
-    _agents = List.unmodifiable(List.generate(
+    _agents = List.unmodifiable(
+      List.generate(
         24,
         (i) => steering.SteeringAgent(
-            position:
-                steering.Vec2(100 + (i % 6) * 35.0, 180 + (i ~/ 6) * 35.0),
-            velocity: steering.Vec2(40, 0),
-            maxSpeed: 120,
-            maxAcceleration: 200)));
+          position: steering.Vec2(100 + (i % 6) * 35.0, 180 + (i ~/ 6) * 35.0),
+          velocity: steering.Vec2(40, 0),
+          maxSpeed: 120,
+          maxAcceleration: 200,
+        ),
+      ),
+    );
     _syncViews();
   }
 
@@ -38,9 +41,10 @@ class SteeringDemoGame extends FlameGame {
     _views.addAll([for (final _ in _agents) AgentView()]);
     await world.addAll(_views);
     _targetView = CircleComponent(
-        radius: 6,
-        anchor: Anchor.center,
-        paint: Paint()..color = const Color(0xfff3c577));
+      radius: 6,
+      anchor: Anchor.center,
+      paint: Paint()..color = const Color(0xfff3c577),
+    );
     await world.add(_targetView!);
     _syncViews();
   }
@@ -60,12 +64,14 @@ class SteeringDemoGame extends FlameGame {
       final observed = steering.AgentNeighborhood.spatial(_agents);
       final rule = steering.WeightedBlend([
         steering.WeightedBehavior(steering.Flocking(observed)),
-        steering.WeightedBehavior(steering.Arrive(target, slowingRadius: 120),
-            weight: .2),
+        steering.WeightedBehavior(
+          steering.Arrive(target, slowingRadius: 120),
+          weight: .2,
+        ),
       ]);
       _agents = List.unmodifiable([
         for (final agent in _agents)
-          const steering.SteeringEngine().step(agent, rule, 1 / 60)
+          const steering.SteeringEngine().step(agent, rule, 1 / 60),
       ]);
       _accumulator -= 1 / 60;
       steps++;
@@ -91,12 +97,13 @@ class AgentView extends PositionComponent {
   @override
   void render(Canvas canvas) {
     canvas.drawPath(
-        Path()
-          ..moveTo(20, 10)
-          ..lineTo(0, 0)
-          ..lineTo(4, 10)
-          ..lineTo(0, 20)
-          ..close(),
-        Paint()..color = const Color(0xff6ae4d4));
+      Path()
+        ..moveTo(20, 10)
+        ..lineTo(0, 0)
+        ..lineTo(4, 10)
+        ..lineTo(0, 20)
+        ..close(),
+      Paint()..color = const Color(0xff6ae4d4),
+    );
   }
 }

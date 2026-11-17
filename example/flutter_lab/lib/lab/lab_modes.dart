@@ -18,7 +18,7 @@ const labModes = [
   'Cohesion',
   'Flocking',
   'Weighted blend',
-  'Priority'
+  'Priority',
 ];
 
 /// Reads a shareable mode link; unsupported values keep the default scene.

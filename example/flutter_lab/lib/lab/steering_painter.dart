@@ -6,22 +6,23 @@ import 'package:steering_engine/steering_engine.dart';
 import 'lab_theme.dart';
 
 class SteeringPainter extends CustomPainter {
-  SteeringPainter(
-      {required this.agent,
-      required this.target,
-      required this.force,
-      required this.trail,
-      required this.showVectors,
-      required this.showTrail,
-      this.flock = const [],
-      this.walls = const [],
-      this.leader,
-      this.queueLane = false,
-      this.neighborhoodRadius,
-      this.route,
-      this.projection,
-      this.avoidance,
-      this.slowingRadius});
+  SteeringPainter({
+    required this.agent,
+    required this.target,
+    required this.force,
+    required this.trail,
+    required this.showVectors,
+    required this.showTrail,
+    this.flock = const [],
+    this.walls = const [],
+    this.leader,
+    this.queueLane = false,
+    this.neighborhoodRadius,
+    this.route,
+    this.projection,
+    this.avoidance,
+    this.slowingRadius,
+  });
   final List<SteeringAgent> flock;
   final List<WallSegment> walls;
   final SteeringAgent? leader;
@@ -54,20 +55,22 @@ class SteeringPainter extends CustomPainter {
     Offset offset(Vec2 v) => Offset(v.x, v.y);
     for (final wall in walls) {
       canvas.drawLine(
-          offset(wall.start),
-          offset(wall.end),
-          Paint()
-            ..color = const Color(0xff91a8ff)
-            ..strokeWidth = 4);
+        offset(wall.start),
+        offset(wall.end),
+        Paint()
+          ..color = const Color(0xff91a8ff)
+          ..strokeWidth = 4,
+      );
     }
     if (queueLane) {
       for (final y in [292.0, 328.0]) {
         canvas.drawLine(
-            Offset(40, y),
-            Offset(960, y),
-            Paint()
-              ..color = const Color(0xff42546d)
-              ..strokeWidth = 1);
+          Offset(40, y),
+          Offset(960, y),
+          Paint()
+            ..color = const Color(0xff42546d)
+            ..strokeWidth = 1,
+        );
       }
     }
     if (leader != null) {
@@ -75,35 +78,39 @@ class SteeringPainter extends CustomPainter {
       canvas.translate(leader!.position.x, leader!.position.y);
       canvas.rotate(math.atan2(leader!.velocity.y, leader!.velocity.x));
       canvas.drawPath(
-          Path()
-            ..moveTo(18, 0)
-            ..lineTo(-12, -10)
-            ..lineTo(-12, 10)
-            ..close(),
-          Paint()..color = labGold);
+        Path()
+          ..moveTo(18, 0)
+          ..lineTo(-12, -10)
+          ..lineTo(-12, 10)
+          ..close(),
+        Paint()..color = labGold,
+      );
       canvas.restore();
     }
     if (flock.isNotEmpty) {
       final radius = neighborhoodRadius!;
-      final neighbors =
-          AgentNeighborhood(flock).neighborsFor(agent, radius: radius).toSet();
+      final neighbors = AgentNeighborhood(
+        flock,
+      ).neighborsFor(agent, radius: radius).toSet();
       canvas.drawCircle(
-          offset(agent.position),
-          radius,
-          Paint()
-            ..color = labCyan.withValues(alpha: 0.12)
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2);
+        offset(agent.position),
+        radius,
+        Paint()
+          ..color = labCyan.withValues(alpha: 0.12)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
       for (final other in flock.skip(1)) {
         final color = neighbors.contains(other)
             ? const Color(0xffb2a4ff)
             : const Color(0xff5c8f95);
         if (showVectors) {
           _arrow(
-              canvas,
-              offset(other.position),
-              offset(other.position + other.velocity * 0.2),
-              color.withValues(alpha: 0.5));
+            canvas,
+            offset(other.position),
+            offset(other.position + other.velocity * 0.2),
+            color.withValues(alpha: 0.5),
+          );
         }
         canvas.save();
         canvas.translate(other.position.x, other.position.y);
@@ -123,44 +130,58 @@ class SteeringPainter extends CustomPainter {
       final threat = behavior.findThreat(agent);
       for (final obstacle in behavior.obstacles) {
         final selected = identical(obstacle, threat?.obstacle);
-        canvas.drawCircle(offset(obstacle.center), obstacle.radius,
-            Paint()..color = Color(selected ? 0xffc66855 : 0xff66494c));
         canvas.drawCircle(
-            offset(obstacle.center),
-            obstacle.radius + behavior.agentRadius + behavior.safetyMargin,
-            Paint()
-              ..color = const Color(0xffe7a36a)
-                  .withValues(alpha: selected ? 0.9 : 0.35)
-              ..style = PaintingStyle.stroke
-              ..strokeWidth = 2);
+          offset(obstacle.center),
+          obstacle.radius,
+          Paint()..color = Color(selected ? 0xffc66855 : 0xff66494c),
+        );
+        canvas.drawCircle(
+          offset(obstacle.center),
+          obstacle.radius + behavior.agentRadius + behavior.safetyMargin,
+          Paint()
+            ..color = const Color(
+              0xffe7a36a,
+            ).withValues(alpha: selected ? 0.9 : 0.35)
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 2,
+        );
       }
       canvas.drawCircle(
-          offset(agent.position),
-          behavior.agentRadius,
-          Paint()
-            ..color = labCyan.withValues(alpha: 0.5)
-            ..style = PaintingStyle.stroke);
+        offset(agent.position),
+        behavior.agentRadius,
+        Paint()
+          ..color = labCyan.withValues(alpha: 0.5)
+          ..style = PaintingStyle.stroke,
+      );
       if (agent.velocity.length > 0) {
-        final end = agent.position +
+        final end =
+            agent.position +
             agent.velocity.normalized * behavior.scanDistance(agent);
         canvas.drawLine(
-            offset(agent.position),
-            offset(end),
-            Paint()
-              ..color = const Color(0xffe7a36a)
-              ..strokeWidth = 1.5);
+          offset(agent.position),
+          offset(end),
+          Paint()
+            ..color = const Color(0xffe7a36a)
+            ..strokeWidth = 1.5,
+        );
         if (threat != null && !threat.isOverlapping) {
           final entry =
               agent.position + agent.velocity.normalized * threat.entryDistance;
           canvas.drawCircle(
-              offset(entry), 5, Paint()..color = const Color(0xffffd298));
+            offset(entry),
+            5,
+            Paint()..color = const Color(0xffffd298),
+          );
         }
       }
     }
     if (projection != null) {
       final point = offset(projection!.point);
-      canvas.drawLine(offset(agent.position), point,
-          Paint()..color = const Color(0xff6ae4d4));
+      canvas.drawLine(
+        offset(agent.position),
+        point,
+        Paint()..color = const Color(0xff6ae4d4),
+      );
       canvas.drawCircle(point, 6, Paint()..color = const Color(0xff6ae4d4));
     }
     if (route != null) {
@@ -171,20 +192,25 @@ class SteeringPainter extends CustomPainter {
       }
       if (route!.loop) path.close();
       canvas.drawPath(
-          path,
-          Paint()
-            ..color = const Color(0xffa497ff).withValues(alpha: 0.45)
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2);
+        path,
+        Paint()
+          ..color = const Color(0xffa497ff).withValues(alpha: 0.45)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
       for (var i = 0; i < points.length; i++) {
         canvas.drawCircle(
-            offset(points[i]), 5, Paint()..color = const Color(0xffa497ff));
+          offset(points[i]),
+          5,
+          Paint()..color = const Color(0xffa497ff),
+        );
         final label = TextPainter(
-            text: TextSpan(
-                text: '${i + 1}',
-                style: const TextStyle(color: Color(0xffa497ff), fontSize: 14)),
-            textDirection: TextDirection.ltr)
-          ..layout();
+          text: TextSpan(
+            text: '${i + 1}',
+            style: const TextStyle(color: Color(0xffa497ff), fontSize: 14),
+          ),
+          textDirection: TextDirection.ltr,
+        )..layout();
         label.paint(canvas, offset(points[i]) + const Offset(9, -18));
       }
     }
@@ -194,44 +220,61 @@ class SteeringPainter extends CustomPainter {
         path.lineTo(point.x, point.y);
       }
       canvas.drawPath(
-          path,
-          Paint()
-            ..color = labCyan.withValues(alpha: 0.35)
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 2);
+        path,
+        Paint()
+          ..color = labCyan.withValues(alpha: 0.35)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 2,
+      );
     }
     if (slowingRadius != null) {
-      canvas.drawCircle(offset(target), slowingRadius!,
-          Paint()..color = labGold.withValues(alpha: 0.05));
       canvas.drawCircle(
-          offset(target),
-          slowingRadius!,
-          Paint()
-            ..color = labGold.withValues(alpha: 0.25)
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 1.5);
+        offset(target),
+        slowingRadius!,
+        Paint()..color = labGold.withValues(alpha: 0.05),
+      );
+      canvas.drawCircle(
+        offset(target),
+        slowingRadius!,
+        Paint()
+          ..color = labGold.withValues(alpha: 0.25)
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 1.5,
+      );
     }
     canvas.drawCircle(
-        offset(target),
-        13,
-        Paint()
-          ..color = labGold
-          ..style = PaintingStyle.stroke
-          ..strokeWidth = 2);
+      offset(target),
+      13,
+      Paint()
+        ..color = labGold
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
     canvas.drawCircle(offset(target), 4, Paint()..color = labGold);
     final origin = offset(agent.position);
     if (showVectors) {
-      _arrow(canvas, origin, offset(agent.position + agent.velocity * 0.65),
-          labCyan);
-      _arrow(canvas, origin, offset(agent.position + force * 0.35),
-          const Color(0xffa497ff));
+      _arrow(
+        canvas,
+        origin,
+        offset(agent.position + agent.velocity * 0.65),
+        labCyan,
+      );
+      _arrow(
+        canvas,
+        origin,
+        offset(agent.position + force * 0.35),
+        const Color(0xffa497ff),
+      );
     }
     final heading = math.atan2(agent.velocity.y, agent.velocity.x);
     canvas.save();
     canvas.translate(origin.dx, origin.dy);
     canvas.rotate(heading);
     canvas.drawCircle(
-        Offset.zero, 24, Paint()..color = labCyan.withValues(alpha: 0.08));
+      Offset.zero,
+      24,
+      Paint()..color = labCyan.withValues(alpha: 0.08),
+    );
     final body = Path()
       ..moveTo(18, 0)
       ..lineTo(-12, -10)
@@ -252,9 +295,10 @@ class SteeringPainter extends CustomPainter {
     final a = math.atan2(to.dy - from.dy, to.dx - from.dx);
     for (final side in [-1, 1]) {
       canvas.drawLine(
-          to,
-          to - Offset(math.cos(a + side * 0.5), math.sin(a + side * 0.5)) * 9,
-          paint);
+        to,
+        to - Offset(math.cos(a + side * 0.5), math.sin(a + side * 0.5)) * 9,
+        paint,
+      );
     }
   }
 

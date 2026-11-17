@@ -255,3 +255,18 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for the complete checks.
 
 This implementation uses an explicit acceleration/response-time convention and
 bounded prediction, documented above; it is not a verbatim port of Reynolds's demos.
+
+## Bilingual learning laboratory
+
+![Steering laboratory with original branding, navigation and simulation controls](doc/screenshots/laboratory-en.jpg)
+
+Both [Flutter](https://kleberandrade.github.io/steering-engine/) and
+[Flame](https://kleberandrade.github.io/steering-engine/flame/) examples include
+an original orbit-and-heading mark, responsive navigation, English/Portuguese
+selection and an integrated **Learn** area. Explore the equations, guided
+experiments and five exercises, then open the maintained source documentation.
+Switching tabs or languages keeps the experiment; selecting a preset explicitly
+resets it. Language preference is saved in browser storage when available.
+
+See [the shared laboratory UI guide](example/lab_ui/README.md) for maintenance
+and [web deployment](doc/web_deployment.md) for the separate CI/Pages workflow.

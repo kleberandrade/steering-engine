@@ -14,8 +14,9 @@ void main() {
     const Size(390, 844),
     const Size(740, 360),
   ]) {
-    testWidgets('mobile controls at ${size.width} by ${size.height}',
-        (tester) async {
+    testWidgets('mobile controls at ${size.width} by ${size.height}', (
+      tester,
+    ) async {
       await tester.binding.setSurfaceSize(size);
       addTearDown(() => tester.binding.setSurfaceSize(null));
       await tester.pumpWidget(const SteeringLab());
@@ -30,8 +31,11 @@ void main() {
       await tester.ensureVisible(find.byType(DropdownButtonFormField<String>));
       await tester.tap(find.byType(DropdownButtonFormField<String>));
       await tester.pump(const Duration(milliseconds: 300));
-      await tester.scrollUntilVisible(find.text('Continuous path'), 120,
-          scrollable: find.byType(Scrollable).last);
+      await tester.scrollUntilVisible(
+        find.text('Continuous path'),
+        120,
+        scrollable: find.byType(Scrollable).last,
+      );
       await tester.tap(find.text('Continuous path').last);
       await tester.pump(const Duration(milliseconds: 300));
       await tester.ensureVisible(find.text('Step'));

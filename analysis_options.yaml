@@ -3,6 +3,7 @@ analyzer:
   exclude:
     - example/flutter_lab/**
     - example/flame_lab/**
+    - example/lab_ui/**
 linter:
   rules:
     public_member_api_docs: true

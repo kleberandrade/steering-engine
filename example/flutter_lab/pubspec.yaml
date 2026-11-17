@@ -6,6 +6,8 @@ environment:
   sdk: '>=3.9.0 <4.0.0'
   flutter: '>=3.35.0'
 dependencies:
+  steering_lab_ui:
+    path: ../lab_ui
   flutter:
     sdk: flutter
   steering_engine:

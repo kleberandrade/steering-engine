@@ -382,3 +382,37 @@
   steering_engine 0.2.1 uploaded successfully. Recorded actual server evidence and
   updated both README dependency examples to ^0.2.1. Site indexing can take ten
   minutes; no publisher-ownership or package-score verification is claimed.
+
+
+## 2026-11-17 — Shared laboratory navigation and learning
+
+- Added a private Flutter UI package shared only by the two examples; the core
+  remains pure Dart with no new runtime dependencies. Centralized navigation,
+  locale preference, original orbit-and-heading identity and maintained lessons.
+- Added EN/PT-BR controls, native Material localization, matching SVG favicons,
+  local-storage preference with disabled-storage fallback and source links.
+- Retained experiments through tab/locale changes; presets intentionally reset.
+  A Flame regression exposed that TickerMode alone did not stop the game loop;
+  the adapter now explicitly pauses/resumes in didChangeDependencies.
+- Wrote regressions before implementing navigation. The first failed on missing
+  Learn navigation; later tests caught popup animation timing and hidden Flame
+  loop activity. Mobile tests cover 320/390 px and landscape layouts.
+- Separated formatter checks by package after resolution so Flutter packages use
+  their own Dart language version. Added shared UI analysis to CI and excluded
+  that private Flutter package from the pure-Dart minimum-SDK analyzer.
+- Validation: Flutter 3.50.0 / Dart 3.14.0 isolated copies, plus early Flutter
+  3.41.9 compatibility checks of the full lab. Dart analyzer and 97 core tests,
+  docs/link checks, 22 current wiki diagrams and 14 Python workflow tests passed.
+  The full Flutter lab passed 13 widget tests; Flame includes its two existing
+  tests plus a navigation/locale/loop-state regression. Both Web builds use the
+  repository’s actual Pages base paths. Browser checks and real screenshots are
+  recorded under doc/screenshots; mobile 390×844 showed no overflow.
+- The installed crapper/dryer/mutator tools do not support Dart. No empty report
+  is treated as a metric, and no mutation score is claimed.
+- Browser preference is best-effort local storage, not an account setting.
+  Native/mobile device builds were not part of this Web laboratory delivery.
+- Delivery uses a chore(lab) conventional commit: the existing automatic version
+  policy must report no package version bump. No pub.dev publication authorized
+  or performed as part of this laboratory work. CLI examples and four JavaScript
+  compile/run smoke checks passed. The package dry-run initially warned about
+  uncommitted metadata; validation of the clean commit is a separate final gate.

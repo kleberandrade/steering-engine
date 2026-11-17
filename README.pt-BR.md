@@ -234,3 +234,15 @@ Consulte [equações](doc/behaviors.pt-BR.md) e [contribuição](CONTRIBUTING.md
 
 Esta implementação explicita aceleração, tempo de resposta e previsão limitada;
 não é uma transcrição dos exemplos originais de Reynolds.
+
+## Laboratório educativo bilíngue
+
+![Área educativa do Steering em português, com equações e exemplos](doc/screenshots/learn-pt-br.jpg)
+
+Os exemplos [Flutter](https://kleberandrade.github.io/steering-engine/) e
+[Flame](https://kleberandrade.github.io/steering-engine/flame/) incluem uma marca
+original de órbita e direção, navegação adaptável, seletor inglês/português e uma
+área **Aprender** com equações, experimentos guiados e cinco exercícios.
+Navegar e trocar de idioma preserva o experimento; selecionar um cenário o
+reinicia intencionalmente. A preferência de idioma fica no navegador quando o
+armazenamento está disponível. Veja o [guia da interface](example/lab_ui/README.md).

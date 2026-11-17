@@ -17,3 +17,15 @@ See [integration details](../../doc/flame.md). No collision solver is included.
 
 Exemplo separado com 24 agentes: toque muda o alvo e Reset reinicia o cenário.
 Flame renderiza os componentes enquanto steering_engine calcula o movimento.
+
+## Navigation and learning / Navegação e aprendizado
+
+Use the top navigation to switch between the experiment, lessons, examples and
+source documentation. English and Brazilian Portuguese preserve the active
+experiment; browser storage remembers the preference when available. The
+[shared UI guide](../lab_ui/README.md) explains validation and maintenance.
+
+Use a navegação superior para alternar entre experimento, lições, exemplos e
+documentação. O idioma inglês/português preserva o experimento em andamento.
+
+![Flame laboratory with Portuguese navigation and original Steering mark](../../doc/screenshots/flame-mobile-pt-br.jpg)

@@ -17,7 +17,7 @@ jobs:
         with:
           sdk: ${{ matrix.sdk }}
       - run: dart pub get
-      - run: dart format --output=none --set-exit-if-changed lib test example benchmark
+      - run: dart format --output=none --set-exit-if-changed lib test benchmark example/*.dart
         if: matrix.sdk == 'stable'
       - run: dart analyze --fatal-infos
       - uses: actions/setup-python@v5
@@ -72,6 +72,13 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
+        working-directory: example/lab_ui
+      - run: dart format --output=none --set-exit-if-changed lib
+        working-directory: example/lab_ui
+      - run: flutter analyze --fatal-infos
+        working-directory: example/lab_ui
+      - run: flutter pub get
+      - run: dart format --output=none --set-exit-if-changed lib test
       - run: flutter analyze --fatal-infos
       - run: flutter test
       - run: flutter build web --no-web-resources-cdn --base-href /steering-engine/
@@ -92,6 +99,7 @@ jobs:
           channel: stable
           cache: true
       - run: flutter pub get
+      - run: dart format --output=none --set-exit-if-changed lib test
       - run: flutter analyze --fatal-infos
       - run: flutter test
       - run: flutter build web --no-web-resources-cdn --base-href /steering-engine/flame/

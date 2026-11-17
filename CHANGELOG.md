@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- Add shared Flutter/Flame navigation, original branding, persistent English/Portuguese UI and documentation-based lessons with guided experiments.
+- Preserve experiment state across navigation/language changes and cover mobile presets with widget regressions.
+
 ## 0.2.1 — 2026-11-17
 
 - Add automatic conventional-commit versioning after successful main CI, with
